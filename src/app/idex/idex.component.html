@@ -1,0 +1,42 @@
+
+<div class="index_max_box">
+  <div class="index_box1">
+    <section>
+      <div class="tree-title">
+        <h4 style="text-align: center;margin-top: 40px;color: white">LOGO</h4>
+        <div class="index_title_box">
+          <img src="../../assets/img/disease.png" alt="" class="index_title_icon">
+          <span class="index_title">电子病例</span>
+        </div>
+
+      </div>
+      <d-operable-tree
+        [tree]="data2"
+        [treeNodeIdKey]="'id'"
+        [treeNodeChildrenKey]="'children'"
+        [iconParentOpen]="iconParentOpen"
+        [iconParentClose]="iconParentClose"
+        [iconLeaf]="iconLeaf"
+        [checkable]="false"
+        [iconTemplatePosition]="'after-checkbox'"
+        class="slide_box"
+      >
+        <ng-template #nodeTemplate let-node="node">
+          <span class="tree_items" style="">{{ node?.title }}</span>
+        </ng-template>
+      </d-operable-tree>
+    </section>
+  </div>
+  <div class="index_box1_1"></div>
+  <div class="index_box2">
+    <app-headers></app-headers>
+<!--    <app-index-first></app-index-first>-->
+    <router-outlet></router-outlet>
+  </div>
+
+
+</div>
+
+
+
+

@@ -1,0 +1,125 @@
+@charset "UTF-8";
+html{
+  width: 100%;
+  height: 100%;
+}
+body{
+  width: 100%;
+  height: 100%;
+}
+.max_box{
+  margin: 0;
+  padding: 0;
+  background: url("../../assets/img/back.webp") no-repeat fixed center;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.section_box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+
+}
+.section_box_title{
+  font-size: 38px;
+  font-family: 黑体;
+  font-weight: 500;
+  color: #FFFFFF;
+  /* line-height: 56px; */
+  letter-spacing: 18.2px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.section_box1{
+  width: 50%;
+  height: 50%;
+  background: url("../../assets/img/form_back.png") no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+
+}
+.section_box_title{
+  font-size: 38px;
+  margin-bottom: 100px;
+}
+.section_box1_1{
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+}
+.section_box1_1_p{
+  justify-content: flex-end;
+  text-align: center;
+  font-size: 25px;
+  font-family: PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+  line-height: 37px;
+  margin-bottom: 38px;
+  letter-spacing: 12px;
+  margin-left: 33px;
+}
+.section_box1_2{
+  width: 50%;
+  height: 100%;
+}
+.section_box1_2_p{
+  margin-top: 49px;
+  font-weight: 400;
+  margin-left: 39px;
+  font-size: 22px;
+  letter-spacing: 7px;
+}
+.defualt_img{
+  width: 18px;
+  height: 20px;
+}
+.defualt_input{
+  outline: none;
+  border: none;
+  border-bottom: 1px #eee solid;
+  font-size: 13px;
+  font-weight: 500;
+  color: #000000;
+  background: rgba(5,5,5,0);
+  line-height: 32px;
+  width: 70%;
+  margin-left: 10px;
+}
+.section_box1_2_div{
+  margin-left: 33px;
+  margin-top: 36px;
+}
+.sumbit{
+  width: 70%;
+  background: #02BEDA;
+  margin-left: 33px;
+  margin-top: 36px;
+  margin-right: 20px;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 5px 0;
+
+}
+.sumbit:hover{
+  width: 70%;
+  background: #25b2c6;
+  margin-left: 33px;
+  margin-top: 36px;
+  margin-right: 20px;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 5px 0;
+}

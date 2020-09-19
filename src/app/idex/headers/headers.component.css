@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+.header_box{
+  display: flex;
+  justify-content: space-between;
+  background: #FFFFFF;
+  height: 106px;
+  align-items: center;
+}
+.header_call{
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #02BFD8;
+}
+.header_hr{
+  width: 1px;
+  /* height: 2px; */
+  display: block;
+   margin-top: 0px!important;
+   margin-bottom: 0px !important;
+  border: 0;
+  border-top: 15px solid rgb(169 27 27 / 0.1);
+}
+.header_name{
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #02BFD8;
+  margin-left: 20px;
+
+}
+.header_title{
+  font-size: 24px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #313131;
+  margin-left: 25px;
+}
+.header_box_div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logout{
+  margin-right: 40px;
+  margin-left: 20px;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #C0C0C0;
+}

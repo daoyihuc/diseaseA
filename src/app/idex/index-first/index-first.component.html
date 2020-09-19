@@ -1,0 +1,63 @@
+<section class="max_box">
+  <div class="title_box">
+    <hr class="title_hr">
+    <span class="title_title">查询条件</span>
+  </div>
+  <hr class="fg">
+  <div class="input_box">
+    <input type="text" placeholder="姓名" class="default_input">
+    <input type="text" placeholder="病人ID" class="default_input">
+    <input type="text" placeholder="病例ID" class="default_input">
+    <d-editable-select [appendToBody]="true"  name="multiple-auto" placeholder="病例状态"
+                       class="default_input default_input_select">
+    </d-editable-select>
+  </div>
+  <div class="button_box">
+    <input class="default_button" type="button" *ngFor="let item of buttons_arr" value="{{item.name}}">
+  </div>
+</section>
+<footer class="max_footer">
+  <table class="footer_box">
+    <tr class="">
+      <th class="label_check">
+        <d-checkbox
+                [name]="'checkbox-username'"
+                [label]=""
+                [color]="'RGB(255, 193, 7)'"
+                [ngModel]="false"
+                class="label_check"
+              >
+        </d-checkbox>
+
+      </th>
+      <th *ngFor="let TextBean of label" class="defualt_label">{{TextBean.name}}</th>
+    </tr>
+    <tr  *ngFor="let TextBean of label;index as i" class="table_box_tr">
+      <td class="label_check1">
+        <d-checkbox
+          [name]="'checkbox-username'"
+          [label]=""
+          [color]="'#02BFD8'"
+          [ngModel]="false"
+          class="label_check1"
+        >
+        </d-checkbox>
+
+      </td>
+      <td *ngFor="let TextBean of label;index as i">
+        <span *ngIf="i!=11"  class="defualt_label">
+              {{"daoyi"+i}}
+        </span>
+        <div *ngIf="i==11" class="menu_box">
+          <img src="../../../assets/img/chakan.png" alt="" class="menu_img">
+          <img src="../../../assets/img/bianji.png" alt="" class="menu_img">
+          <img src="../../../assets/img/suo.png" alt="" class="menu_img">
+        </div>
+      </td>
+    </tr>
+
+  </table>
+
+
+
+</footer>
