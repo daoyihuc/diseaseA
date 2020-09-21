@@ -13,7 +13,11 @@
     </d-editable-select>
   </div>
   <div class="button_box">
-    <input class="default_button" type="button" *ngFor="let item of buttons_arr" value="{{item.name}}">
+    <input class="default_button" type="button"
+           *ngFor="let item of buttons_arr"
+           value="{{item.name}}"
+           (click)="onSelectButton(item.id)"
+    >
   </div>
 </section>
 <footer class="max_footer">

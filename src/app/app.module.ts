@@ -13,6 +13,8 @@ import {FormsModule} from '@angular/forms';
 import { IndexFirstComponent } from './idex/index-first/index-first.component';
 import { PersonalcenterComponent } from './idex/personalcenter/personalcenter.component';
 import {IndexRouterModule} from './index-router/index-router.module';
+import { ReviewDialogComponent } from './idex/review-dialog/review-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -21,22 +23,6 @@ const appRoute: Routes = [
   {path: 'index_f', component: IndexFirstComponent},
   {path: 'header', component: HeadersComponent},
   {path: 'Personalcenter', component: PersonalcenterComponent},
-  // {
-  //   path: 'index',
-  //   component: IdexComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       component: IndexFirstComponent,
-  //       children: [
-  //         {
-  //           path: 'pou',
-  //           component: PersonalcenterComponent
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
   {path: 'slide', component: SidesComponent},
   {path: 'loginIndex', component: LoginIndexComponent},
   { path: '',   redirectTo: '/index', pathMatch: 'full' },
@@ -51,11 +37,13 @@ const appRoute: Routes = [
     HeadersComponent,
     SidesComponent,
     PersonalcenterComponent,
-    IndexFirstComponent
+    IndexFirstComponent,
+    ReviewDialogComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    MatDialogModule,
     DevUIModule,
     IndexRouterModule,
     RouterModule.forRoot(appRoute,

@@ -11,8 +11,10 @@
 
       </div>
       <d-operable-tree
+        #basicTree
         [tree]="data2"
         [treeNodeIdKey]="'id'"
+        [loadingTemplateRef]="nodeTemplate"
         [treeNodeChildrenKey]="'children'"
         [iconParentOpen]="iconParentOpen"
         [iconParentClose]="iconParentClose"
@@ -22,7 +24,7 @@
         class="slide_box"
       >
         <ng-template #nodeTemplate let-node="node">
-          <span class="tree_items" style="">{{ node?.title }}</span>
+          <span class="tree_items" style="" (click)="onNodeSelected(node)">{{ node?.title }}</span>
         </ng-template>
       </d-operable-tree>
     </section>
