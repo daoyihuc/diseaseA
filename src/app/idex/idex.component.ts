@@ -3,15 +3,24 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {TreeComponent, TreeNode, ITreeItem} from 'ng-devui/tree';
 import {Observable} from 'rxjs';
 import {ClassSelectService} from './service/class-select.service';
+import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
+import {ArrayDataSource} from '@angular/cdk/collections';
+import {ITreeNodeData} from 'ng-devui/tree/tree-factory.class';
+import {RouteAnimations} from '../animation';
 
 @Component({
   selector: 'app-idex',
   templateUrl: './idex.component.html',
-  styleUrls: ['./idex.component.css']
+  styleUrls: ['./idex.component.css'],
+  animations: [RouteAnimations]
 })
 export class IdexComponent implements OnInit {
   @ViewChild('basicTree', { static: true }) basicTree: TreeComponent;
-  constructor(private classSelectService: ClassSelectService) {
+  constructor(
+    private classSelectService: ClassSelectService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {
 
   }
 
@@ -25,125 +34,106 @@ export class IdexComponent implements OnInit {
   iconLeaf = '<span></span>';
   data2 = [
     {
-      title: '父节点1 - 展开',
-      isParent: true,
+    title: '电子病例（全部科室）',
+    data: { type: 'mix' },
+    open: true,
+    status: '状态1',
+    children: [
+      {
+      title: '子节点1-1',
+      data: { type: 'mix' },
       open: false,
-      disabled: false,
+      status: '状态1',
       children: [
         {
-          title: '父节点11 - 折叠',
-          children: [
-            {
-              id: '123',
-              title: '叶子节点111'
-            },
-            {
-              title: '叶子节点112'
-            },
-            {
-              title: '叶子节点113'
-            },
-            {
-              title: '叶子节点114'
-            }
-          ]
-        },
+        title: '子节点1-1-1',
+        data: { type: 'ppt' },
+        status: '状态2',
+      },
         {
-          title: '父节点12 - 折叠',
-          disableToggle: true,
-          items: [
-            {
-              title: '叶子节点121'
-            },
-            {
-              title: '叶子节点122'
-            },
-            {
-              title: '叶子节点123'
-            },
-            {
-              title: '叶子节点124'
-            }
-          ]
-        },
-        {
-          title: '父节点13 - 没有子节点 - 动态加载',
-          isParent: true
-        }
-      ]
-    },
-    {
-      title: '父节点2 - 折叠',
-      items: [
-        {
-          title: '父节点21 - 展开',
-          open: true,
-          items: [
-            {
-              title: '叶子节点211'
-            },
-            {
-              title: '叶子节点212'
-            },
-            {
-              title: '叶子节点213'
-            },
-            {
-              title: '叶子节点214'
-            }
-          ]
-        },
-        {
-          title: '父节点22 - 折叠',
-          items: [
-            {
-              title: '叶子节点221'
-            },
-            {
-              title: '叶子节点222'
-            },
-            {
-              title: '叶子节点223'
-            },
-            {
-              title: '叶子节点224'
-            }
-          ]
-        },
-        {
-          title: '父节点23 - 折叠',
-          items: [
-            {
-              title: '叶子节点231'
-            },
-            {
-              title: '叶子节点232'
-            },
-            {
-              title: '叶子节点233'
-            },
-            {
-              title: '叶子节点234'
-            }
-          ]
-        }
-      ]
-    },
-    {
-      id: 'hello,dddd',
-      title: '父节点3 - 没有子节点 - 动态加载',
-      isParent: true,
-      data: {
-        id: '1123213',
-        name: '456'
+        title: '子节点1-1-2',
+        data: { type: 'xls' }, status: '状态2',
       }
+      ]
+    }
+    ]
+  },
+    // 权限管理
+    {
+      id: '0x120',
+      title: '权限配置',
+      data: { type: 'xls' },
+      open: true,
+      status: '状态1',
+      children: [
+        {
+          id: '0x121',
+          title: '权限管理',
+          data: { type: 'xls' },
+          status: '状态1',
+        },
+        {
+          id: '0x122',
+          title: '角色管理',
+          data: { type: 'xls' },
+          status: '状态1',
+        }
+      ]
+    },
+
+    // 系统配置
+    {
+      id: '0x130',
+      title: '系统配置',
+      data: { type: 'xls' },
+      open: true,
+      status: '状态1',
+      item: [
+        {
+          id: '0x121',
+          title: '权限管理',
+          data: { type: 'xls' },
+          status: '状态1',
+        },
+        {
+          id: '0x122',
+          title: '角色管理',
+          data: { type: 'xls' },
+          status: '状态1',
+        }
+      ]
     }
   ];
 
 
+
   onNodeSelected(treeNode: TreeNode) {
     console.log('父selected: ', treeNode);
-    this.classSelectService.announceMission('0x11');
+    // tslint:disable-next-line:no-unused-expression
+    const ds: ITreeNodeData = JSON.parse(JSON.stringify(treeNode));
+    if ( ds.originItem.id === '0x130'){
+      this.router.navigate(['index/depart']);
+    }else if ( ds.originItem.id === '0x122'){// 角色
+      this.router.navigate(['index/roles']);
+    }else if (ds.originItem.id === '0x121'){// 权限
+      this.router.navigate(['index/authority']);
+    }else{
+      this.router.navigate(['index/case']);
+    }
+
+    console.log('test: ', ds.originItem.id);
+    this.classSelectService.announceMission(ds.originItem.id);
+  }
+
+  clearChildrenData(event, item): void{
+    event.stopPropagation();
+    item.children = [];
+    item.needLoadChildren = true;
+    item.open = false;
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
 

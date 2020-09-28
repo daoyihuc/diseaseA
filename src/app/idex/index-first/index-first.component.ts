@@ -8,12 +8,18 @@ import {MatDialog} from '@angular/material/dialog';
 import { MatDialogRef} from '@angular/material/dialog';
 import {ReviewDialogComponent} from '../review-dialog/review-dialog.component';
 import {ClassSelectService} from '../service/class-select.service';
+import {SubmitDialogComponent} from '../dialogs/submit-dialog/submit-dialog.component';
+import {RouteAnimations} from '../../animation';
 
 
 @Component({
   selector: 'app-index-first',
   templateUrl: './index-first.component.html',
-  styleUrls: ['./index-first.component.css']
+  styleUrls: ['./index-first.component.css'],
+  animations: [
+    RouteAnimations
+    // animation triggers go here
+  ]
 })
 /*
 * 第一个页面
@@ -77,20 +83,46 @@ export class IndexFirstComponent implements OnInit {
         break;
       case 3:
         console.log('3');
-        this.openDialog();
+        this.openDialog(3);
         break;
       case 4:
         console.log('4');
+        this.openDialog(4);
         break;
     }
   }
-  openDialog(): void{
-    const dialogref = this.meas.open(ReviewDialogComponent, {
-    });
-    dialogref.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
-    });
+  openDialog(id: number): void{
+    switch (id) {
+      case 0:
+        console.log('0');
+        break;
+      case 1:
+        console.log('1');
+        break;
+      case 2:
+        console.log('2');
+        break;
+        // 审核
+      case 3:
+        console.log('3');
+        const dialogref = this.meas.open(ReviewDialogComponent, {
+        });
+        dialogref.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          // this.animal = result;
+        });
+        break;
+        // 提交
+      case 4:
+        console.log('4');
+        const dialogref_4 = this.meas.open(SubmitDialogComponent, {
+        });
+        dialogref_4.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          // this.animal = result;
+        });
+        break;
+    }
   }
 
   daoyi(): void{

@@ -6,7 +6,7 @@ import { trigger,
   animate,
   transition,
 } from '@angular/animations';
-import {transAnimation} from '../animation';
+
 
 @Component({
   selector: 'app-login',

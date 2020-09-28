@@ -55,39 +55,117 @@ body {
 .index_box2{
   width: 84%;
 }
-.slide_box{
-  padding-left: 15px;
+.slide_box {
+  padding-left: 23px;
+  letter-spacing: 2px
 }
-/*电子并列*/
+.slide_box:hover{
+  background: none!important;
+}
+
 .index_title{
   text-align: center;
   color: white;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 400;
-  padding: 19px 0;
-  margin-left: 10px;
+  padding: 10px 0;
+  margin-left: 29px;
 }
 .tree_items{
   margin: 0 10px;
   color: white;
 }
-.devui-tree-node__content--value-wrapper:hover{
-  background: none!important;
-}
-.devui-tree-node__content:hover devui-tree-node--parent:hover{
-  background: none!important;
-}
+
 .index_title_box{
   display: flex;
   flex-direction: row;
   margin-top: 71px;
-  margin-bottom: 29px;
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  /*background: rgba(255,255,255,0.28);*/
+}
+.index_title_box:hover{
+  display: flex;
+  flex-direction: row;
+  margin-top: 71px;
+  margin-bottom: 15px;
   align-items: center;
   justify-content: center;
   background: rgba(255,255,255,0.28);
 }
-.index_title_icon{
-  width: 30px;
-  height: 30px;
+.index_title_box:active{
+  display: flex;
+  flex-direction: row;
+  margin-top: 71px;
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.28);
 }
+.index_title_box:visited{
+  display: flex;
+  flex-direction: row;
+  margin-top: 71px;
+  margin-bottom: 15px;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.28);
+}
+
+.index_title_icon{
+  width: 24px;
+  height: 27px;
+}
+.purview_box{
+  margin-bottom: 20px;
+  background: rgba(255,255,255,0.28)!important;
+  color: white!important;
+}
+
+.purview_box_1{
+  background: rgba(255,255,255,0.28);
+  color: white;
+  text-align: center;
+}
+.purview_box >>> d-accordion-list{
+  background: none!important;
+  color: white;
+  /*padding: 5px 0;*/
+  box-shadow: none!important;
+}
+/*标题*/
+.purview_box >>> d-accordion-list >>> div{
+  color: white;
+  text-align: center;
+  font-size: 16px;
+}
+.purview_box >>> d-accordion-list >>> div:hover{
+  color: white !important;
+  background: none!important;
+}
+.purview_box >>> d-accordion-list >>> div:active{
+  color: white !important;
+  background: none!important;
+}
+.purview_box >>> d-accordion-list > ul{
+  padding: 5px 0 !important;
+}
+
+/*子类容*/
+.purview_box >>> d-accordion-list >>> d-accordion-list >>> d-accordion-item{
+  background: none!important;
+  color: white;
+}
+.purview_box >>> d-accordion-list >>> d-accordion-list >>> d-accordion-item:hover{
+  background: none!important;
+}
+.purview_box >>> d-accordion-list >>> d-accordion-list >>> d-accordion-item:active{
+  color: white!important;
+}
+.slide_box >>> div >>> d-tree >>> d-tree-nodes >>> div >>> div:hover{
+  background: rgba(255,255,255,0.1) !important;
+}
+
+
 

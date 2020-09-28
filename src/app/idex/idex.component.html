@@ -1,13 +1,18 @@
-
+<style>
+  .devui-tree-node .devui-tree-node__content:hover{
+    background: none!important;
+  }
+</style>
 <div class="index_max_box">
   <div class="index_box1">
     <section>
       <div class="tree-title">
         <h4 style="text-align: center;margin-top: 40px;color: white">LOGO</h4>
-        <div class="index_title_box">
-          <img src="../../assets/img/disease.png" alt="" class="index_title_icon">
-          <span class="index_title">电子病例</span>
-        </div>
+<!--        <div class="index_title_box">-->
+<!--          <img src="../../assets/img/disease.png" alt="" class="index_title_icon">-->
+<!--          <span class="index_title">电子病例</span>-->
+<!--        </div>-->
+
 
       </div>
       <d-operable-tree
@@ -30,10 +35,10 @@
     </section>
   </div>
   <div class="index_box1_1"></div>
-  <div class="index_box2">
+  <div class="index_box2" [@routeAnimations]="prepareRoute(outlet)" >
     <app-headers></app-headers>
 <!--    <app-index-first></app-index-first>-->
-    <router-outlet></router-outlet>
+    <router-outlet  #outlet="outlet"></router-outlet>
   </div>
 
 

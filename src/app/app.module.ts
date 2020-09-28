@@ -1,5 +1,6 @@
-import {BrowserModule} from '@angular/platform-browser';
+
 import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RouterModule, Routes} from '@angular/router';
 import {AppComponent} from './app.component';
@@ -15,17 +16,30 @@ import { PersonalcenterComponent } from './idex/personalcenter/personalcenter.co
 import {IndexRouterModule} from './index-router/index-router.module';
 import { ReviewDialogComponent } from './idex/review-dialog/review-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SubmitDialogComponent } from './idex/dialogs/submit-dialog/submit-dialog.component';
+import { DepartmentComponent } from './idex/department/department.component';
+import { RolesComponent } from './idex/roles/roles.component';
+import { AddWardComponent } from './idex/dialogs/add-ward/add-ward.component';
+import { AddDepartComponent } from './idex/dialogs/add-depart/add-depart.component';
+import { AddDiseaseComponent } from './idex/dialogs/add-disease/add-disease.component';
+import { AuthorityComponent } from './idex/authority/authority.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CaseComponent } from './idex/case/case.component';
+import { UseraAddComponent } from './idex/usera-add/usera-add.component';
+import { RoleAddComponent } from './idex/role-add/role-add.component';
+
+
 
 
 
 const appRoute: Routes = [
   {path: 'login', component: LoginComponent},
-  {path: 'index_f', component: IndexFirstComponent},
-  {path: 'header', component: HeadersComponent},
-  {path: 'Personalcenter', component: PersonalcenterComponent},
-  {path: 'slide', component: SidesComponent},
-  {path: 'loginIndex', component: LoginIndexComponent},
-  { path: '',   redirectTo: '/index', pathMatch: 'full' },
+  {path: 'index_f', component: IndexFirstComponent, data: {animation: 'HomePage'} },
+  {path: 'header', component: HeadersComponent, data: {animation: 'header' }},
+  {path: 'Personalcenter', component: PersonalcenterComponent, data: {animation: 'Personalcenter'}},
+  {path: 'slide', component: SidesComponent, data: {animation: 'slide'}},
+  {path: 'loginIndex', component: LoginIndexComponent, data: {animation: 'loginIndex' } },
+  { path: '',   redirectTo: '/index', pathMatch: 'full', data: {animation: 'index'} },
 ];
 
 @NgModule({
@@ -38,7 +52,17 @@ const appRoute: Routes = [
     SidesComponent,
     PersonalcenterComponent,
     IndexFirstComponent,
-    ReviewDialogComponent
+    ReviewDialogComponent,
+    SubmitDialogComponent,
+    DepartmentComponent,
+    RolesComponent,
+    AddWardComponent,
+    AddDepartComponent,
+    AddDiseaseComponent,
+    AuthorityComponent,
+    CaseComponent,
+    UseraAddComponent,
+    RoleAddComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +73,9 @@ const appRoute: Routes = [
     RouterModule.forRoot(appRoute,
       {enableTracing: true}
     ),
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
