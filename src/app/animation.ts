@@ -4,51 +4,85 @@ export const RouteAnimations =
   trigger('routeAnimations', [
     transition('* <=> *', [
       style({
-        transition: 'all 3s linear',
         opacity: 0,
+        marginLeft: '200px',
       }),
-      query(':enter, :leave', [
-        style({
-          transition: 'all 3s linear',
-          opacity: 1
+     animate('2s',
+       style({
+         opacity: 1,
+         marginLeft: '0px',
         })
-      ]),
-      query(':enter', [
-        style({ left: '-100%'})
-      ]),
-      query(':leave', animateChild()),
-      group([
-        query(':leave', [
-          animate('300ms ease-out', style({ left: '100%'}))
-        ]),
-        query(':enter', [
-          animate('300ms ease-out', style({ left: '0%'}))
-        ])
-      ]),
-      query(':enter', animateChild(), {optional: true }),
-    ]),
-    transition('* <=> FilterPage', [
-      style({ position: 'relative' }),
-      query(':enter, :leave', [
-        style({
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%'
-        })
-      ]),
-      query(':enter', [
-        style({ left: '-100%'})
-      ]),
-      query(':leave', animateChild()),
-      group([
-        query(':leave', [
-          animate('200ms ease-out', style({ left: '100%'}))
-        ]),
-        query(':enter', [
-          animate('300ms ease-out', style({ left: '0%'}))
-        ])
-      ]),
-      query(':enter', animateChild()),
+     )
     ])
   ]);
+export const LoginAnimations =
+  trigger('LoginAnimations', [
+    transition('* => login', [
+      // hide the inner elements
+      query('#b1', style(
+        {
+          opacity: 0,
+          marginLeft: '200px'
+        }), { optional : true }
+      ),
+      query('#b2', style(
+        {
+          opacity: 0 ,
+          marginRight: '200px'
+        }), { optional : true }
+      ),
+
+      // animate the inner elements in, one by one
+      query('#b1', [animate(1000, style(
+        {
+          opacity: 1 ,
+          marginLeft: '0'
+        })
+      )], { optional : true }),
+      query('#b2', [ animate(1000, style(
+        {
+          opacity: 1,
+          marginRight: '0px'
+        })
+      )], { optional : true })
+    ])
+
+  ]);
+export const LoginIndexAnimations =
+  trigger('LoginIndexAnimations', [
+    transition('* => loginIndex', [
+      // hide the inner elements
+      query('.section_box_title', style(
+        {
+          opacity: 0,
+          marginLeft: '200px'
+        }), { optional : true }
+      ),
+      query('.section_box1', style(
+        {
+          opacity: 0 ,
+          marginTop: '300px'
+        }), { optional : true }
+      ),
+
+      // animate the inner elements in, one by one
+      query('.section_box_title', [animate(1000, style(
+        {
+          opacity: 1 ,
+          marginLeft: '0'
+        })
+      )], { optional : true }),
+      query('.section_box1', [ animate(1000, style(
+        {
+          opacity: 1,
+          marginTop: '0px'
+        })
+      )], { optional : true })
+    ])
+
+  ]);
+
+
+
+
+

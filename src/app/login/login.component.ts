@@ -1,40 +1,19 @@
 import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, AfterContentInit, AfterViewChecked} from '@angular/core';
 import * as logins from '../../libs/login';
-import { trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
+import {LoginAnimations} from '../animation';
 
 
 @Component({
   selector: 'app-login',
-  animations: [
-    trigger('openClose', [
-    // ...
-    state('open', style({
-      opacity: 1,
-      backgroundColor: 'yellow'
-    })),
-    state('closed', style({
-      opacity: 0.5,
-      backgroundColor: 'green'
-    })),
-    transition('open => closed', [
-      animate('5s')
-    ]),
-    transition('closed => open', [
-      animate('5s')
-    ]),
-  ]),
-  ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  animations: [LoginAnimations]
 })
 
 export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked , AfterContentInit{
-
+  button1 = 'buttons';
+  button2 = 'buttons2';
+  login = 'login';
   constructor(public el: ElementRef) {
     // this.inits();
   }

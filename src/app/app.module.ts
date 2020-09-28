@@ -33,7 +33,7 @@ import { RoleAddComponent } from './idex/role-add/role-add.component';
 
 
 const appRoute: Routes = [
-  {path: 'login', component: LoginComponent},
+  {path: 'login', component: LoginComponent, data: {animation: 'login'}},
   {path: 'index_f', component: IndexFirstComponent, data: {animation: 'HomePage'} },
   {path: 'header', component: HeadersComponent, data: {animation: 'header' }},
   {path: 'Personalcenter', component: PersonalcenterComponent, data: {animation: 'Personalcenter'}},

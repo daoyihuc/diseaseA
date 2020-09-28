@@ -132,8 +132,10 @@ export class IdexComponent implements OnInit {
     item.open = false;
   }
 
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  prepareRoute(outlet: RouterOutlet): any{
+    const a = outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+    console.log('daoyi', a);
+    return a;
   }
 
 
