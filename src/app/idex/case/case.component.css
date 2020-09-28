@@ -1,0 +1,234 @@
+.max_box{
+  background: #ffffff;
+  border-radius: 10px;
+  margin-left: 15px;
+  margin-right: 20px;
+  margin-top: 15px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+}
+
+.title_box{
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.title_hr{
+  background: #02BFD8;
+  width: 3px;
+  box-sizing: content-box;
+  overflow: visible;
+  margin: 0 20px 0 20px;
+  border: 0;
+  border-top: 20px solid #02BFD8;
+}
+.title_title{
+  font-size: 20px;
+  font-weight: 400;
+  color: #626262;
+}
+.fg{
+  width: 100%;
+  border-top: 1px solid #f9f9f9;
+}
+
+.input_box{
+  display: flex;
+  justify-content: flex-start;
+}
+.input_box1{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.default_input{
+  width: 150px;
+  outline: none;
+  border: 1px solid #C9C9C9;
+  border-radius: 10px;
+  padding: 5px 15px 5px 15px;
+
+}
+.default_lable{
+  font-weight: 600;
+}
+
+
+.input_box2{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.margin_bottom{
+  margin-bottom: 20px;
+}
+.default_input2{
+  width: 84%;
+  outline: none;
+  border: 1px solid #C9C9C9;
+  border-radius: 10px;
+  padding: 5px 15px 5px 15px;
+}
+.child_box{
+  display: flex;
+  flex-direction: column;
+}
+.default_input3{
+  width: 150px;
+  outline: none;
+  /*border: 1px solid #C9C9C9;*/
+  border: none;
+  border-radius: 10px;
+  padding: 5px 15px 5px 15px;
+  margin-left: 20px;
+  box-shadow: 1px 0px 11px 2px #c7d4d3;
+  /*margin-bottom: 20px;*/
+}
+.textArea{
+  margin-top: 20px;
+  width: 1125px;
+  height: 123px;
+  background: #f9f9f9;
+  margin-left: 20px;
+  border: none;
+}
+
+.case_button_icon{
+  margin-right: 10px;
+  width: 17px;
+  height: 17px;
+}
+.case_button{
+  background: #02C0D8;
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  border: none;
+  padding: 10px 20px 10px 20px;
+  margin-left: 20px;
+}
+.upload_show_box{
+  padding-left: 20px;
+  display: flex;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+.show_img{
+  width: 110px;
+  height: 88px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.upload_box{
+  position: relative;
+  width: 110px;
+  height: 88px;
+  border: 1px #99999952 solid;
+  border-radius: 10px;
+}
+.upload_input{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 4;
+  opacity: 0;
+}
+.upload_icon{
+  width: 26px;
+  height: 22px;
+}
+.upload_button{
+  position: absolute;
+  background: white;
+  color: #02C0D8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border-radius: 10px;
+}
+.upload_dp{
+  color: #02C0D8;
+  margin-left: 10px;
+}
+.tag_box{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.tag_box1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+}
+.tag_box1 div{
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.tags_button{
+  background: #02C0D8;
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 20px;
+  outline: none;
+  border-radius: 5px;
+  border: none;
+  margin-top: 10px;
+  padding: 6px 15px 6px 15px;
+}
+.delete_box{
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.delete_icon{
+  width: 19px;
+  height: 19px;
+}
+.delete_p{
+  color: #B3B3B3;
+  margin-left: 10px;
+}
+.button_box{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ok_button{
+  outline: none;
+  background: #02C0D8;
+  border: none;
+  border-radius: 15px;
+  padding: 10px 51px 10px 51px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.cancel_button{
+  outline: none;
+  background: #DCDCDC;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 51px 10px 51px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}

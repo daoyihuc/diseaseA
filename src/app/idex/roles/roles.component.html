@@ -1,0 +1,30 @@
+<div class="card">
+  <div class="top">
+    <input type="text" placeholder="|请填写客户名称">
+  </div>
+  <div class="fot">
+    <div class="li" (click)="onSelectButton(0)">查询</div>
+    <div class="li" (click)="onSelectButton(1)">重置</div>
+    <div class="li" (click)="onSelectButton(2)">新增</div>
+  </div>
+</div>
+
+<footer class="max_footer">
+  <table class="footer_box">
+    <tr class="">
+      <th *ngFor="let TextBean of label_header" class="defualt_label">{{TextBean.name}}</th>
+    </tr>
+    <tr  *ngFor="let TextBean of label_header;index as i" class="table_box_tr">
+      <td *ngFor="let TextBean of label_header;index as i" class="table_td">
+        <a *ngIf="i!=label_header.length-1"  class="defualt_label_a">
+          {{i}}
+        </a>
+        <div *ngIf="i==label_header.length-1" class="menu_box">
+          <img src="../../../assets/img/bianji.png" alt="" class="menu_img">
+        </div>
+      </td>
+    </tr>
+
+  </table>
+
+</footer>

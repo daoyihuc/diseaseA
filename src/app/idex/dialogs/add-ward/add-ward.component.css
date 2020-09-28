@@ -1,0 +1,62 @@
+
+
+.max_box{
+  width: 453px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  /*justify-content: center;*/
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+.title{
+  margin-top: 23px;
+}
+.lables{
+  margin-left: 20px;
+  margin-right: 10px;
+  font-weight: 600;
+  font-size: 13px;
+}
+.inputs{
+  width: 59%;
+  outline: none;
+  border: 1px #D2D2D2 solid;
+  border-radius: 20px;
+  padding: 8px 0 8px 10px;
+  margin-top: 10px;
+
+}
+.fg{
+  width: 100%;
+  border-top: 1px solid #f9f9f9;
+  margin: 10px 0 19px 0;
+}
+.defualt_box{
+  width: 100%;
+}
+.button_box{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.buttons_ok{
+  background: #02BFD8;
+  border: none;
+  border-radius: 31px;
+  color: white;
+  outline: none;
+  padding: 6px 34px 6px 34px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.buttons_cancel{
+  background: #DCDCDC;
+  border: none;
+  border-radius: 31px;
+  color: white;
+  outline: none;
+  padding: 6px 34px 6px 34px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

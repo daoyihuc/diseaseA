@@ -1,0 +1,140 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+html,body{
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+}
+/* 上面的卡片 */
+.card_top{
+  background-color: #ffffff;
+  margin: 20px;
+  border-radius: 10px;
+}
+.card_top .card_top_text{
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+}
+.card_top .card_top_text .left_row{
+  width: 3px;
+  height: 20px;
+  background-color: rgba(2, 192, 216, 1);
+}
+.card_top .card_top_text .text{
+  font-size: 15px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #626262;
+  padding:0 10px;
+}
+.card_top .card_top_input{
+  padding: 20px;
+}
+.card_top .card_top_input .role{
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #272626;
+  padding: 5px 0;
+}
+.card_top .card_top_input input{
+  background: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 5px;
+  padding: 8px;
+  outline: none;
+  margin: 5px 0;
+
+}
+/* 下面的卡片 */
+.card_fot{
+  background-color: #ffffff;
+  margin: 20px;
+  border-radius: 10px;
+}
+.card_fot .card_fot_text{
+  display: flex;
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+}
+.card_fot .card_fot_text .left_row{
+  width: 3px;
+  height: 20px;
+  background-color: rgba(2, 192, 216, 1);
+}
+.card_fot .card_fot_text .text{
+  font-size: 15px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #626262;
+  padding:0 10px;
+}
+.card_fot .card_fot_checkbox{
+  padding: 20px;
+}
+.card_fot .card_fot_checkbox .checkbox_list .checkbox_top{
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #272626;
+  display: flex;
+  align-items: center;
+}
+.card_fot .card_fot_checkbox .checkbox_list .checkbox_top input{
+  background: #FFFFFF;
+  border: 1px solid #C9C9C9;
+  border-radius: 5px;
+
+}
+.card_fot .card_fot_checkbox .checkbox_list .checkbox_fot {
+  display: flex;
+  align-items: center;
+
+}
+.card_fot .card_fot_checkbox .checkbox_list .checkbox_fot .chexbox_fot_li{
+  padding: 15px;
+
+}
+.card_fot .card_fot_checkbox .checkbox_list .checkbox_fot .chexbox_fot_li {
+  font-size: 13px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #626262;
+  display: flex;
+  align-items: center;
+
+}
+input{
+  margin-right: 5px;
+}
+
+.button_box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ok_button{
+  outline: none;
+  background: #02C0D8;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 51px 10px 51px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+.cancel_button{
+  outline: none;
+  background: #DCDCDC;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 51px 10px 51px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}

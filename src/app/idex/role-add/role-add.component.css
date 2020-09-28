@@ -1,0 +1,161 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+html,body{
+  background-color: gainsboro;
+}
+.card{
+  background-color: #fff;
+  margin: 20px;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.card .card_li{
+  border: 1px solid #eee;
+  padding: 20px;
+  text-align: center;
+  margin: 10px;
+  width: 150px;
+  /*height: 40px;*/
+  /*line-height: 40px;*/
+  font-size: 14px;
+  border-radius: 10px;
+  color: rgba(98, 98, 98, 1);
+}
+.active{
+  background-color: RGBA(67, 200, 221, 1);
+  color: #fff;
+}
+.card .card_li:hover{
+  background-color: RGBA(67, 200, 221, 1);
+  color: #fff;
+}
+
+
+.max_box{
+  background: #ffffff;
+  border-radius: 10px;
+  margin-left: 15px;
+  margin-right: 20px;
+  margin-top: 15px;
+  padding-top: 25px;
+  padding-bottom: 20px;
+}
+
+.title_box{
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.title_hr{
+  background: #02BFD8;
+  width: 3px;
+  box-sizing: content-box;
+  overflow: visible;
+  margin: 0 20px 0 20px;
+  border: 0;
+  border-top: 20px solid #02BFD8;
+}
+.title_title{
+  font-size: 20px;
+  font-weight: 400;
+  color: #626262;
+}
+.fg{
+  width: 100%;
+  border-top: 1px solid #f9f9f9;
+}
+
+.input_box{
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+.input_box1{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.default_input{
+  width: 150px;
+  outline: none;
+  border: 1px solid #C9C9C9;
+  border-radius: 10px;
+  padding: 5px 15px 5px 15px;
+  margin-top: 5px;
+
+}
+.default_lable{
+  font-weight: 600;
+}
+
+
+.input_box2{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+.margin_bottom{
+  margin-bottom: 20px;
+}
+.default_input2{
+  width: 84%;
+  outline: none;
+  border: 1px solid #C9C9C9;
+  border-radius: 10px;
+  padding: 5px 15px 5px 15px;
+}
+.child_box{
+  display: flex;
+  flex-direction: column;
+}
+.default_input3{
+  width: 150px;
+  outline: none;
+  /*border: 1px solid #C9C9C9;*/
+  border: none;
+  border-radius: 10px;
+  padding: 5px 15px 5px 15px;
+  margin-left: 20px;
+  box-shadow: 1px 0px 11px 2px #c7d4d3;
+  /*margin-bottom: 20px;*/
+}
+.button_box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ok_button{
+  outline: none;
+  background: #02C0D8;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 51px 10px 51px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+.cancel_button{
+  outline: none;
+  background: #DCDCDC;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 51px 10px 51px;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}

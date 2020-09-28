@@ -1,0 +1,78 @@
+<section class="max_box">
+  <div class="title_box">
+    <hr class="title_hr">
+    <span class="title_title">查询条件</span>
+  </div>
+  <hr class="fg">
+  <div class="input_box">
+    <div class="input_box1">
+      <label class="default_lable">
+        科室
+      </label>
+      <input type="text" placeholder="科室" class="default_input" maxlength="11">
+    </div>
+    <div class="input_box1">
+      <label class="default_lable">
+        病区
+      </label>
+      <input type="text" placeholder="病区" class="default_input" maxlength="11">
+    </div>
+    <div class="input_box1">
+      <label class="default_lable">
+        主疾病名称
+      </label>
+      <input type="text" placeholder="主疾病名称" class="default_input" maxlength="11">
+    </div>
+  </div>
+  <div class="button_box">
+    <input class="default_button"
+           type="button"
+           *ngFor="let item of buttons_arr"
+           value="{{item.name}}"
+           (click)="onSelectButton(item.id)"
+    >
+  </div>
+</section>
+
+<footer class="max_footer">
+    <table class="footer_box">
+      <tr class="">
+        <th class="label_check">
+          <d-checkbox
+            [name]="'checkbox-username'"
+            [label]=""
+            [color]="'#02BFD8'"
+            [ngModel]="false"
+            class="label_check"
+          >
+          </d-checkbox>
+        </th>
+        <th *ngFor="let TextBean of label_header" class="defualt_label">{{TextBean.name}}</th>
+      </tr>
+      <tr  *ngFor="let TextBean of label_header;index as i" class="table_box_tr">
+        <td class="label_check1">
+          <d-checkbox
+            [name]="'checkbox-username'"
+            [label]=""
+            [color]="'#02BFD8'"
+            [ngModel]="false"
+            class="label_check1"
+          >
+          </d-checkbox>
+
+        </td>
+        <td *ngFor="let TextBean of label_header;index as i" class="table_td">
+        <a *ngIf="i!=label_header.length-1"  class="defualt_label_a">
+              {{"daoy45454545454545545454i"+i}}
+        </a>
+          <div *ngIf="i==label_header.length-1" class="menu_box">
+            <img src="../../../assets/img/tianjia@2x.png" alt="" class="menu_img" (click)="add_dialog_1(3)">
+            <img src="../../../assets/img/bianji.png" alt="" class="menu_img">
+            <img src="../../../assets/img/shanchu@2x.png" alt="" class="menu_img">
+          </div>
+        </td>
+      </tr>
+
+    </table>
+
+</footer>
