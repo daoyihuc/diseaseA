@@ -144,7 +144,10 @@
       <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <img class="show_img" alt="" *ngFor="let data of item.imgs" [src]="data" >
+
+        <div dImagePreview>
+          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*" id="image_slected" (change)="selected_image($event,1, i)">
           <button class="upload_button">
@@ -196,7 +199,9 @@
       <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <img class="show_img" alt="" *ngFor="let data of item.imgs" [src]="data" >
+        <div dImagePreview>
+          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,2, i)">
           <button class="upload_button">
@@ -248,7 +253,9 @@
       <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <img class="show_img" alt="" *ngFor="let data of item.imgs" [src]="data" >
+        <div dImagePreview>
+          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,3, i)">
           <button class="upload_button">
@@ -300,7 +307,9 @@
       <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <img class="show_img" alt="" *ngFor="let data of item.imgs" [src]="data" >
+        <div dImagePreview>
+          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,4, i)">
           <button class="upload_button">
@@ -352,7 +361,9 @@
       <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <img class="show_img" alt="" *ngFor="let data of item.imgs" [src]="data" >
+        <div dImagePreview>
+          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,5, i)">
           <button class="upload_button">
@@ -396,7 +407,7 @@
 </footer>
 <div class="button_box">
   <input type="button" value="提交审核" class="ok_button">
-  <input type="button" value="保存" class="ok_button">
+  <input type="button" value="保存" class="ok_button status_green">
   <input type="button" value="取消" class="cancel_button">
 </div>
 

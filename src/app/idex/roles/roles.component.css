@@ -155,4 +155,16 @@ html,body{
   margin-left: 10px;
   margin-right: 10px;
 }
+.page_box{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.page_box >>> .devui-pagination .devui-pagination-list li:not(.disabled).active a {
+  background: #02BADD !important;
+}
+.page_box >>> li >>> a:not(.disable):active{
+  background: #02BADD !important;
+}
 

@@ -49,7 +49,7 @@
         </th>
         <th *ngFor="let TextBean of label_header" class="defualt_label">{{TextBean.name}}</th>
       </tr>
-      <tr  *ngFor="let TextBean of label_header;index as i" class="table_box_tr">
+      <tr  *ngFor="let item of dataBean;index as i" class="table_box_tr">
         <td class="label_check1">
           <d-checkbox
             [name]="'checkbox-username'"
@@ -61,12 +61,12 @@
           </d-checkbox>
 
         </td>
-        <td *ngFor="let TextBean of label_header;index as i" class="table_td">
-        <a *ngIf="i!=label_header.length-1"  class="defualt_label_a">
-              {{"daoy45454545454545545454i"+i}}
+        <td *ngFor="let item_d of item.data;index as j" class="table_td">
+        <a *ngIf="j!=item.data.length-1"  class="defualt_label_a">
+              {{item_d}}
         </a>
-          <div *ngIf="i==label_header.length-1" class="menu_box">
-            <img src="../../../assets/img/tianjia@2x.png" alt="" class="menu_img" (click)="add_dialog_1(3)">
+          <div *ngIf="j==label_header.length-1" class="menu_box">
+            <img src="../../../assets/img/tianjia@2x.png" alt="" class="menu_img" (click)="add_dialog_1(item_d)">
             <img src="../../../assets/img/bianji.png" alt="" class="menu_img">
             <img src="../../../assets/img/shanchu@2x.png" alt="" class="menu_img">
           </div>
@@ -74,5 +74,19 @@
       </tr>
 
     </table>
-
 </footer>
+
+<div class="page_box">
+  <d-pagination
+    [total]="pager.total"
+    [(pageSize)]="pager.pageSize"
+    [(pageIndex)]="pager.pageIndex"
+    [canViewTotal]="false"
+    [canChangePageSize]="false"
+    [canJumpPage]="false"
+    [size]="'lg'"
+    (pageIndexChange)="pageIndexChangeWithoutFix($event)"
+    (pageSizeChange)="pageSizeChangeWithoutFix($event)"
+  >
+  </d-pagination>
+</div>

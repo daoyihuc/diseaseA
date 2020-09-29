@@ -28,3 +28,18 @@
   </table>
 
 </footer>
+
+<div class="page_box">
+  <d-pagination
+    [total]="pager.total"
+    [(pageSize)]="pager.pageSize"
+    [(pageIndex)]="pager.pageIndex"
+    [canViewTotal]="false"
+    [canChangePageSize]="false"
+    [canJumpPage]="false"
+    [size]="'lg'"
+    (pageIndexChange)="pageIndexChangeWithoutFix($event)"
+    (pageSizeChange)="pageSizeChangeWithoutFix($event)"
+  >
+  </d-pagination>
+</div>

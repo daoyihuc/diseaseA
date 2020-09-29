@@ -51,6 +51,14 @@ export class IndexFirstComponent implements OnInit {
       id: 4
     }
   ];
+  // 分页
+  pager = {
+    total: 306,
+    pageIndex: 1,
+    pageSize: 10
+  };
+
+
   // 标题栏
   // tslint:disable-next-line:variable-name
   Header_isShow = false;
@@ -137,5 +145,17 @@ export class IndexFirstComponent implements OnInit {
   }
   // 观察者反应
 
+  // 获取当前分页索引
+  pageIndexChangeWithoutFix(pageIndex): void{
+    this.checkCount(pageIndex);
+  }
+  // 分页数据发生改变时候
+  pageSizeChangeWithoutFix(pageSize): void{
+    this.pager.pageIndex = 1;
+    this.checkCount(this.pager.pageIndex);
+  }
+  checkCount(pageIndex): void{
+    console.log('当前分页索引', pageIndex);
+  }
 
 }

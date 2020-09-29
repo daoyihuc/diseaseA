@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CaseComponent } from './idex/case/case.component';
 import { UseraAddComponent } from './idex/usera-add/usera-add.component';
 import { RoleAddComponent } from './idex/role-add/role-add.component';
+import {SafePipeModule} from 'ng-devui/utils';
 
 
 
@@ -75,6 +76,7 @@ const appRoute: Routes = [
     ),
     FormsModule,
     HttpClientModule,
+    SafePipeModule,
 
   ],
   providers: [],
