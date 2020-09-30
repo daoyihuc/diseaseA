@@ -15,6 +15,8 @@ export class HttpData {
 
       if ( data[i] instanceof Object){
         this.getObjectValue(data[i]);
+      }else if (data[i] instanceof Array){
+        this.getArrayValue(data[i]);
       }
       console.log('daoyi', i);
     }
@@ -26,21 +28,25 @@ export class HttpData {
 
       if (data[j] instanceof Object){
         this.isObjectOrArray(data[j]);
-      }else{
+      }else if (data[j] instanceof Array){
+        this.getArrayValue(data[j]);
+      }else {
         console.log('daoyi2', data[j] + '\n');
       }
 
     }
   }
 
-  // 取值(arry)
-  public getArryValue(data): void{
+  // 取值(array)
+  public getArrayValue(data): void{
 
     for (let i = 0; i < data.length; i++){
 
       if (data[i] instanceof Object){
         this.isObjectOrArray(data[i]);
-      }else{
+      }else if (data[i] instanceof Array){
+        this.getArrayValue(data[i]);
+      }else {
         console.log('daoyi3', data[i] + '\n');
       }
 

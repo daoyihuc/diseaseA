@@ -87,8 +87,9 @@ export class IndexFirstComponent implements OnInit {
       case 0:
         console.log('0');
         const  s = new HttpData();
-        const a = {da: '21', ds: '323', dd: '43', df: '43', as: {q: '1', w: '2'}};
-        s.setdata(a);
+        const a = {da: '21', ds: '323', dd: '42', df: '43', as: {q: '1', w: '2'} , as1: [ 3, 4, 5, 6]};
+        const b = {da: '22', ds: '32', dd: '45', df: '41', as: {q: '7', w: '8'} , as1: [ 9, 10, 11, 12]};
+        s.setdata(a, b);
         break;
       case 1:
         console.log('1');
