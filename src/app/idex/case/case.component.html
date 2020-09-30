@@ -133,6 +133,7 @@
 
 </section>
 <footer >
+  <!-- 现病史-->
   <div class="max_box">
     <div class="title_box">
       <hr class="title_hr">
@@ -141,17 +142,19 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data1;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
 
-        <div dImagePreview>
-          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        <div dImagePreview class="show_imgbox1">
+          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+          </div>
         </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*" id="image_slected" (change)="selected_image($event,1, i)">
           <button class="upload_button">
-            <img src="../../../assets/img/tupian@2x.png" alt="" class="upload_icon" >
+            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
             <span>添加图片</span>
           </button>
         </div>
@@ -173,7 +176,7 @@
         </div>
 
         <div class="delete_box" (click)="rm_child( 1, i )">
-          <img src="../../../assets/img/shanchu@2x.png" alt="" class="delete_icon">
+          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
           <span class="delete_p" >删除子模块</span>
         </div>
       </div>
@@ -183,11 +186,12 @@
     <div (click)="add_child(1)">
       <hr class="fg">
       <button class="case_button">
-        <img src="../../../assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
         <span>添加子模块</span>
       </button>
     </div>
   </div>
+  <!--其它病史-->
   <div class="max_box">
     <div class="title_box">
       <hr class="title_hr">
@@ -196,16 +200,18 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data2;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <div dImagePreview>
-          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        <div dImagePreview class="show_imgbox1">
+          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+          </div>
         </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,2, i)">
           <button class="upload_button">
-            <img src="../../../assets/img/tupian@2x.png" alt="" class="upload_icon" >
+            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
             <span>添加图片</span>
           </button>
         </div>
@@ -227,7 +233,7 @@
         </div>
 
         <div class="delete_box" (click)="rm_child( 2, i )">
-          <img src="../../../assets/img/shanchu@2x.png" alt="" class="delete_icon">
+          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
           <span class="delete_p" >删除子模块</span>
         </div>
       </div>
@@ -237,11 +243,12 @@
     <div (click)="add_child(2)">
       <hr class="fg">
       <button class="case_button">
-        <img src="../../../assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
         <span>添加子模块</span>
       </button>
     </div>
   </div>
+  <!--体格检查-->
   <div class="max_box">
     <div class="title_box">
       <hr class="title_hr">
@@ -250,16 +257,18 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data3;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <div dImagePreview>
-          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        <div dImagePreview class="show_imgbox1">
+          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+          </div>
         </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,3, i)">
           <button class="upload_button">
-            <img src="../../../assets/img/tupian@2x.png" alt="" class="upload_icon" >
+            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
             <span>添加图片</span>
           </button>
         </div>
@@ -281,7 +290,7 @@
         </div>
 
         <div class="delete_box" (click)="rm_child( 3, i )">
-          <img src="../../../assets/img/shanchu@2x.png" alt="" class="delete_icon">
+          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
           <span class="delete_p" >删除子模块</span>
         </div>
       </div>
@@ -291,11 +300,12 @@
     <div (click)="add_child(3)">
       <hr class="fg">
       <button class="case_button">
-        <img src="../../../assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
         <span>添加子模块</span>
       </button>
     </div>
   </div>
+  <!-- 实验室检查-->
   <div class="max_box">
     <div class="title_box">
       <hr class="title_hr">
@@ -304,16 +314,18 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data4;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <div dImagePreview>
-          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        <div dImagePreview class="show_imgbox1">
+          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+          </div>
         </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,4, i)">
           <button class="upload_button">
-            <img src="../../../assets/img/tupian@2x.png" alt="" class="upload_icon" >
+            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
             <span>添加图片</span>
           </button>
         </div>
@@ -335,7 +347,7 @@
         </div>
 
         <div class="delete_box" (click)="rm_child( 4, i )">
-          <img src="../../../assets/img/shanchu@2x.png" alt="" class="delete_icon">
+          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
           <span class="delete_p" >删除子模块</span>
         </div>
       </div>
@@ -345,11 +357,12 @@
     <div (click)="add_child(4)">
       <hr class="fg">
       <button class="case_button">
-        <img src="../../../assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
         <span>添加子模块</span>
       </button>
     </div>
   </div>
+  <!-- 辅助检查-->
   <div class="max_box">
     <div class="title_box">
       <hr class="title_hr">
@@ -358,16 +371,18 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data5;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{item.name?item.name: '请输入子模块名称'}}" class="default_input3" >
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
       <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
       <div class="upload_show_box">
-        <div dImagePreview>
-          <img class="show_img" alt="" *ngFor="let data of item.imgs" [attr.src]=" data | safe: 'url'" style="max-width: 800px;" />
+        <div dImagePreview class="show_imgbox1">
+          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+          </div>
         </div>
         <div class="upload_box">
           <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,5, i)">
           <button class="upload_button">
-            <img src="../../../assets/img/tupian@2x.png" alt="" class="upload_icon" >
+            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
             <span>添加图片</span>
           </button>
         </div>
@@ -389,7 +404,7 @@
         </div>
 
         <div class="delete_box" (click)="rm_child( 5, i )">
-          <img src="../../../assets/img/shanchu@2x.png" alt="" class="delete_icon">
+          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
           <span class="delete_p" >删除子模块</span>
         </div>
       </div>
@@ -399,9 +414,34 @@
     <div (click)="add_child(5)">
       <hr class="fg">
       <button class="case_button">
-        <img src="../../../assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
         <span>添加子模块</span>
       </button>
+    </div>
+  </div>
+  <!--上传文件-->
+  <div class="max_box">
+
+    <div class="show_imgbox1">
+      <div class="file_box" *ngFor="let item of data6;index as i" >
+        <div class="show_imgbox_file" >
+          <img class="show_img" alt="" [src]="item.imgs"/>
+        </div>
+        <p>{{item.names}}</p>
+      </div>
+
+    </div>
+    <hr class="fg">
+    <div class="case_button_upload_box">
+
+      <input type="file" class="case_button_upload_s" (change)="selected_image($event, 6 , 0)">
+      <div class="case_button_upload_box2">
+        <button class="case_button_upload">
+          <!--        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">-->
+          <span>上传附件</span>
+        </button>
+        <p>最多上传3个附件，最大5M，附件支持excel、word</p>
+      </div>
     </div>
   </div>
 </footer>

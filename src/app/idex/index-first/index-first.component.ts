@@ -10,6 +10,8 @@ import {ReviewDialogComponent} from '../review-dialog/review-dialog.component';
 import {ClassSelectService} from '../service/class-select.service';
 import {SubmitDialogComponent} from '../dialogs/submit-dialog/submit-dialog.component';
 import {RouteAnimations} from '../../animation';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HttpData} from '../../http/HttpData';
 
 
 @Component({
@@ -64,8 +66,10 @@ export class IndexFirstComponent implements OnInit {
   Header_isShow = false;
   value: object[] = [];
   constructor(public el: ElementRef,
-              private meas: MatDialog,
-              private classSelectService: ClassSelectService
+              private meas: MatDialog, // 弹窗
+              private classSelectService: ClassSelectService, // 用于接收组件信息
+              private route: Router, // 路由跳转
+              private router: ActivatedRoute // 路由信息接收
             )
   {
     this.classSelectService.missionAnnounced$.subscribe(value1 => {
@@ -82,20 +86,32 @@ export class IndexFirstComponent implements OnInit {
     switch (value) {
       case 0:
         console.log('0');
+        const  s = new HttpData();
+        const a = {da: '21', ds: '323', dd: '43', df: '43', as: {q: '1', w: '2'}};
+        s.setdata(a);
         break;
       case 1:
         console.log('1');
         break;
       case 2:
-        console.log('2');
+        console.log('2'); // 新增
+        this.route.navigate(['index/case', {id: 's'}]);
         break;
-      case 3:
+      case 3: // 审核
         console.log('3');
         this.openDialog(3);
         break;
-      case 4:
+      case 4: // 提交
         console.log('4');
         this.openDialog(4);
+        break;
+      case 5:
+        console.log('5'); // 查看
+        this.route.navigate(['index/case', {id: 's'}]);
+        break;
+      case 6:
+        console.log('6'); // 编辑
+        this.route.navigate(['index/case', {id: 's'}]);
         break;
     }
   }

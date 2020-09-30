@@ -11,6 +11,7 @@ import {CaseComponent} from '../idex/case/case.component';
 import {DevUIModule, SliderComponent} from 'ng-devui';
 import {UseraAddComponent} from '../idex/usera-add/usera-add.component';
 import {RoleAddComponent} from '../idex/role-add/role-add.component';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 
 const crisisCenterRoutes: Routes = [
@@ -77,6 +78,7 @@ const crisisCenterRoutes: Routes = [
   ],
   exports: [
     RouterModule
-  ]
+  ],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
 })
 export class IndexRouterModule { }

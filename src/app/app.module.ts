@@ -28,6 +28,7 @@ import { CaseComponent } from './idex/case/case.component';
 import { UseraAddComponent } from './idex/usera-add/usera-add.component';
 import { RoleAddComponent } from './idex/role-add/role-add.component';
 import {SafePipeModule} from 'ng-devui/utils';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 
 
@@ -71,15 +72,14 @@ const appRoute: Routes = [
     MatDialogModule,
     DevUIModule,
     IndexRouterModule,
-    RouterModule.forRoot(appRoute,
-      {enableTracing: true}
+    RouterModule.forRoot(appRoute
     ),
     FormsModule,
     HttpClientModule,
     SafePipeModule,
 
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

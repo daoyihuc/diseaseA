@@ -29,8 +29,8 @@ export class IdexComponent implements OnInit {
 
   currentSelectedNode;
   showLoading: boolean;
-  iconParentOpen = '<img src="../../assets/img/dow.png" style="width: 16px;height: 8px"/>';
-  iconParentClose = '<img src="../../assets/img/jiantou@2x.png" style="width: 8px;height: 16px" />';
+  iconParentOpen = '<img src="./assets/img/dow.png" style="width: 16px;height: 8px"/>';
+  iconParentClose = '<img src="./assets/img/jiantou@2x.png" style="width: 8px;height: 16px" />';
   iconLeaf = '<span></span>';
   data2 = [
     {
@@ -42,18 +42,19 @@ export class IdexComponent implements OnInit {
       {
       title: '子节点1-1',
       data: { type: 'mix' },
-      open: false,
+      open: true,
       status: '状态1',
       children: [
         {
-        title: '子节点1-1-1',
-        data: { type: 'ppt' },
-        status: '状态2',
-      },
+          title: '子节点1-1-1',
+          data: { type: 'ppt' },
+          status: '状态2',
+        },
         {
-        title: '子节点1-1-2',
-        data: { type: 'xls' }, status: '状态2',
-      }
+          title: '子节点1-1-2',
+          data: { type: 'xls' },
+          status: '状态2',
+        }
       ]
     }
     ]
@@ -118,7 +119,7 @@ export class IdexComponent implements OnInit {
     }else if (ds.originItem.id === '0x121'){// 权限
       this.router.navigate(['index/authority']);
     }else{
-      this.router.navigate(['index/case']);
+      this.router.navigate(['index']);
     }
 
     console.log('test: ', ds.originItem.id);
