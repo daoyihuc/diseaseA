@@ -24,9 +24,6 @@ export class IdexComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
-
   currentSelectedNode;
   showLoading: boolean;
   iconParentOpen = '<img src="./assets/img/dow.png" style="width: 16px;height: 8px"/>';
@@ -106,9 +103,11 @@ export class IdexComponent implements OnInit {
     }
   ];
 
+  ngOnInit(): void {
+  }
 
-
-  onNodeSelected(treeNode: TreeNode) {
+  // 节点选择
+  onNodeSelected(treeNode: TreeNode): void{
     console.log('父selected: ', treeNode);
     // tslint:disable-next-line:no-unused-expression
     const ds: ITreeNodeData = JSON.parse(JSON.stringify(treeNode));

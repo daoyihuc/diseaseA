@@ -50,6 +50,7 @@ export class DepartmentComponent implements OnInit {
   };
   preLink = '<';
   nextLink = '>';
+  isAll: any = null;
 
 
   ngOnInit(): void {
@@ -125,6 +126,18 @@ export class DepartmentComponent implements OnInit {
       this.dataBean.push(datas);
     }
   }
+  // 是否全选
+  isOnselectCheckAll(): void{
+    if ( this.isAll === null){
+      this.isAll = true;
+    }else if ( this.isAll === true){
+      this.isAll = false;
+    }else if ( this.isAll === false ){
+      this.isAll = true;
+    }
+  }
+
+
 
   // 分页方法
   pageIndexChange(pageIndex): void{
@@ -147,6 +160,7 @@ export class DepartmentComponent implements OnInit {
   checkCount(pageIndex): void{
     console.log('当前分页索引', pageIndex);
   }
+
 
 
 

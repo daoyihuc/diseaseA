@@ -72,6 +72,9 @@ html,body{
   color: #626262;
   padding:0 10px;
 }
+.text{
+  margin-left: 5px;
+}
 .card_fot .card_fot_checkbox{
   padding: 20px;
 }

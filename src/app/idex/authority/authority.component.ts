@@ -15,9 +15,6 @@ export class AuthorityComponent implements OnInit {
 
   constructor( private route: ActivatedRoute,
                private router: Router) { }
-
-  ngOnInit(): void {
-  }
   // 按钮
   buttons_arr = [
     {
@@ -42,12 +39,27 @@ export class AuthorityComponent implements OnInit {
     pageIndex: 1,
     pageSize: 10
   };
+  // 全选
+  isAll: any = null;
+
+  ngOnInit(): void {
+  }
 
   onSelectButton(id): void{
     switch (id) {
       case 2:
         this.router.navigate(['index/user_add', { id: '1' , name: 'daoyi'}]);
         break;
+    }
+  }
+  // 是否全选
+  isOnselectCheckAll(): void{
+    if ( this.isAll === null){
+      this.isAll = true;
+    }else if ( this.isAll === true){
+      this.isAll = false;
+    }else if ( this.isAll === false ){
+      this.isAll = true;
     }
   }
 

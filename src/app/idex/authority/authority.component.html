@@ -42,8 +42,9 @@
           [name]="'checkbox-username'"
           [label]=""
           [color]="'#02BFD8'"
-          [ngModel]="false"
+          [ngModel]="isAll"
           class="label_check"
+          (click)="isOnselectCheckAll()"
         >
         </d-checkbox>
       </th>
@@ -55,7 +56,7 @@
           [name]="'checkbox-username'"
           [label]=""
           [color]="'#02BFD8'"
-          [ngModel]="false"
+          [ngModel]="isAll"
           class="label_check1"
         >
         </d-checkbox>
