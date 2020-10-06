@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AuthorityBean} from '../../bean/auThoritybean';
 import {DepartmentBeans} from '../../bean/departmentBean';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Api} from '../../http/HttpApi';
 
 @Component({
   selector: 'app-authority',
@@ -47,6 +48,9 @@ export class AuthorityComponent implements OnInit {
 
   onSelectButton(id): void{
     switch (id) {
+      case 1:
+        console.log(Api.RoleInfo);
+        break;
       case 2:
         this.router.navigate(['index/user_add', { id: '1' , name: 'daoyi'}]);
         break;

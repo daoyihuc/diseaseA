@@ -78,7 +78,6 @@ export class IdexComponent implements OnInit {
         }
       ]
     },
-
     // 系统配置
     {
       id: '0x130',
