@@ -1,0 +1,56 @@
+.max_box{
+  background: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0;
+  margin: 0;
+}
+.tags >>>div >>> .ng-star-inserted >>> span{
+  background: white;
+  border: none;
+  color: #02BADD;
+}
+
+
+
+
+.tags >>>div{
+  background: white;
+  white-space: nowrap;
+  overflow-x: scroll;
+}
+/*.tags >>>div::-webkit-scrollbar {!*滚动条整体样式*!*/
+/*  width: 4px;     !*高宽分别对应横竖滚动条的尺寸*!*/
+
+/*}*/
+/*.tags >>>div::-webkit-scrollbar-thumb {!*滚动条里面小方块*!*/
+/*  border-radius: 5px;*/
+/*  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);*/
+/*  background: linear-gradient(0deg, #02badd,#01D4C5);*/
+/*}*/
+/*.tags >>>div::-webkit-scrollbar-track {!*滚动条里面轨道*!*/
+/*  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);*/
+/*  border-radius: 0;*/
+/*  background: linear-gradient(0deg, #5d02dd, #d4019f);*/
+/*}*/
+
+.max_box::-webkit-scrollbar {/*滚动条整体样式*/
+  width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+  height: 6px;
+}
+.max_box::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  background: linear-gradient(0deg,#02BADD,#01D4C5);
+}
+.max_box::-webkit-scrollbar-track {/*滚动条里面轨道*/
+  -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 0;
+  background: white;
+}
+.title{
+  padding: 0;
+  font-size: 16px;
+}

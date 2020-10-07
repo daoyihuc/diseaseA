@@ -7,6 +7,8 @@ import {ActivatedRoute, Router, RouterOutlet} from '@angular/router';
 import {ArrayDataSource} from '@angular/cdk/collections';
 import {ITreeNodeData} from 'ng-devui/tree/tree-factory.class';
 import {RouteAnimations} from '../animation';
+import {TableServiceService} from './service/table-service.service.js';
+import {Tablebean} from '../bean/tablebean.js';
 
 @Component({
   selector: 'app-idex',
@@ -20,6 +22,7 @@ export class IdexComponent implements OnInit {
     private classSelectService: ClassSelectService,
     private route: ActivatedRoute,
     private router: Router,
+    private tableService: TableServiceService
   ) {
 
   }
@@ -111,10 +114,25 @@ export class IdexComponent implements OnInit {
     // tslint:disable-next-line:no-unused-expression
     const ds: ITreeNodeData = JSON.parse(JSON.stringify(treeNode));
     if ( ds.originItem.id === '0x130'){
+      const t1 = new Tablebean();
+      t1.name = ds.title;
+      t1.id = ds.originItem.id;
+      t1.url = 'index/depart';
+      this.tableService.sendA(t1);
       this.router.navigate(['index/depart']);
     }else if ( ds.originItem.id === '0x122'){// 角色
+      const t1 = new Tablebean();
+      t1.name = ds.title;
+      t1.id = ds.originItem.id;
+      t1.url = 'index/roles';
+      this.tableService.sendA(t1);
       this.router.navigate(['index/roles']);
     }else if (ds.originItem.id === '0x121'){// 权限
+      const t1 = new Tablebean();
+      t1.name = ds.title;
+      t1.id = ds.originItem.id;
+      t1.url = 'index/authority';
+      this.tableService.sendA(t1);
       this.router.navigate(['index/authority']);
     }else{
       this.router.navigate(['index']);

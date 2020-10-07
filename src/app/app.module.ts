@@ -29,6 +29,7 @@ import { UseraAddComponent } from './idex/usera-add/usera-add.component';
 import { RoleAddComponent } from './idex/role-add/role-add.component';
 import {SafePipeModule} from 'ng-devui/utils';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { TableComponent } from './idex/table/table.component';
 
 
 
@@ -64,7 +65,8 @@ const appRoute: Routes = [
     AuthorityComponent,
     CaseComponent,
     UseraAddComponent,
-    RoleAddComponent
+    RoleAddComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,

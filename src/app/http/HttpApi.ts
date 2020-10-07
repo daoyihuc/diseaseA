@@ -1,5 +1,5 @@
 
-export const  BaseUrl = 'http://oyy.olive.com';
+export const  BaseUrl = 'https://medical.996sh.com';
 export const Api: any =
   {
     AddMenu : BaseUrl + '/AddMenu', // 添加菜单接口(科室,病区,主疾病添加)

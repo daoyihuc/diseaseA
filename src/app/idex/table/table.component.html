@@ -1,0 +1,14 @@
+<div class="max_box">
+  <d-tags
+    [tags]="tagList2"
+    [deletable]="tagList2.length>1?true:false"
+    class="tags"
+    (tagDelete)="deleteTag($event.index)"
+  >
+    <ng-template let-tag="tag"  >
+      <span title="{{ tag.name }}" (click) = "getTagValue(tag.url)" class="title">{{ tag.name }}</span>
+    </ng-template>
+  </d-tags>
+  <d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>
+</div>
+

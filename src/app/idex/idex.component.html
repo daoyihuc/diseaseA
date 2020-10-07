@@ -35,10 +35,15 @@
     </section>
   </div>
   <div class="index_box1_1"></div>
-  <div class="index_box2" [@routeAnimations]="prepareRoute(outlet)" >
+  <div class="index_box2"  >
     <app-headers></app-headers>
 <!--    <app-index-first></app-index-first>-->
-    <router-outlet #outlet="outlet"></router-outlet>
+    <hr class="fg">
+    <app-table></app-table>
+    <div [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+
   </div>
 
 
