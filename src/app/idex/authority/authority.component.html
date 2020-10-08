@@ -50,7 +50,7 @@
       </th>
       <th *ngFor="let TextBean of label_header" class="defualt_label">{{TextBean.name}}</th>
     </tr>
-    <tr  *ngFor="let TextBean of label_header;index as i" class="table_box_tr">
+    <tr  *ngFor="let TextBean of myData.data.List;index as i" class="table_box_tr">
       <td class="label_check1">
         <d-checkbox
           [name]="'checkbox-username'"
@@ -62,11 +62,58 @@
         </d-checkbox>
 
       </td>
-      <td *ngFor="let TextBean of label_header;index as i" class="table_td">
-        <a *ngIf="i!=label_header.length-1"  class="defualt_label_a">
-          {{"daoy45454545454545545454i"+i}}
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.id}}
         </a>
-        <div *ngIf="i==label_header.length-1" class="menu_box">
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.user_number}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.account}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.mobile}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.department_id}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.ward_id}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.update_admin}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.updatetime}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.add_admin}}
+        </a>
+      </td>
+      <td class="table_td">
+        <a class="defualt_label_a">
+          {{TextBean.dateline}}
+        </a>
+      </td>
+      <td class="table_td">
+        <div class="menu_box">
           <img src="./assets/img/chakan.png" alt="" class="menu_img" >
           <img src="./assets/img/bianji.png" alt="" class="menu_img">
         </div>

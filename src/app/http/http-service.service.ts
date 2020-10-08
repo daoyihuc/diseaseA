@@ -1,8 +1,23 @@
 import { Injectable, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {
+  HttpClient,
+  HttpErrorResponse, HttpEvent,
+  HttpHeaderResponse,
+  HttpHeaders,
+  HttpParams, HttpProgressEvent,
+  HttpResponse,
+  HttpSentEvent, HttpUserEvent
+} from '@angular/common/http';
 import {Headers, observes, reType} from './header';
 import { Api } from './HttpApi';
+import {catchError} from 'rxjs/operators';
+import {LoginBean} from '../httpbean/LoginBean.js';
+import {BaseResponse} from '../httpbean/BaseResponse.js';
+import {MenulistBean} from '../httpbean/MenulistBean.js';
+import {RoleListBean} from '../httpbean/RoleListBean.js';
+import {AdminBean} from '../httpbean/AdminBean.js';
+import {MedicalBean} from '../httpbean/MedicalBean.js';
 
 @Injectable({
   providedIn: 'root'
@@ -23,30 +38,83 @@ export class HttpServiceService {
   };
 
   // 登录
-  Login(data: any): Observable<any>{
-    return  this.http.post<any>( Api.Login, data, this.options );
+  Login(loginBean: any): Observable<HttpResponse<LoginBean>> {
+    // this.options.params = data;
+    // @ts-ignore
+    return  this.http.post< LoginBean > ( Api.Login, loginBean, this.options)
+            .pipe(
+              // catchError(this.handleError)
+            );
   }
   // 添加菜单接口
   AddMenu(data: any): Observable<any>{
-    return  this.http.post<any>( Api.AddMenu, data, this.options );
+    return  this.http.post<any>( Api.AddMenu, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
   }
   // 菜单列表
-  MenuList(data: any): Observable<any>{
-    return  this.http.post<any>( Api.MenuList, data, this.options );
+  MenuList(data: any): Observable<HttpResponse<MenulistBean>>{
+    // @ts-ignore
+    return  this.http.post<MenulistBean>( Api.MenuList, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
   }
   // 角色添加编辑接口
   AddRole(data: any): Observable<any>{
-    return  this.http.post<any>( Api.AddRole, data, this.options );
+    return  this.http.post<any>( Api.AddRole, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
   }
   // 角色详情接口
   RoleInfo(data: any): Observable<any>{
-    return  this.http.post<any>( Api.RoleInfo, data, this.options );
+    return  this.http.post<any>( Api.RoleInfo, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
   }
   // 角色管理列表接口
-  RoleList(data: any): Observable<any>{
-    return  this.http.post<any>( Api.RoleList, data, this.options );
+  RoleList(data: any): Observable<HttpResponse<RoleListBean>>{
+    // @ts-ignore
+    return  this.http.post<RoleListBean>( Api.RoleList, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 管理员列表接口
+  AdminList(data: any): Observable<HttpResponse<AdminBean>>{
+    // @ts-ignore
+    return  this.http.post<AdminBean>( Api.AdminList, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 管理员列表接口
+  MedicalList(data: any): Observable<HttpResponse<MedicalBean>>{
+    // @ts-ignore
+    return  this.http.post<MedicalBean>( Api.MedicalList, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
   }
 
 
+  private handleError(error: HttpErrorResponse): Observable<never>{
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
+  }
 
 }

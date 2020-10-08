@@ -12,6 +12,8 @@ import {SubmitDialogComponent} from '../dialogs/submit-dialog/submit-dialog.comp
 import {RouteAnimations} from '../../animation';
 import {ActivatedRoute, Router} from '@angular/router';
 import {HttpData} from '../../http/HttpData';
+import {HttpServiceService} from '../../http/http-service.service.js';
+import {MedicalBean} from '../../httpbean/MedicalBean.js';
 
 
 @Component({
@@ -59,6 +61,8 @@ export class IndexFirstComponent implements OnInit {
     pageIndex: 1,
     pageSize: 10
   };
+  // http 数据集
+  myData: MedicalBean;
 
 
   // 标题栏
@@ -69,7 +73,8 @@ export class IndexFirstComponent implements OnInit {
               private meas: MatDialog, // 弹窗
               private classSelectService: ClassSelectService, // 用于接收组件信息
               private route: Router, // 路由跳转
-              private router: ActivatedRoute // 路由信息接收
+              private router: ActivatedRoute, // 路由信息接收
+              private http: HttpServiceService
             )
   {
     this.classSelectService.missionAnnounced$.subscribe(value1 => {
@@ -81,6 +86,10 @@ export class IndexFirstComponent implements OnInit {
     this.values[this.values.length - 1].isshow = true;
     this.daoyi();
     console.log(this.value);
+    const  data = {
+      Token: sessionStorage.getItem('token')
+    };
+    this.https(data);
   }
   onSelectButton(value: number): void{
     switch (value) {
@@ -173,6 +182,16 @@ export class IndexFirstComponent implements OnInit {
   }
   checkCount(pageIndex): void{
     console.log('当前分页索引', pageIndex);
+  }
+
+  // http请求
+  https(data): void{
+    this.http.MedicalList(data).subscribe( datas => {
+
+      this.myData = datas.body;
+      this.pager.total = this.myData.data.Paginate.Count;
+      console.log(this.myData);
+    });
   }
 
 }

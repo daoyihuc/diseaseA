@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-headers',
@@ -6,9 +7,22 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./headers.component.css']
 })
 export class HeadersComponent implements OnInit {
-  constructor() { }
+
+  username: string;
+
+  constructor(
+    private route: Router,
+    private router: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+    this.username = sessionStorage.getItem('username');
+  }
+
+  GoOut(): void{
+    localStorage.clear();
+    sessionStorage.clear();
+    this.route.navigate(['./login']);
   }
 
 }

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked ,
   button1 = 'buttons';
   button2 = 'buttons2';
   login = 'login';
-  type: number;
+  type = 0;
   constructor(public el: ElementRef,
               public route: Router,
               public router: ActivatedRoute

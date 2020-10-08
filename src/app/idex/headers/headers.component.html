@@ -3,7 +3,7 @@
   <div class="header_box_div">
     <span class="header_call">Hellow ~</span>
     <hr class="header_hr">
-    <a routerLink="person"><span class="header_name">张张zhang</span></a>
-    <a routerLink="../login" class="logout">退出</a>
+    <a routerLink="person"><span class="header_name">{{username}}</span></a>
+    <a class="logout" (click)="GoOut()">退出</a>
   </div>
 </header>

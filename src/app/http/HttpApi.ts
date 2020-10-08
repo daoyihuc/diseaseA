@@ -8,7 +8,8 @@ export const Api: any =
     AddRole: BaseUrl + '/AddRole', // 角色添加编辑接口
     RoleList: BaseUrl + '/RoleList', // 角色管理列表接口
     RoleInfo: BaseUrl + '/RoleInfo', // 角色详情接口
-    // RoleList: BaseUrl + '/RoleList', // 角色管理列表接口
+    AdminList: BaseUrl + '/AdminList', // 管理员列表接口
+    MedicalList: BaseUrl + '/MedicalList', // 病例接口
 
 
   };

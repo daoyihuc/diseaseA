@@ -36,7 +36,7 @@
       </th>
       <th *ngFor="let TextBean of label" class="defualt_label">{{TextBean.name}}</th>
     </tr>
-    <tr  *ngFor="let TextBean of label;index as i" class="table_box_tr">
+    <tr  *ngFor="let TextBean of myData.data.List;index as i" class="table_box_tr">
       <td class="label_check1">
         <d-checkbox
           [name]="'checkbox-username'"
@@ -48,11 +48,64 @@
         </d-checkbox>
 
       </td>
-      <td *ngFor="let TextBean of label;index as i">
-        <span *ngIf="i!=11"  class="defualt_label">
-              {{"daoyi"+i}}
+      <td >
+        <span class="defualt_label">
+              {{TextBean.username}}
         </span>
-        <div *ngIf="i==11" class="menu_box">
+      </td>
+      <td >
+        <span class="defualt_label">
+             {{TextBean.id}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+           {{TextBean.diseases_id}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+          {{TextBean.diseases_name}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+          {{TextBean.department_name}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+          {{TextBean.ward_name}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+          {{TextBean.deal_status}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+          {{TextBean.concurrent_name}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+         {{TextBean.editer}}
+        </span>
+      </td>
+      <td >
+        <span class="defualt_label">
+          {{TextBean.update_admin}}
+        </span>
+      </td>
+
+      <td>
+        <div  class="menu_box">
           <img src="./assets/img/chakan.png" alt="" class="menu_img" (click)="onSelectButton(5)">
           <img src="./assets/img/bianji.png" alt="" class="menu_img" (click)="onSelectButton(6)">
           <img src="./assets/img/suo.png" alt="" class="menu_img">

@@ -9,6 +9,8 @@ import {ITreeNodeData} from 'ng-devui/tree/tree-factory.class';
 import {RouteAnimations} from '../animation';
 import {TableServiceService} from './service/table-service.service.js';
 import {Tablebean} from '../bean/tablebean.js';
+import {HttpServiceService} from '../http/http-service.service.js';
+import {MenulistBean} from '../httpbean/MenulistBean.js';
 
 @Component({
   selector: 'app-idex',
@@ -22,7 +24,8 @@ export class IdexComponent implements OnInit {
     private classSelectService: ClassSelectService,
     private route: ActivatedRoute,
     private router: Router,
-    private tableService: TableServiceService
+    private tableService: TableServiceService,
+    private http: HttpServiceService
   ) {
 
   }
@@ -104,8 +107,13 @@ export class IdexComponent implements OnInit {
       ]
     }
   ];
+  myData: MenulistBean;
 
   ngOnInit(): void {
+    const data = {
+      Token: sessionStorage.getItem('token')
+    };
+    this.https(data);
   }
 
   // 节点选择
@@ -113,27 +121,27 @@ export class IdexComponent implements OnInit {
     console.log('父selected: ', treeNode);
     // tslint:disable-next-line:no-unused-expression
     const ds: ITreeNodeData = JSON.parse(JSON.stringify(treeNode));
-    if ( ds.originItem.id === '0x130'){
+    if ( ds.originItem.id === 6){
       const t1 = new Tablebean();
       t1.name = ds.title;
       t1.id = ds.originItem.id;
       t1.url = 'index/depart';
       this.tableService.sendA(t1);
       this.router.navigate(['index/depart']);
-    }else if ( ds.originItem.id === '0x122'){// 角色
+    }else if ( ds.originItem.id === 3){// 角色
       const t1 = new Tablebean();
       t1.name = ds.title;
       t1.id = ds.originItem.id;
       t1.url = 'index/roles';
       this.tableService.sendA(t1);
-      this.router.navigate(['index/roles']);
-    }else if (ds.originItem.id === '0x121'){// 权限
+      this.router.navigate(['index/authority']);
+    }else if (ds.originItem.id === 4){// 权限
       const t1 = new Tablebean();
       t1.name = ds.title;
       t1.id = ds.originItem.id;
       t1.url = 'index/authority';
       this.tableService.sendA(t1);
-      this.router.navigate(['index/authority']);
+      this.router.navigate(['index/roles']);
     }else{
       this.router.navigate(['index']);
     }
@@ -153,6 +161,15 @@ export class IdexComponent implements OnInit {
     const a = outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
     console.log('daoyi', a);
     return a;
+  }
+
+  // http请求
+  https(data): void{
+      this.http.MenuList(data).subscribe( datas => {
+
+        this.myData = datas.body;
+        console.log(this.myData);
+      });
   }
 
 

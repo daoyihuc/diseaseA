@@ -5,6 +5,10 @@ import {TableServiceService} from '../idex/service/table-service.service.js';
 import {Tablebean} from '../bean/tablebean.js';
 import { Constan } from '../constant/constan.js';
 import {DialogService} from '../idex/service/dialog.service.js';
+import {HttpServiceService} from '../http/http-service.service.js';
+import {LoginBean} from '../httpbean/LoginBean.js';
+import LoginBeanData from '../httpbean/LoginBeanData.js';
+import {LoadingType} from 'ng-devui';
 
 /*
 * @author: daoyi(yw)
@@ -18,6 +22,7 @@ import {DialogService} from '../idex/service/dialog.service.js';
   styleUrls: ['./login-index.component.css'],
   animations: [LoginIndexAnimations]
 })
+
 export class LoginIndexComponent implements OnInit {
 
   box = 'loginIndex';
@@ -25,16 +30,20 @@ export class LoginIndexComponent implements OnInit {
   username: string = null; // 账号
   password: string = null; // 密码
   iSsave: boolean; // 是否保存
+  loading: LoadingType;
   msg: any[] = [];
+  myData: LoginBean;
   constructor(
     private router: ActivatedRoute,
     private route: Router,
     private tableService: TableServiceService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private http: HttpServiceService
   ) {
   }
 
   ngOnInit(): void {
+    this.loading = undefined;
     this.type = Number(this.router.snapshot.paramMap.get('type'));
   }
   go(): void{
@@ -48,12 +57,12 @@ export class LoginIndexComponent implements OnInit {
   inputChange(type: number, envent): void{
     switch (type) {
       case 1:
-        const username = envent.target.value;
-        console.log(username);
+        this.username = envent.target.value;
+        console.log(this.username);
         break;
       case 2:
-        const password = envent.target.value;
-        console.log(password);
+        this.password = envent.target.value;
+        console.log(this.password);
         break;
     }
   }
@@ -66,7 +75,12 @@ export class LoginIndexComponent implements OnInit {
     const b = this.isNull();
     console.log(b);
     if (b){
-
+      const  datas = {
+        account: this.username,
+        password: this.password,
+        type: this.type
+      };
+      this.https(datas);
     }
 
   }
@@ -81,6 +95,31 @@ export class LoginIndexComponent implements OnInit {
     }else {
       return true;
     }
+  }
+
+  https(data): void{
+    this.loading = this.http.Login(data).subscribe( datas => {
+      this.myData = datas.body;
+      // console.log(this.myData.data.Token);
+      if ( this.myData.code === 1){
+        if (this.iSsave){
+          localStorage.setItem('token', this.myData.data.Token);
+          localStorage.setItem('username', this.myData.data.username);
+          localStorage.setItem('id', String(this.myData.data.id));
+        }
+        sessionStorage.setItem('token', this.myData.data.Token);
+        sessionStorage.setItem('username', this.myData.data.username);
+        sessionStorage.setItem('id', String(this.myData.data.id));
+
+        this.msg = this.dialog.showToast(2, this.myData.msg);
+        this.go();
+      } else {
+          this.msg = this.dialog.showToast(0, this.myData.msg);
+      }
+
+    });
+
+
   }
 
 }

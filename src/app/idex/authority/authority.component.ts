@@ -3,6 +3,9 @@ import {AuthorityBean} from '../../bean/auThoritybean';
 import {DepartmentBeans} from '../../bean/departmentBean';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Api} from '../../http/HttpApi';
+import {HttpServiceService} from '../../http/http-service.service.js';
+import {RoleListBean} from '../../httpbean/RoleListBean.js';
+import {AdminBean} from '../../httpbean/AdminBean.js';
 
 @Component({
   selector: 'app-authority',
@@ -14,8 +17,11 @@ import {Api} from '../../http/HttpApi';
 * */
 export class AuthorityComponent implements OnInit {
 
-  constructor( private route: ActivatedRoute,
-               private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpServiceService
+  ) { }
   // 按钮
   buttons_arr = [
     {
@@ -42,8 +48,17 @@ export class AuthorityComponent implements OnInit {
   };
   // 全选
   isAll: any = null;
+  // http 数据
+  myData: AdminBean ;
+  // 渲染数据
+  data: any[];
 
   ngOnInit(): void {
+    const data = {
+      Token: sessionStorage.getItem('token'),
+      id: sessionStorage.getItem('id')
+    };
+    this.https(data);
   }
 
   onSelectButton(id): void{
@@ -52,7 +67,7 @@ export class AuthorityComponent implements OnInit {
         console.log(Api.RoleInfo);
         break;
       case 2:
-        this.router.navigate(['index/user_add', { id: '1' , name: 'daoyi'}]);
+        this.router.navigate(['index/roles_add']);
         break;
     }
   }
@@ -79,6 +94,15 @@ export class AuthorityComponent implements OnInit {
   }
   checkCount(pageIndex): void{
     console.log('当前分页索引', pageIndex);
+  }
+  // http请求
+  https(data): void{
+    this.http.AdminList(data).subscribe( datas => {
+
+      this.myData = datas.body;
+      this.pager.total = this.myData.data.Paginate.Count;
+      console.log(this.myData);
+    });
   }
 
 }
