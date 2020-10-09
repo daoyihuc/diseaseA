@@ -35,6 +35,11 @@ html,body{
   color: #fff;
 }
 
+.card_slect{
+  background-color: RGBA(67, 200, 221, 1);
+  color: #fff!important;
+}
+
 
 .max_box{
   background: #ffffff;
@@ -93,6 +98,11 @@ html,body{
   margin-top: 5px;
 
 }
+.default_select{
+  margin-top: 5px;
+
+}
+
 .default_lable{
   font-weight: 600;
 }
@@ -144,9 +154,9 @@ html,body{
   border-radius: 20px;
   padding: 10px 51px 10px 51px;
   color: white;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-right: 20px;
+  /*margin-top: 20px;*/
+  /*margin-bottom: 20px;*/
+  /*margin-right: 20px;*/
 }
 .cancel_button{
   outline: none;

@@ -51,4 +51,15 @@ export const LABELS: TextBean[] = [
     name: '操作步骤'
   }
 ];
+// 账号类型
+export const typeValue = [
+  {
+    id: 0,
+    name: '医生'
+  },
+  {
+    id: 1,
+    name: '管理员'
+  }
+];
 

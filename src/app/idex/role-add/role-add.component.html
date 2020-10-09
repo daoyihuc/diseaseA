@@ -1,69 +1,140 @@
-<section class="max_box ">
-  <div class="title_box">
-    <hr class="title_hr">
-    <span class="title_title">添加基本信息</span>
+<div >
+  <section class="max_box ">
+    <div class="title_box">
+      <hr class="title_hr">
+      <span class="title_title">添加基本信息</span>
+    </div>
+    <hr class="fg">
+    <div class="input_box">
+      <div class="input_box1">
+        <label class="default_lable">
+          用户编号
+        </label>
+        <input type="text"
+               placeholder="用户编号"
+               class="default_input"
+               maxlength="11"
+               [ngModel]="SaveDataShow?SaveDataShow.user_number:''"
+               (change)="InputChange( $event, 0)">
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          用户姓名
+        </label>
+        <input type="text"
+               placeholder="用户姓名"
+               class="default_input"
+               maxlength="11"
+               [ngModel]="SaveDataShow?SaveDataShow.account:''"
+               (change)="InputChange( $event, 1)"
+        >
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          手机
+        </label>
+        <input type="text"
+               placeholder="手机"
+               class="default_input"
+               maxlength="11"
+               [ngModel]="SaveDataShow?SaveDataShow.mobile:''"
+               (change)="InputChange( $event, 2)"
+        >
+      </div>
+
+      <div class="input_box1">
+        <label class="default_lable">
+          科室
+        </label>
+        <d-select type="text"
+                  placeholder="科室"
+                  class="default_select"
+                  maxlength="11"
+                  [options]="DepartmentOption"
+                  [filterKey]="'title'"
+                  [(ngModel)]="DepartValues"
+                  (valueChange)="selectValueD($event)"
+        >
+          <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+        </d-select>
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          病区
+        </label>
+        <d-select id="ward_se"
+                  type="text"
+                  placeholder="病区"
+                  class="default_select"
+                  maxlength="11"
+                  [options]="WardOption"
+                  [allowClear]="true"
+                  [(ngModel)]="wardvalues"
+                  [filterKey]="'title'"
+                  (valueChange)="selectValueW($event)"
+        >
+          <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+        </d-select>
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          密码
+        </label>
+        <input type="text"
+               placeholder="密码"
+               class="default_input"
+               maxlength="11"
+               (change)="InputChange( $event, 3)"
+
+        >
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          账号类型
+        </label>
+        <d-select
+          type="text"
+          placeholder="类型"
+          class="default_select"
+          maxlength="11"
+          [options]="accountType"
+          [allowClear]="false"
+          [(ngModel)]="accountValue"
+          [filterKey]="'name'"
+          (valueChange)="selectValueP($event)"
+        >
+          <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+        </d-select>
+      </div>
+
+    </div>
+  </section>
+  <div class="card">
+    <div class="card_li"
+         *ngFor="let datass of myDataRole.data.List; index as i"
+         (click)="typeClick(i)"
+         [class.card_slect]="AccountName[i].isSelected"> {{datass.role_name}} </div>
+
   </div>
-  <hr class="fg">
-  <div class="input_box">
-    <div class="input_box1">
-      <label class="default_lable">
-        用户编号
-      </label>
-      <input type="text" placeholder="用户编号" class="default_input" maxlength="11">
-    </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        用户姓名
-      </label>
-      <input type="text" placeholder="用户姓名" class="default_input" maxlength="11">
-    </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        手机
-      </label>
-      <input type="text" placeholder="手机" class="default_input" maxlength="11">
-    </div>
 
-    <div class="input_box1">
-      <label class="default_lable">
-        科室
-      </label>
-      <d-select type="text" placeholder="科室" class="" maxlength="11"></d-select>
+  <div class="button_box"
+       *ngIf="showButton"
+  >
+    <div
+      dLoading
+      [backdrop]="false"
+      [loading]="loadings"
+    >
+      <input type="button"
+             value="保存"
+             class="ok_button"
+             (click)="sumbit()">
     </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        病区
-      </label>
-      <d-select type="text" placeholder="病区" class="" maxlength="11"></d-select>
-    </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        密码
-      </label>
-      <input type="text" placeholder="密码" class="default_input" maxlength="11">
-    </div>
+    <input type="button"
+           value="取消"
+           class="cancel_button"
+           (click)="cancle()"
+    >
   </div>
-</section>
-<div class="card">
-  <div class="card_li">管理员</div>
-  <div class="card_li">超级管理员</div>
-  <div class="card_li">管理员</div>
-  <div class="card_li">超级管理员</div>
-  <div class="card_li">管理员</div>
-  <div class="card_li ">管理员</div>
-  <div class="card_li">超级管理员</div>
-  <div class="card_li">管理员</div>
-  <div class="card_li">超级管理员</div>
-  <div class="card_li">管理员</div>
-  <div class="card_li">管理员</div>
-  <div class="card_li">超级管理员</div>
-  <div class="card_li">管理员</div>
-  <div class="card_li">超级管理员</div>
-  <div class="card_li">管理员</div>
-
-</div>
-
-<div class="button_box">
-  <input type="button" value="保存" class="ok_button">
-  <input type="button" value="取消" class="cancel_button">
+  <d-toast [lifeMode]="'single'" [value]="msg"></d-toast>
 </div>

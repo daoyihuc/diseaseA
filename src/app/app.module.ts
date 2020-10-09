@@ -30,6 +30,7 @@ import { RoleAddComponent } from './idex/role-add/role-add.component';
 import {SafePipeModule} from 'ng-devui/utils';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TableComponent } from './idex/table/table.component';
+import {IsloginGuard} from './guards/islogin.guard.js';
 
 
 
@@ -42,7 +43,7 @@ const appRoute: Routes = [
   {path: 'Personalcenter', component: PersonalcenterComponent, data: {animation: 'Personalcenter'}},
   {path: 'slide', component: SidesComponent, data: {animation: 'slide'}},
   {path: 'loginIndex', component: LoginIndexComponent, data: {animation: 'loginIndex' } },
-  { path: '',   redirectTo: '/index', pathMatch: 'full', data: {animation: 'index'} },
+  { path: '',  redirectTo: '/login', pathMatch: 'full', data: {animation: 'login'} },
 ];
 
 @NgModule({

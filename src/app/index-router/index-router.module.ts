@@ -12,12 +12,14 @@ import {DevUIModule, SliderComponent} from 'ng-devui';
 import {UseraAddComponent} from '../idex/usera-add/usera-add.component';
 import {RoleAddComponent} from '../idex/role-add/role-add.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import {IsloginGuard} from '../guards/islogin.guard.js';
 
 
 const crisisCenterRoutes: Routes = [
   {
     path: 'index',
     component: IdexComponent,
+    canActivate: [IsloginGuard],
     children: [
       {
         path: '',

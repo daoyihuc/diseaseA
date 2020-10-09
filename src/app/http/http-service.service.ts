@@ -18,6 +18,8 @@ import {MenulistBean} from '../httpbean/MenulistBean.js';
 import {RoleListBean} from '../httpbean/RoleListBean.js';
 import {AdminBean} from '../httpbean/AdminBean.js';
 import {MedicalBean} from '../httpbean/MedicalBean.js';
+import {DepartMentBean} from '../httpbean/DepartMentBean.js';
+import {AdminInfoBean} from '../httpbean/AdminInfoBean.js';
 
 @Injectable({
   providedIn: 'root'
@@ -99,6 +101,32 @@ export class HttpServiceService {
         // catchError(this.handleError)
       );
   }
+
+  // 管理员列表接口
+  DepartmentList(data: any): Observable<HttpResponse<DepartMentBean>>{
+    // @ts-ignore
+    return  this.http.post<DepartMentBean>( Api.DepartmentList, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 管理员新增编辑提交接口
+  AddAdmin(data: any): Observable<BaseResponse>{
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.AddAdmin, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 权限管理详情接口
+  AdminInfo(data: any): Observable<HttpResponse<AdminInfoBean>>{
+    // @ts-ignore
+    return  this.http.post<AdminInfoBean>( Api.AdminInfo, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
 
 
   private handleError(error: HttpErrorResponse): Observable<never>{

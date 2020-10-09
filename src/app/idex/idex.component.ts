@@ -11,6 +11,8 @@ import {TableServiceService} from './service/table-service.service.js';
 import {Tablebean} from '../bean/tablebean.js';
 import {HttpServiceService} from '../http/http-service.service.js';
 import {MenulistBean} from '../httpbean/MenulistBean.js';
+import {LoadingType} from 'ng-devui';
+import {Constan} from '../constant/constan.js';
 
 @Component({
   selector: 'app-idex',
@@ -20,6 +22,7 @@ import {MenulistBean} from '../httpbean/MenulistBean.js';
 })
 export class IdexComponent implements OnInit {
   @ViewChild('basicTree', { static: true }) basicTree: TreeComponent;
+  loadings: LoadingType;
   constructor(
     private classSelectService: ClassSelectService,
     private route: ActivatedRoute,
@@ -27,7 +30,12 @@ export class IdexComponent implements OnInit {
     private tableService: TableServiceService,
     private http: HttpServiceService
   ) {
-
+    this.classSelectService.showLoading$.subscribe( data => {
+      this.loadings = data;
+      if (Constan.DeBug){
+          console.log('daoyi', data);
+      }
+    });
   }
 
   currentSelectedNode;
@@ -114,6 +122,7 @@ export class IdexComponent implements OnInit {
       Token: sessionStorage.getItem('token')
     };
     this.https(data);
+    this.loadings = undefined;
   }
 
   // 节点选择

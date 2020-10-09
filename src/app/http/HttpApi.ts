@@ -10,6 +10,9 @@ export const Api: any =
     RoleInfo: BaseUrl + '/RoleInfo', // 角色详情接口
     AdminList: BaseUrl + '/AdminList', // 管理员列表接口
     MedicalList: BaseUrl + '/MedicalList', // 病例接口
+    DepartmentList: BaseUrl + '/DepartmentList', // 科室，病区，疾病
+    AddAdmin: BaseUrl + '/AddAdmin', // 管理员新增编辑提交接口
+    AdminInfo: BaseUrl + '/AdminInfo' // 权限管理详情接口
 
 
   };
