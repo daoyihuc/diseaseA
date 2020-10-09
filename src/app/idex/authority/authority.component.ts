@@ -142,8 +142,8 @@ export class AuthorityComponent implements OnInit {
 
   onSelectButton(id): void{
     switch (id) {
-      case 1:
-        console.log(Api.RoleInfo);
+      case 0:
+        this.https(this.datas);
         break;
       case 2:
         this.router.navigate(['index/roles_add', {type: 'add'}]);
