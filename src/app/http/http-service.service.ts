@@ -20,6 +20,7 @@ import {AdminBean} from '../httpbean/AdminBean.js';
 import {MedicalBean} from '../httpbean/MedicalBean.js';
 import {DepartMentBean} from '../httpbean/DepartMentBean.js';
 import {AdminInfoBean} from '../httpbean/AdminInfoBean.js';
+import {SystemConfigBean} from '../httpbean/SystemConfigBean.js';
 
 @Injectable({
   providedIn: 'root'
@@ -122,6 +123,14 @@ export class HttpServiceService {
   AdminInfo(data: any): Observable<HttpResponse<AdminInfoBean>>{
     // @ts-ignore
     return  this.http.post<AdminInfoBean>( Api.AdminInfo, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 权限管理详情接口
+  SystemConfig(data: any): Observable<HttpResponse<SystemConfigBean>>{
+    // @ts-ignore
+    return  this.http.post<SystemConfigBean>( Api.SystemConfig, data, this.options )
       .pipe(
         // catchError(this.handleError)
       );

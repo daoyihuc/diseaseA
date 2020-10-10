@@ -12,7 +12,7 @@ export const Api: any =
     MedicalList: BaseUrl + '/MedicalList', // 病例接口
     DepartmentList: BaseUrl + '/DepartmentList', // 科室，病区，疾病
     AddAdmin: BaseUrl + '/AddAdmin', // 管理员新增编辑提交接口
-    AdminInfo: BaseUrl + '/AdminInfo' // 权限管理详情接口
-
+    AdminInfo: BaseUrl + '/AdminInfo', // 权限管理详情接口
+    SystemConfig: BaseUrl + '/SystemConfig' // 系统配置列表接口
 
   };

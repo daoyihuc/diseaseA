@@ -11,23 +11,58 @@
       </label>
       <input type="text" placeholder="病例ID" class="default_input" maxlength="11">
     </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        主疾病名称(ID)
-      </label>
-      <d-select type="text" placeholder="主疾病名称(ID)" class="" maxlength="11"></d-select>
-    </div>
+
     <div class="input_box1">
       <label class="default_lable">
         主疾病科室
       </label>
-      <d-select type="text" placeholder="主疾病科室" class="" maxlength="11"></d-select>
+      <d-select type="text"
+                placeholder="科室"
+                class="default_select"
+                maxlength="11"
+                [options]="DepartmentOption"
+                [filterKey]="'title'"
+                [(ngModel)]="DepartValues"
+                (valueChange)="selectValueD($event)"
+      >
+        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+      </d-select>
     </div>
     <div class="input_box1">
       <label class="default_lable">
         主疾病区
       </label>
-      <d-select type="text" placeholder="主疾病区" class="" maxlength="11"></d-select>
+      <d-select id="ward_se"
+                type="text"
+                placeholder="病区"
+                class="default_select"
+                maxlength="11"
+                [options]="WardOption"
+                [allowClear]="true"
+                [(ngModel)]="wardvalues"
+                [filterKey]="'title'"
+                (valueChange)="selectValueW($event)"
+      >
+        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+      </d-select>
+    </div>
+    <div class="input_box1">
+      <label class="default_lable">
+        主疾病名称(ID)
+      </label>
+      <d-select id="disease"
+                type="text"
+                placeholder="主疾病名称"
+                class="default_select"
+                maxlength="11"
+                [options]="diseaseOption"
+                [allowClear]="true"
+                [(ngModel)]="diseaseValue"
+                [filterKey]="'title'"
+                (valueChange)="selectValueB($event)"
+      >
+        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+      </d-select>
     </div>
     <div class="input_box1">
       <label class="default_lable">
@@ -36,13 +71,13 @@
       <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
         <input
           class="devui-input devui-form-control"
-          placeholder="y/MM/dd"
+          placeholder="yyyy/MM/dd"
           name="dp"
-          [(ngModel)]="selectedDate2"
           autocomplete="off"
           dDatepicker
+          dateFormat="yyyy/MM/dd"
           #datePicker1="datepicker"
-          (selectedDateChange)="getValue($event)"
+          (selectedDateChange)="getValueStart($event)"
           [maxDate]="max"
           (focus)="datePicker1.toggle($event)"
         />
@@ -61,13 +96,13 @@
       <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
         <input
           class="devui-input devui-form-control"
-          placeholder="y/MM/dd"
+          placeholder="yyyy/MM/dd"
           name="dp"
-          [(ngModel)]="selectedDate3"
           autocomplete="off"
           dDatepicker
+          dateFormat="yyyy/MM/dd"
           #datePicker2="datepicker"
-          (selectedDateChange)="getValue($event)"
+          (selectedDateChange)="getValueEnd($event)"
           [maxDate]="max"
           (focus)="datePicker2.toggle($event)"
         />
@@ -84,29 +119,144 @@
     <label class="default_lable">
       并发名称
     </label>
-    <input type="text" placeholder="并发名称" class="default_input2" >
+    <input type="text"
+           placeholder="并发名称"
+           [(ngModel)]="httpData.concurrent_name"
+           class="default_input2" >
   </div>
   <div class="input_box2">
     <label class="default_lable">
       病理诊断
     </label>
-    <input type="text" placeholder="病理诊断" class="default_input2" >
+    <input type="text"
+           placeholder="病理诊断"
+           [(ngModel)]="httpData.medical_record_diagnosis"
+           (change)="test()"
+           class="default_input2" >
   </div>
   <div class="input_box">
-    <div class="input_box2" *ngFor="let data of persondate1;index as i">
+    <div class="input_box2">
       <label class="default_lable">
-        {{data.value}}
+        姓名
       </label>
-      <input type="text" placeholder="{{data.value}}" class="default_input" maxlength="11">
+      <input type="text"
+             placeholder="姓名"
+             [(ngModel)]="httpData.username"
+             class="default_input"
+             maxlength="11">
+    </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        年龄
+      </label>
+      <input type="text"
+             placeholder="年龄"
+             class="default_input"
+             [(ngModel)]="httpData.age"
+             maxlength="11">
+    </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        性别
+      </label>
+      <input type="text"
+             placeholder="性别"
+             class="default_input"
+             [(ngModel)]="httpData.gerder"
+             maxlength="11">
+    </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        职业
+      </label>
+      <input type="text"
+             placeholder="职业"
+             class="default_input"
+             [(ngModel)]="httpData.occupation"
+             maxlength="11">
+    </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        出生地
+      </label>
+      <input type="text"
+             placeholder="出生地"
+             class="default_input"
+             [(ngModel)]="httpData.birthplace"
+             maxlength="11">
+    </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        民族
+      </label>
+      <input type="text"
+             placeholder="民族"
+             class="default_input"
+             [(ngModel)]="httpData.nation"
+             maxlength="11">
     </div>
 
   </div>
   <div class="input_box">
-    <div class="input_box2" *ngFor="let data of persondate2;index as i">
+    <div class="input_box2" >
       <label class="default_lable" >
-        {{data.value}}
+        婚姻
       </label>
-      <input type="text" placeholder="{{data.value}}" class="default_input" maxlength="11">
+      <input type="text"
+             placeholder="婚姻"
+             class="default_input"
+             [(ngModel)]="httpData.marriage"
+             maxlength="11">
+    </div>
+    <div class="input_box2" >
+      <label class="default_lable" >
+        血压（mmHg）
+      </label>
+      <input type="text"
+             placeholder="血压（mmHg）"
+             class="default_input"
+             [(ngModel)]="httpData.blood_pressure"
+             maxlength="11">
+    </div>
+    <div class="input_box2" >
+      <label class="default_lable" >
+        身高（cm）
+      </label>
+      <input type="text"
+             placeholder="身高（cm）"
+             class="default_input"
+             [(ngModel)]="httpData.height"
+             maxlength="11">
+    </div>
+    <div class="input_box2" >
+      <label class="default_lable" >
+        体重（Kg）
+      </label>
+      <input type="text"
+             placeholder="体重（Kg）"
+             class="default_input"
+             [(ngModel)]="httpData.weight"
+             maxlength="11">
+    </div>
+    <div class="input_box2" >
+      <label class="default_lable" >
+        体温（℃）
+      </label>
+      <input type="text"
+             placeholder=" 体温（℃）"
+             class="default_input"
+             [(ngModel)]="httpData.temperature"
+             maxlength="11">
+    </div>
+    <div class="input_box2" >
+      <label class="default_lable" >
+        心率（次/每分）
+      </label>
+      <input type="text"
+             placeholder="心率（次/每分）"
+             class="default_input"
+             [(ngModel)]="httpData.heart_rate"
+             maxlength="11">
     </div>
   </div>
   <div class="input_box">
@@ -114,20 +264,30 @@
       <label class="default_lable">
         呼吸频率（次/每分）
       </label>
-      <input type="text" placeholder="" class="default_input" maxlength="11">
+      <input type="text"
+             placeholder=" 呼吸频率（次/每分）"
+             class="default_input"
+             [(ngModel)]="httpData.respiratory_rate"
+             maxlength="11">
     </div>
   </div>
   <div class="input_box2 " >
     <label class="default_lable">
       主诉
     </label>
-    <input type="text" placeholder="主诉" class="default_input2" >
+    <input type="text"
+           placeholder="主诉"
+           [(ngModel)]="httpData.chief_complaint"
+           class="default_input2" >
   </div>
   <div class="input_box2">
     <label class="default_lable">
       备注填写
     </label>
-    <input type="text" placeholder="备注填写" class="default_input2" >
+    <input type="text"
+           placeholder="备注填写"
+           [(ngModel)]="httpData.remark"
+           class="default_input2" >
   </div>
 
 

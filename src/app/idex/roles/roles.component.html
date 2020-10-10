@@ -1,6 +1,6 @@
 <div class="card">
   <div class="top">
-    <input type="text" placeholder="|请填写客户名称">
+    <input type="text" placeholder="|请填写客户名称" maxlength="15" (change)="InputChange($event)" [ngModel]="datas.role_name">
   </div>
   <div class="fot">
     <div class="li" (click)="onSelectButton(0)">查询</div>
@@ -70,3 +70,4 @@
   >
   </d-pagination>
 </div>
+<d-toast [lifeMode]="'single'" [value]="msg"></d-toast>

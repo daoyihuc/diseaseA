@@ -145,6 +145,14 @@ export class AuthorityComponent implements OnInit {
       case 0:
         this.https(this.datas);
         break;
+      case 1:
+        this.datas.account = '';
+        this.datas.department_id = '';
+        this.datas.ward_id = '';
+        this.wardvalues = {};
+        this.DepartValues = {};
+        this.https(this.datas);
+        break;
       case 2:
         this.router.navigate(['index/roles_add', {type: 'add'}]);
         break;

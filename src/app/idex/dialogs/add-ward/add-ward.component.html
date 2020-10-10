@@ -4,22 +4,29 @@
 
   <div class="defualt_box">
     <label class="lables">科室名称:</label>
-    <input class="inputs" type="text" placeholder="请填写科室名称" readonly>
+    <input class="inputs"
+           type="text"
+           placeholder="请填写科室名称"
+           [ngModel]="showName.DepartName"
+           readonly>
   </div>
   <div class="defualt_box">
     <label class="lables">病区名称:</label>
-    <input class="inputs" type="text" placeholder="请填写科室名称">
+    <input class="inputs"
+           type="text"
+           (change)="InputChange($event)"
+           placeholder="请填写科室名称">
   </div>
   <div class="defualt_box">
     <label class="lables">添加时间:</label>
-    <input class="inputs" type="text" placeholder="时间" readonly>
+    <input class="inputs" type="text" placeholder="时间" [ngModel]="times" readonly>
   </div>
   <div class="defualt_box">
     <label class="lables">病区级别:</label>
-    <input class="inputs"type="text" placeholder="病区" readonly>
+    <input class="inputs" type="text" placeholder="病区" readonly>
   </div>
   <div class="button_box">
-    <input type="button" value="保存" class="buttons_ok">
-    <input type="button" value="取消" class="buttons_cancel">
+    <input type="button" value="保存" class="buttons_ok" (click)="ngOkClisk()">
+    <input type="button" value="取消" class="buttons_cancel" (click)="ngClick()">
   </div>
 </div>

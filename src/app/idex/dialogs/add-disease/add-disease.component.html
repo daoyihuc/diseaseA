@@ -8,7 +8,11 @@
   </div>
   <div class="defualt_box">
     <label class="lables">疾病名称:</label>
-    <input class="inputs" type="text" placeholder="主疾病名称">
+    <input class="inputs"
+           type="text"
+           placeholder="主疾病名称"
+           [ngModel]="showName.DepartName"
+           (change)="InputChange($event)">
   </div>
   <div class="defualt_box">
     <label class="lables">主疾病ID:</label>
@@ -23,7 +27,7 @@
     <input class="inputs"type="text" placeholder="主疾病" readonly>
   </div>
   <div class="button_box">
-    <input type="button" value="保存" class="buttons_ok">
-    <input type="button" value="取消" class="buttons_cancel">
+    <input type="button" value="保存" class="buttons_ok" (click)="ngOkClisk()">
+    <input type="button" value="取消" class="buttons_cancel" (click)="ngClick()">
   </div>
 </div>

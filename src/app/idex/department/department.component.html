@@ -9,20 +9,55 @@
       <label class="default_lable">
         科室
       </label>
-      <input type="text" placeholder="科室" class="default_input" maxlength="11">
+      <d-select type="text"
+                placeholder="科室"
+                class="default_select"
+                maxlength="11"
+                [options]="DepartmentOption"
+                [filterKey]="'title'"
+                [(ngModel)]="DepartValues"
+                (valueChange)="selectValueD($event)"
+      >
+        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+      </d-select>
     </div>
     <div class="input_box1">
       <label class="default_lable">
         病区
       </label>
-      <input type="text" placeholder="病区" class="default_input" maxlength="11">
+      <d-select id="ward_se"
+                type="text"
+                placeholder="病区"
+                class="default_select"
+                maxlength="11"
+                [options]="WardOption"
+                [allowClear]="true"
+                [(ngModel)]="wardvalues"
+                [filterKey]="'title'"
+                (valueChange)="selectValueW($event)"
+      >
+        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+      </d-select>
     </div>
     <div class="input_box1">
       <label class="default_lable">
         主疾病名称
       </label>
-      <input type="text" placeholder="主疾病名称" class="default_input" maxlength="11">
+      <d-select id="disease"
+                type="text"
+                placeholder="主疾病名称"
+                class="default_select"
+                maxlength="11"
+                [options]="diseaseOption"
+                [allowClear]="true"
+                [(ngModel)]="diseaseValue"
+                [filterKey]="'title'"
+                (valueChange)="selectValueB($event)"
+      >
+        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+      </d-select>
     </div>
+
   </div>
   <div class="button_box">
     <input class="default_button"
@@ -35,7 +70,7 @@
 </section>
 
 <footer class="max_footer">
-    <table class="footer_box">
+    <table class="footer_box" dLoading [backdrop]="true" [loading]="Loadings" >
       <tr class="">
         <th class="label_check">
           <d-checkbox
@@ -50,7 +85,7 @@
         </th>
         <th *ngFor="let TextBean of label_header" class="defualt_label">{{TextBean.name}}</th>
       </tr>
-      <tr  *ngFor="let item of dataBean;index as i" class="table_box_tr">
+      <tr  *ngFor="let item of myData.data.List;index as i" class="table_box_tr">
         <td class="label_check1">
           <d-checkbox
             [name]="'checkbox-username'"
@@ -62,12 +97,65 @@
           </d-checkbox>
 
         </td>
-        <td *ngFor="let item_d of item.data;index as j" class="table_td">
-        <a *ngIf="j!=item.data.length-1"  class="defualt_label_a">
-              {{item_d}}
-        </a>
-          <div *ngIf="j==label_header.length-1" class="menu_box">
-            <img src="./assets/img/tianjia@2x.png" alt="" class="menu_img" (click)="add_dialog_1(item_d)">
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.department_name}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.ward_name}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.diseases_name}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.diseases_id}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.add_admin}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.dateline}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.update_admin}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a">
+            {{item.updatetime}}
+          </a>
+        </td>
+        <td  class="table_td">
+          <a  class="defualt_label_a" *ngIf="item.type==0">
+            科室
+          </a>
+          <a  class="defualt_label_a" *ngIf="item.type==1">
+            病区
+          </a>
+          <a  class="defualt_label_a" *ngIf="item.type==2">
+            主疾病
+          </a>
+        </td>
+        <td class="table_td">
+
+          <div class="menu_box">
+            <img [class.is_show]="item.type == 2"
+                 src="./assets/img/tianjia@2x.png"
+                 alt=""
+                 class="menu_img"
+                 (click)="add_dialog_1(item.type+1,i)">
             <img src="./assets/img/bianji.png" alt="" class="menu_img">
             <img src="./assets/img/shanchu@2x.png" alt="" class="menu_img">
           </div>
@@ -91,3 +179,4 @@
   >
   </d-pagination>
 </div>
+<d-toast [lifeMode]="'single'" [value]="msg"></d-toast>

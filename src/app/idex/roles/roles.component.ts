@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpServiceService} from '../../http/http-service.service.js';
 import {RoleListBean} from '../../httpbean/RoleListBean.js';
 import {LoadingType} from 'ng-devui';
+import {DialogService} from '../service/dialog.service.js';
 
 @Component({
   selector: 'app-roles',
@@ -24,11 +25,20 @@ export class RolesComponent implements OnInit {
   };
   myData: RoleListBean;
   loading: LoadingType;
+  // 请求数据
+  datas = {
+    Token: sessionStorage.getItem('token'),
+    Page: '1',
+    role_name: ''
+  };
+  // toast
+  msg: any[] = [];
 
   constructor( private meas: MatDialog,
                private route: ActivatedRoute,
                private router: Router,
-               private http: HttpServiceService
+               private http: HttpServiceService,
+               private dialog: DialogService
                ) {
 
 
@@ -45,10 +55,25 @@ export class RolesComponent implements OnInit {
 
   onSelectButton(id): void{
     switch (id) {
+      case 0:
+        if (this.datas.role_name === ''){
+          this.msg = this.dialog.showToast(1, '查询名称不能为空');
+        }else{
+          this.https(this.datas);
+        }
+        break;
+      case 1:
+        this.datas.role_name = '';
+        this.https(this.datas);
+        break;
       case 2:
         this.router.navigate(['index/user_add', { id: '1' , name: 'daoyi'}]);
         break;
     }
+  }
+  InputChange(envent): void{
+    this.datas.role_name = envent.target.value;
+    console.log(this.datas.role_name);
   }
 
   // 获取当前分页索引

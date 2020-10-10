@@ -1,9 +1,13 @@
-import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, ElementRef} from '@angular/core';
 import {PersonBean} from '../../bean/PersonBean';
 import {CommonModule} from '@angular/common';
 import {PersonDate1, personDate2} from '../../bean/PersonData';
 import * as jq from 'jquery';
 import {CaseBean} from '../../bean/caseBean';
+import {Constan} from '../../constant/constan.js';
+import {HttpServiceService} from '../../http/http-service.service.js';
+import {DepartMentBean} from '../../httpbean/DepartMentBean.js';
+import {DateUtils} from '../../../libs/DateUtils.js';
 
 
 @Component({
@@ -13,7 +17,10 @@ import {CaseBean} from '../../bean/caseBean';
 })
 export class CaseComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    private http: HttpServiceService,
+    private el: ElementRef,
+  ) {
   }
 
   // 消息
@@ -43,14 +50,87 @@ export class CaseComponent implements OnInit {
   // 附件上传
   data6: any[] = [];
 
+  // 科室
+  DepartmentOption: any = null;
+  DepartValues: any = null;
+  // 病区
+  WardOption: any = null;
+  // 病区值
+  wardvalues: any;
+  // 主疾病
+  diseaseOption: any = null;
+  // 病区值
+  diseaseValue: any;
+  // http
+  myDataDepart: DepartMentBean;
+  // 请求参数
+  httpData = {
+    Token: sessionStorage.getItem('token'),
+    insert_status: '',
+    files: '',
+    username: '',
+    diseases_id: '',
+    department_id: '',
+    ward_id: '',
+    starttime: null,
+    endtime: null,
+    concurrent_name: '',
+    medical_record_diagnosis: '',
+    age: '',
+    gerder: '',
+    occupation: '',
+    birthplace: '',
+    nation: '',
+    marriage: '',
+    blood_pressure: '',
+    height: '',
+    weight: '',
+    temperature: '',
+    heart_rate: '',
+    respiratory_rate: '',
+    chief_complaint: '',
+    remark: '',
+    history_of_present_illness: '',
+    other_medical_history: '',
+    physical_examination: '',
+    laboratory_examination: '',
+    supplementary_examination: '',
+  };
+
+
+  // 菜單请求数据
+  Datas = {
+    Token: sessionStorage.getItem('token'),
+    Page: 1,
+    PageSize: 10,
+    department_id: '',
+    ward_id: '',
+    diseases_id: ''
+  };
+
   ngOnInit(): void {
     console.log('daoyi', jq('body').height());
-
+    this.https_Depart(this.Datas, 0);
   }
 
 
-  getValue(value): void {
-    console.log(value);
+  getValueStart(value): void {
+    const end = value.selectedDate;
+    const time = end.getTime();
+    const times = new DateUtils().formatDateTime3(time, 'yyyy/MM/dd');
+    this.httpData.starttime = times;
+    // this.httpData.endtime=
+    console.log('时间', times);
+  }
+
+
+  getValueEnd(value): void {
+    const end = value.selectedDate;
+    const time = end.getTime();
+    const times = new DateUtils().formatDateTime3(time, 'yyyy/MM/dd');
+    this.httpData.endtime = times;
+    // this.httpData.endtime=
+    console.log('时间', times);
   }
 
   // 文件选择
@@ -91,6 +171,9 @@ export class CaseComponent implements OnInit {
     // 文件个数选择
     this.add_files(id, index, file);
 
+  }
+  test(): void{
+    console.log('daoyi',this.httpData);
   }
 
   // 文件添加
@@ -258,6 +341,63 @@ export class CaseComponent implements OnInit {
     const delEle = ary.splice(el, 1);   // splice为从要删除的元素开始,删除一个,刚好就是删除那个元素
     console.log(index);    // 打印要删除元素对应的下标
     return ary;            // 因为splice方法直接对原数组进行改变,所以返回的是删除后的数组
+  }
+
+
+  // 科室选择
+  selectValueD(event): void{
+    const data = {
+      Token: sessionStorage.getItem('token'),
+      parent_id: event.id
+    };
+    this.https_Depart(data, 1);
+    // tslint:disable-next-line:variable-name
+    const ward_se = this.el.nativeElement.querySelector('#ward_se');
+
+    if (Constan.DeBug){
+      console.log('daoyi', this.wardvalues);
+    }
+    this.wardvalues = {};
+    this.Datas.department_id = event.id;
+    this.Datas.ward_id = '';
+  }
+  // 病区选择
+  selectValueW(event): void{
+    this.Datas.ward_id = event.id;
+    const data = {
+      Token: sessionStorage.getItem('token'),
+      parent_id: event.id
+    };
+    this.https_Depart(data, 2);
+    this.diseaseValue = {};
+    // this.Datas.ward_id = event.id;
+
+  }
+  // 主疾病
+  selectValueB(event): void{
+    this.Datas.diseases_id = event.id;
+  }
+
+
+  // http 请求
+  https_Depart(data, type: number): void{
+    this.http.DepartmentList(data).subscribe( datas => {
+      this.myDataDepart = datas.body;
+      switch (type) {
+        case 0: // 科室
+          this.DepartmentOption = this.myDataDepart.data;
+          break;
+        case 1: // 病区
+          this.WardOption = this.myDataDepart.data;
+          break;
+        case 2: // 主疾病
+          this.diseaseOption = this.myDataDepart.data;
+          break;
+      }
+      if (Constan.DeBug){
+        console.log(this.myDataDepart);
+      }
+    });
   }
 
 }
