@@ -9,7 +9,7 @@ import {
   HttpResponse,
   HttpSentEvent, HttpUserEvent
 } from '@angular/common/http';
-import {Headers, observes, reType} from './header';
+import {Headers, HeadersFile, observes, reType} from './header';
 import { Api } from './HttpApi';
 import {catchError} from 'rxjs/operators';
 import {LoginBean} from '../httpbean/LoginBean.js';
@@ -21,6 +21,7 @@ import {MedicalBean} from '../httpbean/MedicalBean.js';
 import {DepartMentBean} from '../httpbean/DepartMentBean.js';
 import {AdminInfoBean} from '../httpbean/AdminInfoBean.js';
 import {SystemConfigBean} from '../httpbean/SystemConfigBean.js';
+import {LabelBean} from '../httpbean/LabelBean.js';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,14 @@ export class HttpServiceService {
 
   options: any = {
     headers: new HttpHeaders(Headers),
+    observe: observes,
+    params: null,
+    reportProgress: false,
+    responseType: 'json',
+    withCredentials: false,
+  };
+  options2: any = {
+    headers: new HttpHeaders(HeadersFile),
     observe: observes,
     params: null,
     reportProgress: false,
@@ -131,6 +140,24 @@ export class HttpServiceService {
   SystemConfig(data: any): Observable<HttpResponse<SystemConfigBean>>{
     // @ts-ignore
     return  this.http.post<SystemConfigBean>( Api.SystemConfig, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+  // 获取标注列表接口
+  LabelShow(data: any): Observable<HttpResponse<LabelBean>>{
+    // @ts-ignore
+    return  this.http.post<LabelBean>( Api.LabelShow, data, this.options )
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 新增病历接口
+  AddMedical(data: any): Observable<HttpResponse<BaseResponse>>{
+    this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.AddMedical, data, this.options2)
       .pipe(
         // catchError(this.handleError)
       );

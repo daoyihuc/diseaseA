@@ -1,0 +1,31 @@
+<div class="max_box">
+
+  <!-- 弹框 -->
+
+
+  <header class="header_box">
+    <span class="header_title">添加批注:</span>
+    <div class="search_box">
+      <input type="text" class="header_search" placeholder="搜索标记" >
+      <button class="search_button" type="button"><img src="./assets/img/sousuo.png" width="18" alt="" ></button>
+    </div>
+  </header>
+  <hr class="fg">
+
+  <section class="section_box">
+    <div class="tag"
+         *ngFor="let date of Tags;index as i"
+         [class.tagActivited]="date.Activited"
+         (click)="changeActive(i)"
+    >
+      {{date.Term}}
+    </div>
+  </section>
+  <p class="tishi">请输入更具体的查询条件，页面仅展示200条数据</p>
+
+  <footer class="footer_box">
+    <input type="button" class="ok_button" value="确定" (click)="okClick()">
+    <input type="button" class="cancel_button" value="取消" (click)="cancleClick()">
+  </footer>
+
+</div>

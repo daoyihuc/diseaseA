@@ -21,7 +21,7 @@ export class ClassSelectService {
   missionConfirmed$ = this.missionConfirmedSource.asObservable();
   showLoading$ = this.ShowLoadingSource.asObservable();
   depart$ = this.departMentSource.asObservable();
-  depart1$ = this.departMentSource.asObservable();
+  depart1$ = this.departMentSource1.asObservable();
   // daddada
 
   // 消息发送

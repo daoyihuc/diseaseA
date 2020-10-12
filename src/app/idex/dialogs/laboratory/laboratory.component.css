@@ -1,0 +1,123 @@
+.max_box{
+  width: 453px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  /*justify-content: center;*/
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+.fg{
+  width: 100%;
+  border-top: 1px solid #f9f9f9;
+}
+.header_box{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+.header_title{
+  font-size: 21px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #737373;
+  white-space: nowrap;
+}
+.header_search{
+  outline: none;
+  width: 100%;
+  border: none;
+  position: absolute;
+  background: #EEEEEE;
+  border-radius: 10px;
+  padding-left: 10px;
+
+  line-height: 25px;
+  height: 25px;
+}
+.search_box{
+  display: flex;
+  flex-direction: row;
+  width: 53%;
+  position: relative;
+  background: #EEEEEE;
+  align-items: center;
+  border-radius: 10px;
+  line-height: 25px;
+  height: 25px;
+}
+.search_button{
+  position: absolute;
+  right: 10px;
+  line-height: 25px;
+  height: 25px;
+  display: flex;
+
+  align-items: center;
+}
+.section_box{
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  overflow-y: scroll;
+  /*align-items: center;*/
+}
+.tag{
+  border: 1px #EEEEEE solid;
+  text-align: center;
+  display: inline-table;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 5px 10px;
+  margin-top: 5px;
+}
+.tagActivited{
+  border: 1px #02BADD solid;
+  text-align: center;
+  display: inline-table;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 5px 10px;
+  margin-top: 5px;
+}
+
+.tishi{
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #B2B2B2;
+  line-height: 17px;
+  margin-top: 10px;
+}
+
+.footer_box{
+  margin-top: 10px;
+}
+
+.ok_button{
+  color: white;
+  background: #02BFD8;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 5px 20px;
+  margin-right: 10px;
+}
+
+.cancel_button{
+  color: white;
+  background: #DCDCDC;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 5px 20px;
+  margin-left: 10px;
+}

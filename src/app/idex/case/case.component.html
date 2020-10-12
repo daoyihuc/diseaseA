@@ -5,12 +5,12 @@
   </div>
   <hr class="fg">
   <div class="input_box">
-    <div class="input_box1">
-      <label class="default_lable">
-        病例ID
-      </label>
-      <input type="text" placeholder="病例ID" class="default_input" maxlength="11">
-    </div>
+<!--    <div class="input_box1">-->
+<!--      <label class="default_lable">-->
+<!--        病例ID-->
+<!--      </label>-->
+<!--      <input type="text" placeholder="病例ID" class="default_input" maxlength="11">-->
+<!--    </div>-->
 
     <div class="input_box1">
       <label class="default_lable">
@@ -84,7 +84,7 @@
         <div *ngIf="selectedDate2" class="devui-input-group-addon icon-close-wrapper" (click)="datePicker1.clearAll()">
           <i class="icon icon-close"></i>
         </div>
-        <div class="devui-input-group-addon" (click)="datePicker1.toggle($event , true)">
+        <div class="devui-input-group-addon" (click)="datePicker1.toggle($event, true)">
           <i class="icon icon-calendar"></i>
         </div>
       </div>
@@ -302,12 +302,12 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data1;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
       <div class="upload_show_box">
 
         <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+          <div class="show_imgbox"  *ngFor="let data of item.imgA">
             <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
           </div>
         </div>
@@ -322,14 +322,14 @@
       </div>
       <div class="tag_box">
         <div class="tag_box1">
-          <input type="button" value="添加标注" class="tags_button">
+          <input type="button" value="添加标注" class="tags_button" (click)="addTags(1, i)">
           <div>
             <d-tags
-              [tags]="tagList2"
+              [tags]="item.labelShow"
               [displayProperty]="'name'"
               [deletable]="true"
               [titleProperty]="'id'"
-              (tagDelete)="getTagValue($event); deleteTag($event.index)"
+              (tagDelete)="getTagValue($event); deleteTag(1, i, $event.index)"
             >
             </d-tags>
           </div>
@@ -360,11 +360,11 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data2;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
       <div class="upload_show_box">
         <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+          <div class="show_imgbox"  *ngFor="let data of item.imgA">
             <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
           </div>
         </div>
@@ -379,14 +379,14 @@
       </div>
       <div class="tag_box">
         <div class="tag_box1">
-          <input type="button" value="添加标注" class="tags_button">
+          <input type="button" value="添加标注" class="tags_button" (click)="addTags(2, i)">
           <div>
             <d-tags
-              [tags]="tagList2"
+              [tags]="item.labelShow"
               [displayProperty]="'name'"
               [deletable]="true"
               [titleProperty]="'id'"
-              (tagDelete)="getTagValue($event); deleteTag($event.index)"
+              (tagDelete)="getTagValue($event); deleteTag(2, i, $event.index)"
             >
             </d-tags>
           </div>
@@ -417,11 +417,11 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data3;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
       <div class="upload_show_box">
         <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+          <div class="show_imgbox"  *ngFor="let data of item.imgA">
             <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
           </div>
         </div>
@@ -435,25 +435,25 @@
         <span class="upload_dp">最多上传5张图片，最大3M</span>
       </div>
       <div class="tag_box">
-        <div class="tag_box1">
-          <input type="button" value="添加标注" class="tags_button">
-          <div>
-            <d-tags
-              [tags]="tagList2"
-              [displayProperty]="'name'"
-              [deletable]="true"
-              [titleProperty]="'id'"
-              (tagDelete)="getTagValue($event); deleteTag($event.index)"
-            >
-            </d-tags>
-          </div>
-        </div>
-
-        <div class="delete_box" (click)="rm_child( 3, i )">
-          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-          <span class="delete_p" >删除子模块</span>
+      <div class="tag_box1">
+        <input type="button" value="添加标注" class="tags_button" (click)="addTags(3, i)">
+        <div>
+          <d-tags
+            [tags]="item.labelShow"
+            [displayProperty]="'name'"
+            [deletable]="true"
+            [titleProperty]="'id'"
+            (tagDelete)="getTagValue($event); deleteTag(3, i, $event.index)"
+          >
+          </d-tags>
         </div>
       </div>
+
+      <div class="delete_box" (click)="rm_child( 3, i )">
+        <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+        <span class="delete_p" >删除子模块</span>
+      </div>
+    </div>
     </div>
     <!-- 子模板 -->
 
@@ -474,11 +474,11 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data4;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
       <div class="upload_show_box">
         <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+          <div class="show_imgbox"  *ngFor="let data of item.imgA">
             <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
           </div>
         </div>
@@ -492,25 +492,25 @@
         <span class="upload_dp">最多上传5张图片，最大3M</span>
       </div>
       <div class="tag_box">
-        <div class="tag_box1">
-          <input type="button" value="添加标注" class="tags_button">
-          <div>
-            <d-tags
-              [tags]="tagList2"
-              [displayProperty]="'name'"
-              [deletable]="true"
-              [titleProperty]="'id'"
-              (tagDelete)="getTagValue($event); deleteTag($event.index)"
-            >
-            </d-tags>
-          </div>
-        </div>
-
-        <div class="delete_box" (click)="rm_child( 4, i )">
-          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-          <span class="delete_p" >删除子模块</span>
+      <div class="tag_box1">
+        <input type="button" value="添加标注" class="tags_button" (click)="addTags(4, i)">
+        <div>
+          <d-tags
+            [tags]="item.labelShow"
+            [displayProperty]="'name'"
+            [deletable]="true"
+            [titleProperty]="'id'"
+            (tagDelete)="getTagValue($event); deleteTag(4, i, $event.index)"
+          >
+          </d-tags>
         </div>
       </div>
+
+      <div class="delete_box" (click)="rm_child( 4, i )">
+        <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+        <span class="delete_p" >删除子模块</span>
+      </div>
+    </div>
     </div>
     <!-- 子模板 -->
 
@@ -531,11 +531,11 @@
     <!-- 子模板 -->
     <div class="child_box" *ngFor="let item of data5;index as i">
       <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" >
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea"></textarea>
+      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
       <div class="upload_show_box">
         <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgs">
+          <div class="show_imgbox"  *ngFor="let data of item.imgA">
             <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
           </div>
         </div>
@@ -549,25 +549,25 @@
         <span class="upload_dp">最多上传5张图片，最大3M</span>
       </div>
       <div class="tag_box">
-        <div class="tag_box1">
-          <input type="button" value="添加标注" class="tags_button">
-          <div>
-            <d-tags
-              [tags]="tagList2"
-              [displayProperty]="'name'"
-              [deletable]="true"
-              [titleProperty]="'id'"
-              (tagDelete)="getTagValue($event); deleteTag($event.index)"
-            >
-            </d-tags>
-          </div>
-        </div>
-
-        <div class="delete_box" (click)="rm_child( 5, i )">
-          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-          <span class="delete_p" >删除子模块</span>
+      <div class="tag_box1">
+        <input type="button" value="添加标注" class="tags_button" (click)="addTags(5, i)">
+        <div>
+          <d-tags
+            [tags]="item.labelShow"
+            [displayProperty]="'name'"
+            [deletable]="true"
+            [titleProperty]="'id'"
+            (tagDelete)="getTagValue($event); deleteTag(5, i, $event.index)"
+          >
+          </d-tags>
         </div>
       </div>
+
+      <div class="delete_box" (click)="rm_child( 5, i )">
+        <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+        <span class="delete_p" >删除子模块</span>
+      </div>
+    </div>
     </div>
     <!-- 子模板 -->
 
@@ -607,7 +607,7 @@
 </footer>
 <div class="button_box">
   <input type="button" value="提交审核" class="ok_button">
-  <input type="button" value="保存" class="ok_button status_green">
+  <input type="button" value="保存" class="ok_button status_green" (click)="sumbit()">
   <input type="button" value="取消" class="cancel_button">
 </div>
 

@@ -31,6 +31,11 @@ import {SafePipeModule} from 'ng-devui/utils';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { TableComponent } from './idex/table/table.component';
 import {IsloginGuard} from './guards/islogin.guard.js';
+import { AddTagsComponent } from './idex/dialogs/add-tags/add-tags.component';
+import { AddotherComponent } from './idex/dialogs/addother/addother.component';
+import { PhysiqueComponent } from './idex/dialogs/physique/physique.component';
+import { LaboratoryComponent } from './idex/dialogs/laboratory/laboratory.component';
+import { AssistComponent } from './idex/dialogs/assist/assist.component';
 
 
 
@@ -67,7 +72,12 @@ const appRoute: Routes = [
     CaseComponent,
     UseraAddComponent,
     RoleAddComponent,
-    TableComponent
+    TableComponent,
+    AddTagsComponent,
+    AddotherComponent,
+    PhysiqueComponent,
+    LaboratoryComponent,
+    AssistComponent
   ],
   imports: [
     BrowserModule,

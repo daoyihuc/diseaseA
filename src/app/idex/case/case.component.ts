@@ -8,6 +8,13 @@ import {Constan} from '../../constant/constan.js';
 import {HttpServiceService} from '../../http/http-service.service.js';
 import {DepartMentBean} from '../../httpbean/DepartMentBean.js';
 import {DateUtils} from '../../../libs/DateUtils.js';
+import {MatDialog} from '@angular/material/dialog';
+import {AddTagsComponent} from '../dialogs/add-tags/add-tags.component.js';
+import {AddotherComponent} from '../dialogs/addother/addother.component.js';
+import {LaboratoryComponent} from '../dialogs/laboratory/laboratory.component.js';
+import {PhysiqueComponent} from '../dialogs/physique/physique.component.js';
+import {AssistComponent} from '../dialogs/assist/assist.component.js';
+import {LabelBeanData} from '../../httpbean/LabelBean.js';
 
 
 @Component({
@@ -20,6 +27,7 @@ export class CaseComponent implements OnInit {
   constructor(
     private http: HttpServiceService,
     private el: ElementRef,
+    private mes: MatDialog,
   ) {
   }
 
@@ -33,10 +41,6 @@ export class CaseComponent implements OnInit {
   img: any[] = []; // 文件地址
   // 标签
   imgs: any[] = []; // 文件
-  tagList2: any = [
-    {id: 918, name: '标签颜色1', labelStyle: 'blue-w98'}, {id: 1769, name: '标签颜色2', labelStyle: 'green-w98'},
-    {id: 555, name: '标签颜色3', labelStyle: 'yellow-w98'}, {id: 668, name: '标签颜色4', labelStyle: 'orange-w98'}
-  ];
   // 个人信息
   persondate1 = PersonDate1;
   persondate2 = personDate2;
@@ -67,7 +71,7 @@ export class CaseComponent implements OnInit {
   httpData = {
     Token: sessionStorage.getItem('token'),
     insert_status: '',
-    files: '',
+    'files[]': [],
     username: '',
     diseases_id: '',
     department_id: '',
@@ -90,11 +94,11 @@ export class CaseComponent implements OnInit {
     respiratory_rate: '',
     chief_complaint: '',
     remark: '',
-    history_of_present_illness: '',
-    other_medical_history: '',
-    physical_examination: '',
-    laboratory_examination: '',
-    supplementary_examination: '',
+    history_of_present_illness: null,
+    other_medical_history: null,
+    physical_examination: null,
+    laboratory_examination: null,
+    supplementary_examination: null,
   };
 
 
@@ -173,7 +177,7 @@ export class CaseComponent implements OnInit {
 
   }
   test(): void{
-    console.log('daoyi',this.httpData);
+    console.log('daoyi', this.httpData);
   }
 
   // 文件添加
@@ -185,7 +189,8 @@ export class CaseComponent implements OnInit {
           this.data1[index].files.push(files);
           reader.readAsDataURL(files);
           reader.onload = () => {
-            this.data1[index].imgs.push(reader.result);
+            this.data1[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data1[index].imgA.push(reader.result);
           };
         } else {
           this.showToast('最多上传5张哦');
@@ -196,7 +201,8 @@ export class CaseComponent implements OnInit {
           this.data2[index].files.push(files);
           reader.readAsDataURL(files);
           reader.onload = () => {
-            this.data2[index].imgs.push(reader.result);
+            this.data2[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data2[index].imgA.push(reader.result);
           };
         } else {
           this.showToast('最多上传5张哦');
@@ -207,7 +213,8 @@ export class CaseComponent implements OnInit {
           this.data3[index].files.push(files);
           reader.readAsDataURL(files);
           reader.onload = () => {
-            this.data3[index].imgs.push(reader.result);
+            this.data3[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data3[index].imgA.push(reader.result);
           };
         } else {
           this.showToast('最多上传5张哦');
@@ -218,7 +225,8 @@ export class CaseComponent implements OnInit {
           this.data4[index].files.push(files);
           reader.readAsDataURL(files);
           reader.onload = () => {
-            this.data4[index].imgs.push(reader.result);
+            this.data4[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data4[index].imgA.push(reader.result);
           };
         } else {
           this.showToast('最多上传5张哦');
@@ -229,7 +237,8 @@ export class CaseComponent implements OnInit {
           this.data5[index].files.push(files);
           reader.readAsDataURL(files);
           reader.onload = () => {
-            this.data5[index].imgs.push(reader.result);
+            this.data5[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data5[index].imgA.push(reader.result);
           };
         } else {
           this.showToast('最多上传5张哦');
@@ -243,7 +252,7 @@ export class CaseComponent implements OnInit {
         const files6 =  {
           names: '',
           imgs: '',
-          files6: ''
+          files6: null
         };
         // 文件类型判断
         const suffix = files.name.split('.');
@@ -254,6 +263,8 @@ export class CaseComponent implements OnInit {
         }
         files6.names = files.name;
         files6.files6 = files;
+        this.httpData['files[]'].push(files);
+        console.log('file', this.httpData['files[]']);
         this.data6.push(files6);
         break;
     }
@@ -272,14 +283,103 @@ export class CaseComponent implements OnInit {
       {severity: 'error', life: 3000, summary: '警告', detail: value}
     ];
   }
+  // 添加标签
+  addTags(id: number, index: number): void{
+    switch (id) {
+      case 1: // 现病史
+        const tagAdd1 = this.mes.open(AddTagsComponent, {});
+        tagAdd1.afterClosed().subscribe( (data: LabelBeanData) => {
+          this.data1[index].label_title = data;
+          for (let i = 0; i < this.data1[index].label_title.length; i++){
+            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+            // tslint:disable-next-line:radix
+            a.id = Number.parseInt(data[i].id);
+            a.name = data[i].Term;
+            this.data1[index].labelShow.push(a);
+          }
+        });
+        break;
+      case 2: // 其它病史
+        const tagAdd2 = this.mes.open(AddotherComponent, {});
+        tagAdd2.afterClosed().subscribe( data => {
+          this.data2[index].label_title = data;
+          for (let i = 0; i < this.data2[index].label_title.length; i++){
+            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+            // tslint:disable-next-line:radix
+            a.id = Number.parseInt(data[i].id);
+            a.name = data[i].Term;
+            this.data2[index].labelShow.push(a);
+          }
+        });
+        break;
+      case 3: // 体格检查
+        const tagAdd3 = this.mes.open(PhysiqueComponent, {});
+        tagAdd3.afterClosed().subscribe( data => {
+          this.data3[index].label_title = data;
+          for (let i = 0; i < this.data3[index].label_title.length; i++){
+            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+            // tslint:disable-next-line:radix
+            a.id = Number.parseInt(data[i].id);
+            a.name = data[i].Term;
+            this.data3[index].labelShow.push(a);
+          }
+        });
+        break;
+      case 4: // 实验室检验
+        const tagAdd5 = this.mes.open(LaboratoryComponent, {});
+        tagAdd5.afterClosed().subscribe( data => {
+          this.data4[index].label_title = data;
+          for (let i = 0; i < this.data4[index].label_title.length; i++){
+            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+            // tslint:disable-next-line:radix
+            a.id = Number.parseInt(data[i].id);
+            a.name = data[i].Term;
+            this.data4[index].labelShow.push(a);
+          }
+        });
+        break;
+      case 5: // 辅助检查
+        const tagAdd4 = this.mes.open(AssistComponent, {});
+        tagAdd4.afterClosed().subscribe( data => {
+          this.data5[index].label_title = data;
+          for (let i = 0; i < this.data5[index].label_title.length; i++){
+            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+            // tslint:disable-next-line:radix
+            a.id = Number.parseInt(data[i].id);
+            a.name = data[i].Term;
+            this.data5[index].labelShow.push(a);
+          }
+        });
+        break;
+    }
+
+  }
+
 
   // 标签
   getTagValue(value): void {
     console.log(value.tag);
   }
 
-  deleteTag(index): void {
-    this.tagList2.splice(index, 1);
+  deleteTag(id: number, index: number, index2: number): void {
+    switch (id) {
+      case 1: // 现病史
+        this.data1[index].splice(index2, 1);
+        break;
+      case 2: // 其它病史
+        this.data2[index].splice(index2, 1);
+        break;
+      case 3: // 体格检查
+        this.data3[index].splice(index2, 1);
+        break;
+      case 4: // 实验室检验
+        this.data4[index].splice(index2, 1);
+        break;
+      case 5: // 辅助检查
+        this.data5[index].splice(index2, 1);
+        break;
+
+    }
   }
 
   // add child
@@ -359,6 +459,8 @@ export class CaseComponent implements OnInit {
     }
     this.wardvalues = {};
     this.Datas.department_id = event.id;
+    this.httpData.department_id = event.id;
+    this.httpData.ward_id = '';
     this.Datas.ward_id = '';
   }
   // 病区选择
@@ -370,12 +472,15 @@ export class CaseComponent implements OnInit {
     };
     this.https_Depart(data, 2);
     this.diseaseValue = {};
+    this.httpData.ward_id = event.id;
+    this.httpData.diseases_id = '';
     // this.Datas.ward_id = event.id;
 
   }
   // 主疾病
   selectValueB(event): void{
     this.Datas.diseases_id = event.id;
+    this.httpData.diseases_id = event.id;
   }
 
 
@@ -397,6 +502,29 @@ export class CaseComponent implements OnInit {
       if (Constan.DeBug){
         console.log(this.myDataDepart);
       }
+    });
+  }
+
+  sumbit(): void{
+    this.httpData.history_of_present_illness = this.data1;
+    this.httpData.other_medical_history = this.data2;
+    this.httpData.physical_examination = this.data3;
+    this.httpData.laboratory_examination = this.data4;
+    this.httpData.supplementary_examination = this.data5;
+    this.httpData.insert_status = '1';
+    // const fileForm = new FormData();
+    // fileForm.append('Token', this.httpData.Token);
+    // fileForm.append('files[]', this.data6[0].files6);
+    // fileForm.append('insert_status', this.httpData.insert_status);
+    // this.httpData.files = fileForm;
+    console.log('daoyiFile', this.httpData['files[]']);
+    this.HttpSave(this.httpData);
+  }
+
+  // http提交
+  HttpSave(data): void{
+    this.http.AddMedical(data).subscribe( datas => {
+      console.log(datas.body.msg);
     });
   }
 

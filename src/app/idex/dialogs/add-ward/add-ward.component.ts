@@ -22,8 +22,8 @@ export class AddWardComponent implements OnInit {
   // 提交数据
   datas = {
     Token: sessionStorage.getItem('token'),
-    type: '0',
-    DepartmentId: '',
+    type: '1',
+    DepartmentId: 0,
     WardId: '',
     title: ''
   };
@@ -44,6 +44,7 @@ export class AddWardComponent implements OnInit {
     this.recerver.depart$.subscribe( datas => {
       console.log('daoyiDepart', datas);
       this.showName.DepartName = datas.department_name;
+      this.datas.DepartmentId = datas.department_id;
     });
   }
 

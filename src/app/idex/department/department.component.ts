@@ -154,7 +154,11 @@ export class DepartmentComponent implements OnInit {
         break;
       case 2: // 主疾病
         const dialogref3 = this.mes.open(AddDiseaseComponent, {});
+        this.recever.sendDepart1(this.myData.data.List[id]);
         dialogref3.afterClosed().subscribe(result => {
+          if (result === '0x13'){
+            this.Https(this.Datas);
+          }
           console.log('closed');
         });
         break;

@@ -4,14 +4,16 @@
 
   <div class="defualt_box">
     <label class="lables">病区名称:</label>
-    <input class="inputs" type="text" placeholder="病区名称" readonly>
+    <input class="inputs"
+           type="text"
+           [ngModel]="showName.DepartName"
+           placeholder="病区名称" readonly>
   </div>
   <div class="defualt_box">
     <label class="lables">疾病名称:</label>
     <input class="inputs"
            type="text"
            placeholder="主疾病名称"
-           [ngModel]="showName.DepartName"
            (change)="InputChange($event)">
   </div>
   <div class="defualt_box">

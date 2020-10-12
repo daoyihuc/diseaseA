@@ -22,9 +22,9 @@ export class AddDiseaseComponent implements OnInit {
   // 提交数据
   datas = {
     Token: sessionStorage.getItem('token'),
-    type: '0',
+    type: '2',
     DepartmentId: '',
-    WardId: '',
+    WardId: 0,
     title: ''
   };
   // toast
@@ -44,7 +44,8 @@ export class AddDiseaseComponent implements OnInit {
   ) {
     this.recerver.depart1$.subscribe( datas => {
       console.log('daoyiDepart1', datas);
-      this.showName.DepartName = datas.department_name;
+      this.showName.DepartName = datas.ward_name;
+      this.datas.WardId = datas.ward_id;
     });
   }
 

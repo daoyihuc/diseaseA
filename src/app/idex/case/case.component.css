@@ -247,6 +247,7 @@
   flex-direction: row;
   align-items: center;
   margin-top: 20px;
+  width: 80%;
 }
 .tag_box1 div{
   margin-top: 10px;
