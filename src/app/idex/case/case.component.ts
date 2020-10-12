@@ -94,11 +94,11 @@ export class CaseComponent implements OnInit {
     respiratory_rate: '',
     chief_complaint: '',
     remark: '',
-    history_of_present_illness: null,
-    other_medical_history: null,
-    physical_examination: null,
-    laboratory_examination: null,
-    supplementary_examination: null,
+    history_of_present_illness: [],
+    other_medical_history: [],
+    physical_examination: [],
+    laboratory_examination: [],
+    supplementary_examination: [],
   };
 
 
@@ -512,19 +512,26 @@ export class CaseComponent implements OnInit {
     this.httpData.laboratory_examination = this.data4;
     this.httpData.supplementary_examination = this.data5;
     this.httpData.insert_status = '1';
-    // const fileForm = new FormData();
+    const fileForm = new FormData();
+    for (const das in this.httpData){
+      console.log('daoyi:::'+das+'::::'+this.httpData[das]);
+      if (this.httpData[das]!=null && this.httpData[das] != '' && this.httpData[das] != []){
+        fileForm.append(das+'', this.httpData[das]);
+      }
+
+    }
     // fileForm.append('Token', this.httpData.Token);
     // fileForm.append('files[]', this.data6[0].files6);
     // fileForm.append('insert_status', this.httpData.insert_status);
     // this.httpData.files = fileForm;
-    console.log('daoyiFile', this.httpData['files[]']);
-    this.HttpSave(this.httpData);
+    console.log('daoyi', fileForm);
+    this.HttpSave(fileForm);
   }
 
   // http提交
   HttpSave(data): void{
     this.http.AddMedical(data).subscribe( datas => {
-      console.log(datas.body.msg);
+      console.log(datas);
     });
   }
 

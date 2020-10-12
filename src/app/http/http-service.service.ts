@@ -154,10 +154,9 @@ export class HttpServiceService {
       );
   }
   // 新增病历接口
-  AddMedical(data: any): Observable<HttpResponse<BaseResponse>>{
-    this.options2.params = data;
-    // @ts-ignore
-    return  this.http.post<BaseResponse>( Api.AddMedical, data, this.options2)
+  AddMedical(data: FormData): Observable<BaseResponse>{
+    // this.options2.params = data;
+    return  this.http.post<BaseResponse>( Api.AddMedical, data)
       .pipe(
         // catchError(this.handleError)
       );
