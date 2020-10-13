@@ -16,6 +16,8 @@ import {HttpServiceService} from '../../http/http-service.service.js';
 import {MedicalBean} from '../../httpbean/MedicalBean.js';
 import {DialogService} from '../service/dialog.service.js';
 import {ReviewBean} from '../../bean/indexFirstBean.js';
+import {Constan} from "../../constant/constan";
+import {LoadingType} from "ng-devui";
 
 
 @Component({
@@ -113,6 +115,18 @@ export class IndexFirstComponent implements OnInit {
     id: ''
   };
 
+  // 查询
+  selectDate = {
+    Token: sessionStorage.getItem('token'),
+    id: '',
+    username: '',
+    diseases_name: '',
+    deal_status: ''
+  }
+
+  // 遮罩
+  Loadings: LoadingType;
+
 
   // 标题栏
   // tslint:disable-next-line:variable-name
@@ -134,6 +148,7 @@ export class IndexFirstComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.Loadings = undefined;
     this.values[this.values.length - 1].isshow = true;
     this.daoyi();
     console.log(this.value);
@@ -146,12 +161,14 @@ export class IndexFirstComponent implements OnInit {
     switch (value) {
       case 0:
         console.log('0');
-        const  s = new HttpData();
-        const a = {da: '21', ds: '323', dd: '42', df: '43', as: {q: '1', w: '2'} , as1: [ 3, 4, 5, 6]};
-        const b = {da: '22', ds: '32', dd: '45', df: '41', as: {q: '7', w: '8'} , as1: [ 9, 10, 11, 12]};
-        s.setdata(a, b);
+        this.https(this.selectDate);
         break;
       case 1:
+        this.selectDate.deal_status = '';
+        this.selectDate.username = '';
+        this.selectDate.diseases_name = '';
+        this.selectDate.id = '';
+        this.https(this.selectDate);
         console.log('1');
         break;
       case 2:
@@ -180,6 +197,7 @@ export class IndexFirstComponent implements OnInit {
     switch (id) {
       case 0:
         console.log('0');
+
         break;
       case 1:
         console.log('1');
@@ -216,6 +234,11 @@ export class IndexFirstComponent implements OnInit {
     }
   }
 
+  // 科室选择
+  selectValueD(event): void{
+    this.selectDate.deal_status = event.id;
+  }
+
   daoyi(): void{
 
     for (let i = 0; i < 10; i++){
@@ -243,11 +266,23 @@ export class IndexFirstComponent implements OnInit {
 
   // http请求
   https(data): void{
-    this.http.MedicalList(data).subscribe( datas => {
+    this.Loadings=this.http.MedicalList(data).subscribe( datas => {
 
-      this.myData = datas.body;
-      this.pager.total = this.myData.data.Paginate.Count;
-      console.log(this.myData);
+      if (datas.body.code === 1){
+        this.myData = datas.body;
+        this.pager.total = this.myData.data.Paginate.Count;
+        if (datas.body.msg === ''){
+          this.msgs = this.dialog.showToast(2, '加载完成');
+        }else{
+          this.msgs = this.dialog.showToast(2, datas.body.msg);
+        }
+
+      }else {
+        this.msgs = this.dialog.showToast(0, '加载失败');
+      }
+
+
+      // console.log(this.myData);
     });
   }
 

@@ -5,9 +5,9 @@
   </div>
   <hr class="fg">
   <div class="input_box">
-    <input type="text" placeholder="姓名" class="default_input">
-    <input type="text" placeholder="病人ID" class="default_input">
-    <input type="text" placeholder="病例ID" class="default_input">
+    <input type="text" placeholder="姓名" class="default_input" [(ngModel)]="selectDate.username">
+    <input type="text" placeholder="主疾病名" class="default_input" [(ngModel)]="selectDate.diseases_name">
+    <input type="text" placeholder="病例ID" class="default_input" [(ngModel)]="selectDate.id">
     <d-select id="disease"
               type="text"
               placeholder="病例状态"
@@ -17,6 +17,7 @@
               [allowClear]="true"
               [(ngModel)]="CaseStatusValue"
               [filterKey]="'title'"
+              (valueChange)="selectValueD($event)"
 
     >
       <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
@@ -31,7 +32,7 @@
   </div>
 </section>
 <footer class="max_footer">
-  <table class="footer_box">
+  <table class="footer_box" dLoading [backdrop]="true" [loading]="Loadings">
     <tr class="">
       <th class="label_check">
         <d-checkbox
