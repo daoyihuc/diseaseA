@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, ElementRef} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ChangeDetectionStrategy, ElementRef, Renderer2} from '@angular/core';
 import {PersonBean} from '../../bean/PersonBean';
 import {CommonModule} from '@angular/common';
 import {PersonDate1, personDate2} from '../../bean/PersonData';
@@ -25,7 +25,7 @@ import {DialogService} from '../service/dialog.service.js';
   templateUrl: './case.component.html',
   styleUrls: ['./case.component.css']
 })
-export class CaseComponent implements OnInit {
+export class CaseComponent implements OnInit,AfterViewInit {
 
 
   id = '0x17';
@@ -38,6 +38,7 @@ export class CaseComponent implements OnInit {
     private route: Router,
     private router: ActivatedRoute,
     private dialog: DialogService,
+    private renderer2: Renderer2
   ) {
     this.type = this.router.snapshot.paramMap.get('type');
     this.id = this.router.snapshot.paramMap.get('id');
@@ -136,6 +137,14 @@ export class CaseComponent implements OnInit {
         id: this.id
       };
       this.HttpInfo(data);
+    }else if (this.type === 'r'){
+      const  data = {
+        Token: sessionStorage.getItem('token'),
+        id: this.id
+      };
+      this.HttpInfo(data);
+
+
     }
     this.https_Depart(this.Datas, 0);
   }
@@ -556,14 +565,27 @@ export class CaseComponent implements OnInit {
   // 保存
   sumbit(): void{
 
-    this.httpData.history_of_present_illness = JSON.stringify(this.data1);
-    console.log('toLocaleString', JSON.stringify(this.data1));
-    this.httpData.other_medical_history = JSON.stringify(this.data2);
-    this.httpData.physical_examination = JSON.stringify(this.data3);
-    this.httpData.laboratory_examination = JSON.stringify(this.data4);
-    this.httpData.supplementary_examination = JSON.stringify(this.data5);
-    this.httpData.insert_status = '1';
+    // this.httpData.history_of_present_illness = JSON.stringify(this.data1);
+    // console.log('toLocaleString', JSON.stringify(this.data1));
+    // this.httpData.other_medical_history = JSON.stringify(this.data2);
+    // this.httpData.physical_examination = JSON.stringify(this.data3);
+    // this.httpData.laboratory_examination = JSON.stringify(this.data4);
+    // this.httpData.supplementary_examination = JSON.stringify(this.data5);
+    if (this.data1 !=[]){
+      this.httpData.history_of_present_illness = JSON.stringify(this.data1);
+      console.log('toLocaleString', JSON.stringify(this.data1));
+    }else if ( this.data2 !=[]){
+      this.httpData.other_medical_history = JSON.stringify(this.data2);
+    }else if  (this.data3 !=[]){
+      this.httpData.physical_examination = JSON.stringify(this.data3);
+    }else if  (this.data4 !=[]){
+      this.httpData.laboratory_examination = JSON.stringify(this.data4);
+    }else if  (this.data5 !=[]){
+      this.httpData.supplementary_examination = JSON.stringify(this.data5);
+    }
+
     const fileForm = new FormData();
+
     for (const das in this.httpData){
       console.log('daoyi:::' + das + '::::' + this.httpData[das]);
       if (this.httpData[das] != null && this.httpData[das] !== '' && this.httpData[das] !== []){
@@ -576,7 +598,14 @@ export class CaseComponent implements OnInit {
     // fileForm.append('insert_status', this.httpData.insert_status);
     // this.httpData.files = fileForm;
     console.log('daoyi', this.httpData);
-    this.HttpSave(fileForm);
+    if (this.type === 'a'){
+      this.httpData.insert_status = '1';
+      this.HttpSave(fileForm);
+    }else if (this.type === 'e'){
+      fileForm.append('Token', sessionStorage.getItem('token'));
+      this.HttpEdit(fileForm);
+    }
+
   }
 
   // 取消
@@ -591,13 +620,28 @@ export class CaseComponent implements OnInit {
         if (this.httpData.insert_status === '2' ){
           this.msgs = this.dialog.showToast( 2, '上传成功');
         }else if (this.httpData.insert_status === '1'){
-          this.msgs = this.dialog.showToast( 2, '保存');
+          this.msgs = this.dialog.showToast( 2, '保存成功');
         }
 
+      }else {
+        this.msgs = this.dialog.showToast( 2, datas.msg);
       }
       console.log(datas);
     });
   }
+  // http编辑
+  HttpEdit(data): void{
+    this.Loadings = this.http.MedicalEdit(data).subscribe( datas => {
+      if (datas.code === 1){
+        this.msgs = this.dialog.showToast( 2, '保存成功');
+      }else{
+        this.msgs = this.dialog.showToast( 0, datas.msg);
+      }
+      console.log(datas);
+    });
+  }
+
+
   // http 详情
   HttpInfo(data): void{
     this.Loadings = this.http.MedicalInfo(data).subscribe( datas => {
@@ -631,6 +675,10 @@ export class CaseComponent implements OnInit {
       }
       console.log(datas);
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.renderer2.setAttribute(this.el.nativeElement.querySelectorAll('input'), 'disabled', 'disabled')
   }
 
 }

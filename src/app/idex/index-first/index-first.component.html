@@ -89,9 +89,28 @@
         </span>
       </td>
       <td class="td_row">
-        <span class="defualt_label">
-          {{TextBean.deal_status}}
+        <span class="defualt_label status_green" *ngIf="TextBean.deal_status == 0">
+          编辑
         </span>
+        <span class="defualt_label status_ward" *ngIf="TextBean.deal_status == 1">
+          待审核
+        </span>
+        <span class="defualt_label status_sucess" *ngIf="TextBean.deal_status == 2">
+          审核完成
+        </span>
+        <span class="defualt_label status_test1" *ngIf="TextBean.deal_status == 3">
+          校准状态1
+        </span>
+        <span class="defualt_label status_test2" *ngIf="TextBean.deal_status == 4">
+          校准状态2
+        </span>
+        <span class="defualt_label" *ngIf="TextBean.deal_status == 5">
+          标准状态
+        </span>
+        <span class="defualt_label status_red" *ngIf="TextBean.deal_status == 6">
+          无效
+        </span>
+
       </td>
       <td class="td_row">
         <span class="defualt_label">

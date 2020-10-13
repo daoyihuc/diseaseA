@@ -168,7 +168,7 @@ export class IndexFirstComponent implements OnInit {
         break;
       case 5:
         console.log('5'); // 查看
-        this.route.navigate(['index/case', {id: 's'}]);
+        this.route.navigate(['index/case',  {id: index, type: 'r'}]);
         break;
       case 6:
         console.log('6'); // 编辑

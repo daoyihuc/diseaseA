@@ -221,10 +221,10 @@ export class HttpServiceService {
 
 
   // 病例编辑
-  MedicalEdit(data: any): Observable<HttpResponse<any>>{
+  MedicalEdit(data: FormData): Observable<BaseResponse>{
     // this.options2.params = data;
     // @ts-ignore
-    return  this.http.post<any>( Api.MedicalEdit, data, this.options)
+    return  this.http.post<BaseResponse>( Api.MedicalEdit, data)
       .pipe(
         // catchError(this.handleError)
       );

@@ -167,3 +167,21 @@
 .page_box >>> li >>> a:not(.disable):active{
   background: #02BADD !important;
 }
+.status_green{
+  color: #39b93d!important;
+}
+.status_red{
+  color: #f33245 !important;
+}
+.status_ward{
+  color: #ea861c!important;
+}
+.status_sucess{
+  color: #02BFD8!important;
+}
+.status_test1{
+  color: #beccfa!important;
+}
+.status_test2{
+  color: #6987ea !important;
+}
