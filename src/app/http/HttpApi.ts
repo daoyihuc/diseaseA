@@ -16,6 +16,14 @@ export const Api: any =
     SystemConfig: BaseUrl + '/SystemConfig', // 系统配置列表接口
     LabelShow: BaseUrl + '/LabelShow', // 获取标注列表接口
     AddMedical: BaseUrl + '/AddMedical', // 新增病历接口
+    MedicalCheck: BaseUrl + '/MedicalCheck', // 病历审核接口
+    MedicalCalibration: BaseUrl + '/MedicalCalibration', // 病历提交接口
+    UpdateMedicalStatus: BaseUrl + '/UpdateMedicalStatus', // 修改病历编辑状态接口(包含点击编辑首先调用该接口以及强制解锁病历状态接口)
+    UpdatePassword: BaseUrl + '/UpdatePassword', // 修改密码接口
+    UserInfo: BaseUrl + '/UserInfo', // 个人资料
+    MedicalInfo: BaseUrl + '/MedicalInfo', // 病历详情接口
+    MedicalEdit: BaseUrl + '/MedicalEdit', // 病历编辑接口
+
 
   };
 

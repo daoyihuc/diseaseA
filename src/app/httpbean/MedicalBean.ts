@@ -27,4 +27,5 @@ export interface List {
    department_name?: string;
    ward_name?: string;
    diseases_name?: string;
+   isActivited?: boolean;
 }

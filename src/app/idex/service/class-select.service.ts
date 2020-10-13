@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {LoadingType} from 'ng-devui';
 import {List} from '../../httpbean/SystemConfigBean.js';
+import {ReviewBean} from '../../bean/indexFirstBean.js';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class ClassSelectService {
   private ShowLoadingSource = new Subject<LoadingType>();
   private departMentSource = new Subject<List>();
   private departMentSource1 = new Subject<List>();
+  private reviewSource = new Subject<string>(); // 首页审核数据发送
 
   // Observable string streams (订阅者)
   missionAnnounced$ = this.missionAnnouncedSource.asObservable();
@@ -22,6 +24,7 @@ export class ClassSelectService {
   showLoading$ = this.ShowLoadingSource.asObservable();
   depart$ = this.departMentSource.asObservable();
   depart1$ = this.departMentSource1.asObservable();
+  Review$ = this.reviewSource.asObservable(); // 首页审核数据接受
   // daddada
 
   // 消息发送
@@ -46,6 +49,11 @@ export class ClassSelectService {
   // 系统配置信息1
   sendDepart1(data: List): void{
     this.departMentSource1.next(data);
+  }
+
+  // 首页审核数据接受
+  sendReview(id: string): void{
+    this.reviewSource.next(id);
   }
 
   constructor() {

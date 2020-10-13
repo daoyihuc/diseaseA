@@ -8,9 +8,19 @@
     <input type="text" placeholder="姓名" class="default_input">
     <input type="text" placeholder="病人ID" class="default_input">
     <input type="text" placeholder="病例ID" class="default_input">
-    <d-editable-select [appendToBody]="true"  name="multiple-auto" placeholder="病例状态"
-                       class="default_input default_input_select">
-    </d-editable-select>
+    <d-select id="disease"
+              type="text"
+              placeholder="病例状态"
+              class="default_select"
+              maxlength="11"
+              [options]="CaseStatus"
+              [allowClear]="true"
+              [(ngModel)]="CaseStatusValue"
+              [filterKey]="'title'"
+
+    >
+      <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+    </d-select>
   </div>
   <div class="button_box">
     <input class="default_button" type="button"
@@ -27,7 +37,7 @@
         <d-checkbox
                 [name]="'checkbox-username'"
                 [label]=""
-                [color]="'RGB(255, 193, 7)'"
+                [color]="'#02BFD8'"
                 [ngModel]="false"
                 class="label_check"
               >
@@ -42,7 +52,7 @@
           [name]="'checkbox-username'"
           [label]=""
           [color]="'#02BFD8'"
-          [ngModel]="false"
+          [(ngModel)]="TextBean.isActivited"
           class="label_check1"
         >
         </d-checkbox>
@@ -106,8 +116,8 @@
 
       <td>
         <div  class="menu_box">
-          <img src="./assets/img/chakan.png" alt="" class="menu_img" (click)="onSelectButton(5)">
-          <img src="./assets/img/bianji.png" alt="" class="menu_img" (click)="onSelectButton(6)">
+          <img src="./assets/img/chakan.png" alt="" class="menu_img" (click)="onSelectButton(5, TextBean.id)">
+          <img src="./assets/img/bianji.png" alt="" class="menu_img" (click)="onSelectButton(6, TextBean.id)">
           <img src="./assets/img/suo.png" alt="" class="menu_img">
         </div>
       </td>
@@ -131,3 +141,5 @@
   >
   </d-pagination>
 </div>
+
+<d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>

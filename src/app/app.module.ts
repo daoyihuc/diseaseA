@@ -14,7 +14,7 @@ import {FormsModule} from '@angular/forms';
 import { IndexFirstComponent } from './idex/index-first/index-first.component';
 import { PersonalcenterComponent } from './idex/personalcenter/personalcenter.component';
 import {IndexRouterModule} from './index-router/index-router.module';
-import { ReviewDialogComponent } from './idex/review-dialog/review-dialog.component';
+import { ReviewDialogComponent } from './idex/dialogs/review-dialog/review-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SubmitDialogComponent } from './idex/dialogs/submit-dialog/submit-dialog.component';
 import { DepartmentComponent } from './idex/department/department.component';
@@ -36,6 +36,7 @@ import { AddotherComponent } from './idex/dialogs/addother/addother.component';
 import { PhysiqueComponent } from './idex/dialogs/physique/physique.component';
 import { LaboratoryComponent } from './idex/dialogs/laboratory/laboratory.component';
 import { AssistComponent } from './idex/dialogs/assist/assist.component';
+import { ChangePasswordComponent } from './idex/dialogs/change-password/change-password.component';
 
 
 
@@ -77,7 +78,8 @@ const appRoute: Routes = [
     AddotherComponent,
     PhysiqueComponent,
     LaboratoryComponent,
-    AssistComponent
+    AssistComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

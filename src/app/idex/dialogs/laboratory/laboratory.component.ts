@@ -24,14 +24,14 @@ export class LaboratoryComponent implements OnInit {
 
   Tags: LabelBeanData[];
   resultData: LabelBeanData[] = [];
-
+  data = {
+    Token: sessionStorage.getItem('token'),
+    module: '92000002103',
+    term: ''
+  };
   ngOnInit(): void {
 
-    const data = {
-      Token: sessionStorage.getItem('token'),
-      module: '92000002103'
-    };
-    this.https(data);
+    this.https(this.data);
   }
 
   https(data): void{
@@ -48,6 +48,11 @@ export class LaboratoryComponent implements OnInit {
     }else{
       this.Tags[id].Activited = true;
     }
+  }
+
+  // inputchange
+  inputchange(): void{
+    this.https(this.data);
   }
 
   // ok

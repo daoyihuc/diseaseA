@@ -24,14 +24,13 @@ export class AssistComponent implements OnInit {
 
   Tags: LabelBeanData[];
   resultData: LabelBeanData[] = [];
-
+  data = {
+    Token: sessionStorage.getItem('token'),
+    module: '102000002104',
+    term: ''
+  };
   ngOnInit(): void {
-
-    const data = {
-      Token: sessionStorage.getItem('token'),
-      module: '102000002104'
-    };
-    this.https(data);
+    this.https(this.data);
   }
 
   https(data): void{
@@ -48,6 +47,11 @@ export class AssistComponent implements OnInit {
     }else{
       this.Tags[id].Activited = true;
     }
+  }
+
+  // inputchange
+  inputchange(): void{
+    this.https(this.data);
   }
 
   // ok

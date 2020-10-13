@@ -15,6 +15,9 @@ import {LaboratoryComponent} from '../dialogs/laboratory/laboratory.component.js
 import {PhysiqueComponent} from '../dialogs/physique/physique.component.js';
 import {AssistComponent} from '../dialogs/assist/assist.component.js';
 import {LabelBeanData} from '../../httpbean/LabelBean.js';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoadingType} from 'ng-devui';
+import {DialogService} from '../service/dialog.service.js';
 
 
 @Component({
@@ -24,11 +27,20 @@ import {LabelBeanData} from '../../httpbean/LabelBean.js';
 })
 export class CaseComponent implements OnInit {
 
+
+  id = '0x17';
+  type = 'a';
+
   constructor(
     private http: HttpServiceService,
     private el: ElementRef,
     private mes: MatDialog,
+    private route: Router,
+    private router: ActivatedRoute,
+    private dialog: DialogService,
   ) {
+    this.type = this.router.snapshot.paramMap.get('type');
+    this.id = this.router.snapshot.paramMap.get('id');
   }
 
   // 消息
@@ -54,6 +66,9 @@ export class CaseComponent implements OnInit {
   // 附件上传
   data6: any[] = [];
 
+  // 遮罩
+  Loadings: LoadingType;
+
   // 科室
   DepartmentOption: any = null;
   DepartValues: any = null;
@@ -68,7 +83,7 @@ export class CaseComponent implements OnInit {
   // http
   myDataDepart: DepartMentBean;
   // 请求参数
-  httpData = {
+  httpData: any = {
     Token: sessionStorage.getItem('token'),
     insert_status: '',
     'files[]': [],
@@ -94,11 +109,11 @@ export class CaseComponent implements OnInit {
     respiratory_rate: '',
     chief_complaint: '',
     remark: '',
-    history_of_present_illness: [],
-    other_medical_history: [],
-    physical_examination: [],
-    laboratory_examination: [],
-    supplementary_examination: [],
+    history_of_present_illness: '',
+    other_medical_history: '',
+    physical_examination: '',
+    laboratory_examination: '',
+    supplementary_examination: '',
   };
 
 
@@ -113,7 +128,15 @@ export class CaseComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.Loadings = undefined;
     console.log('daoyi', jq('body').height());
+    if (this.type === 'e'){
+      const  data = {
+        Token: sessionStorage.getItem('token'),
+        id: this.id
+      };
+      this.HttpInfo(data);
+    }
     this.https_Depart(this.Datas, 0);
   }
 
@@ -505,18 +528,20 @@ export class CaseComponent implements OnInit {
     });
   }
 
-  sumbit(): void{
-    this.httpData.history_of_present_illness = this.data1;
-    this.httpData.other_medical_history = this.data2;
-    this.httpData.physical_examination = this.data3;
-    this.httpData.laboratory_examination = this.data4;
-    this.httpData.supplementary_examination = this.data5;
-    this.httpData.insert_status = '1';
+  // Review
+  Review(): void{
+    this.httpData.history_of_present_illness = JSON.stringify(this.data1);
+    console.log('toLocaleString', JSON.stringify(this.data1));
+    this.httpData.other_medical_history = JSON.stringify(this.data2);
+    this.httpData.physical_examination = JSON.stringify(this.data3);
+    this.httpData.laboratory_examination = JSON.stringify(this.data4);
+    this.httpData.supplementary_examination = JSON.stringify(this.data5);
+    this.httpData.insert_status = '2';
     const fileForm = new FormData();
     for (const das in this.httpData){
-      console.log('daoyi:::'+das+'::::'+this.httpData[das]);
-      if (this.httpData[das]!=null && this.httpData[das] != '' && this.httpData[das] != []){
-        fileForm.append(das+'', this.httpData[das]);
+      console.log('daoyi:::' + das + '::::' + this.httpData[das]);
+      if (this.httpData[das] != null && this.httpData[das] !== '' && this.httpData[das] !== []){
+        fileForm.append(das + '', this.httpData[das]);
       }
 
     }
@@ -524,13 +549,86 @@ export class CaseComponent implements OnInit {
     // fileForm.append('files[]', this.data6[0].files6);
     // fileForm.append('insert_status', this.httpData.insert_status);
     // this.httpData.files = fileForm;
-    console.log('daoyi', fileForm);
+    console.log('daoyi', this.httpData);
     this.HttpSave(fileForm);
+  }
+
+  // 保存
+  sumbit(): void{
+
+    this.httpData.history_of_present_illness = JSON.stringify(this.data1);
+    console.log('toLocaleString', JSON.stringify(this.data1));
+    this.httpData.other_medical_history = JSON.stringify(this.data2);
+    this.httpData.physical_examination = JSON.stringify(this.data3);
+    this.httpData.laboratory_examination = JSON.stringify(this.data4);
+    this.httpData.supplementary_examination = JSON.stringify(this.data5);
+    this.httpData.insert_status = '1';
+    const fileForm = new FormData();
+    for (const das in this.httpData){
+      console.log('daoyi:::' + das + '::::' + this.httpData[das]);
+      if (this.httpData[das] != null && this.httpData[das] !== '' && this.httpData[das] !== []){
+        fileForm.append(das + '', this.httpData[das]);
+      }
+
+    }
+    // fileForm.append('Token', this.httpData.Token);
+    // fileForm.append('files[]', this.data6[0].files6);
+    // fileForm.append('insert_status', this.httpData.insert_status);
+    // this.httpData.files = fileForm;
+    console.log('daoyi', this.httpData);
+    this.HttpSave(fileForm);
+  }
+
+  // 取消
+  cancel(): void{
+    window.history.back();
   }
 
   // http提交
   HttpSave(data): void{
-    this.http.AddMedical(data).subscribe( datas => {
+    this.Loadings = this.http.AddMedical(data).subscribe( datas => {
+      if (datas.code === 1){
+        if (this.httpData.insert_status === '2' ){
+          this.msgs = this.dialog.showToast( 2, '上传成功');
+        }else if (this.httpData.insert_status === '1'){
+          this.msgs = this.dialog.showToast( 2, '保存');
+        }
+
+      }
+      console.log(datas);
+    });
+  }
+  // http 详情
+  HttpInfo(data): void{
+    this.Loadings = this.http.MedicalInfo(data).subscribe( datas => {
+      if (datas.body.code === 1){
+
+        this.httpData = datas.body.data;
+        this.DepartValues = {
+          id: this.httpData.department_id,
+          title: datas.body.data.department_name
+        };
+        this.wardvalues = {
+          id: this.httpData.ward_id,
+          title: datas.body.data.ward_name
+        };
+        this.diseaseValue = {
+          id: this.httpData.diseases_id,
+          title: datas.body.data.diseases_name
+        };
+        this.data1 = datas.body.data.history_of_present_illness[0].SubList;
+        this.data2 = datas.body.data.other_medical_history[0].SubList;
+        this.data3 = datas.body.data.physical_examination[0].SubList;
+        this.data4 = datas.body.data.laboratory_examination[0].SubList;
+        this.data5 = datas.body.data.supplementary_examination[0].SubList;
+
+        // if (this.httpData.insert_status === '2' ){
+        //   this.msgs = this.dialog.showToast( 2, '上传成功');
+        // }else if (this.httpData.insert_status === '1'){
+        //   this.msgs = this.dialog.showToast( 2, '保存');
+        // }
+
+      }
       console.log(datas);
     });
   }

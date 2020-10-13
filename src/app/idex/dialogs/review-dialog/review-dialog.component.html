@@ -1,0 +1,14 @@
+
+<div class="max_box" dLoading [backdrop]="true" [loading]="Loadings">
+  <div mat-dialog-content>
+    <p class="title">确认审核通过病例</p>
+  </div>
+  <div mat-dialog-actions class="button_box">
+    <button mat-button  class="ok_button" (click)="onOkClick()">确定</button>
+    <button mat-button  class="cancel_button" (click)="onNoClick()">取消</button>
+  </div>
+</div>
+
+<d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>
+
+

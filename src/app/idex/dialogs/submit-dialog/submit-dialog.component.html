@@ -1,13 +1,15 @@
 
-<div class="max_box">
+<div class="max_box" dLoading [loading]="Loadings" [backdrop]="true">
   <div mat-dialog-content>
     <p class="title">请操作</p>
   </div>
   <div mat-dialog-actions class="button_box">
-    <button mat-button (click)="onNoClick()" class="ok_button defualt_button">校准完成</button>
-    <button mat-button (click)="onNoClick()" class="ok_button defualt_button">置为无效病例</button>
-    <button mat-button  class="cancel_button">取消</button>
+    <button mat-button (click)="onOkClick()" class="ok_button defualt_button">校准完成</button>
+    <button mat-button (click)="onOkClickW()" class="ok_button defualt_button">置为无效病例</button>
+    <button mat-button  class="cancel_button" (click)="onNoClick()">取消</button>
   </div>
 </div>
+
+<d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>
 
 

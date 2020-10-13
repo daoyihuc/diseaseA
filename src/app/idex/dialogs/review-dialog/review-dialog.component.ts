@@ -4,64 +4,65 @@ import {HttpServiceService} from '../../../http/http-service.service.js';
 import {DialogService} from '../../service/dialog.service.js';
 import {ClassSelectService} from '../../service/class-select.service.js';
 import {LoadingType} from 'ng-devui';
+import {Constan} from '../../../constant/constan.js';
+import {ReviewBean} from '../../../bean/indexFirstBean.js';
 
 @Component({
-  selector: 'app-submit-dialog',
-  templateUrl: './submit-dialog.component.html',
-  styleUrls: ['./submit-dialog.component.css']
+  selector: 'app-review-dialog',
+  templateUrl: './review-dialog.component.html',
+  styleUrls: ['./review-dialog.component.css']
 })
-export class SubmitDialogComponent implements OnInit {
-
+/*
+* 审核
+* */
+export class ReviewDialogComponent implements OnInit {
 
 
   msgs: any[] = [];
-  datas = {
+  ReviewHttp = {
     Token: sessionStorage.getItem('token'),
-    id: '',
-    calibration_status: ''
+    id: ''
   };
   Loadings: LoadingType;
 
+
   constructor(
-    public dialogRef: MatDialogRef<SubmitDialogComponent>,
+    public dialogRef: MatDialogRef<ReviewDialogComponent>,
     private http: HttpServiceService,
     private dialog: DialogService,
     private recerver: ClassSelectService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { }
+  ) {
+  }
+
+
+
 
   ngOnInit(): void {
     this.Loadings = undefined;
-    this.datas.id = this.data.id;
+    console.log('review', this.data);
+    this.ReviewHttp.id = this.data.id;
 
   }
   onNoClick(): void {
     this.dialogRef.close();
   }
-
-  // 置为标准
+  //
   onOkClick(): void{
-    console.log(this.datas);
-    this.datas.calibration_status = '5';
-    this.https(this.datas);
-  }
-
-  // 置为无效
-  onOkClickW(): void{
-    console.log(this.datas);
-    this.datas.calibration_status = '6';
-    this.https(this.datas);
+    console.log(this.ReviewHttp);
+    this.https(this.ReviewHttp);
   }
 
   // 请求
   https(data): void{
-    this.Loadings = this.http.MedicalCalibration(data).subscribe( datas => {
+    this.Loadings = this.http.MedicalCheck(data).subscribe( datas => {
       if (datas.body.code === 1){
-        this.msgs = this.dialog.showToast(2, '提交成功');
-        this.dialogRef.close('0x14');
+        this.msgs = this.dialog.showToast(2, '审核成功');
+        this.dialogRef.close('0x13');
       }else {
-        this.msgs = this.dialog.showToast(0, '提交失败');
+        this.msgs = this.dialog.showToast(0, '审核失败');
       }
     });
   }
+
 }

@@ -22,6 +22,8 @@ import {DepartMentBean} from '../httpbean/DepartMentBean.js';
 import {AdminInfoBean} from '../httpbean/AdminInfoBean.js';
 import {SystemConfigBean} from '../httpbean/SystemConfigBean.js';
 import {LabelBean} from '../httpbean/LabelBean.js';
+import {UserInfoBean} from '../httpbean/UserInfoBean.js';
+import {MedicalInfoBean} from '../httpbean/MedicalInfoBean.js';
 
 @Injectable({
   providedIn: 'root'
@@ -103,7 +105,7 @@ export class HttpServiceService {
         // catchError(this.handleError)
       );
   }
-  // 管理员列表接口
+  // 电子病历列表接口(首页接口)
   MedicalList(data: any): Observable<HttpResponse<MedicalBean>>{
     // @ts-ignore
     return  this.http.post<MedicalBean>( Api.MedicalList, data, this.options )
@@ -161,7 +163,72 @@ export class HttpServiceService {
         // catchError(this.handleError)
       );
   }
+  // 病历审核接口
+  MedicalCheck(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.MedicalCheck, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
 
+  MedicalCalibration(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.MedicalCalibration, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+  UpdateMedicalStatus(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.UpdateMedicalStatus, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+  UpdatePassword(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.UpdatePassword, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+  // 个人中心
+  UserInfo(data: any): Observable<HttpResponse<UserInfoBean>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<UserInfoBean>( Api.UserInfo, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 病例详情
+  MedicalInfo(data: any): Observable<HttpResponse<MedicalInfoBean>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<MedicalInfoBean>( Api.MedicalInfo, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+
+  // 病例编辑
+  MedicalEdit(data: any): Observable<HttpResponse<any>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<any>( Api.MedicalEdit, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
 
 
   private handleError(error: HttpErrorResponse): Observable<never>{

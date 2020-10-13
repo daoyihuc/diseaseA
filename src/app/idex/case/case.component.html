@@ -1,614 +1,619 @@
-<section class="max_box ">
-  <div class="title_box">
-    <hr class="title_hr">
-    <span class="title_title">基本信息</span>
-  </div>
-  <hr class="fg">
-  <div class="input_box">
-<!--    <div class="input_box1">-->
-<!--      <label class="default_lable">-->
-<!--        病例ID-->
-<!--      </label>-->
-<!--      <input type="text" placeholder="病例ID" class="default_input" maxlength="11">-->
-<!--    </div>-->
-
-    <div class="input_box1">
-      <label class="default_lable">
-        主疾病科室
-      </label>
-      <d-select type="text"
-                placeholder="科室"
-                class="default_select"
-                maxlength="11"
-                [options]="DepartmentOption"
-                [filterKey]="'title'"
-                [(ngModel)]="DepartValues"
-                (valueChange)="selectValueD($event)"
-      >
-        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
-      </d-select>
-    </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        主疾病区
-      </label>
-      <d-select id="ward_se"
-                type="text"
-                placeholder="病区"
-                class="default_select"
-                maxlength="11"
-                [options]="WardOption"
-                [allowClear]="true"
-                [(ngModel)]="wardvalues"
-                [filterKey]="'title'"
-                (valueChange)="selectValueW($event)"
-      >
-        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
-      </d-select>
-    </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        主疾病名称(ID)
-      </label>
-      <d-select id="disease"
-                type="text"
-                placeholder="主疾病名称"
-                class="default_select"
-                maxlength="11"
-                [options]="diseaseOption"
-                [allowClear]="true"
-                [(ngModel)]="diseaseValue"
-                [filterKey]="'title'"
-                (valueChange)="selectValueB($event)"
-      >
-        <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
-      </d-select>
-    </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        病例时间段（起）
-      </label>
-      <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
-        <input
-          class="devui-input devui-form-control"
-          placeholder="yyyy/MM/dd"
-          name="dp"
-          autocomplete="off"
-          dDatepicker
-          dateFormat="yyyy/MM/dd"
-          #datePicker1="datepicker"
-          (selectedDateChange)="getValueStart($event)"
-          [maxDate]="max"
-          (focus)="datePicker1.toggle($event)"
-        />
-        <div *ngIf="selectedDate2" class="devui-input-group-addon icon-close-wrapper" (click)="datePicker1.clearAll()">
-          <i class="icon icon-close"></i>
-        </div>
-        <div class="devui-input-group-addon" (click)="datePicker1.toggle($event, true)">
-          <i class="icon icon-calendar"></i>
-        </div>
-      </div>
-    </div>
-    <div class="input_box1">
-      <label class="default_lable">
-        病例时间段（末）
-      </label>
-      <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
-        <input
-          class="devui-input devui-form-control"
-          placeholder="yyyy/MM/dd"
-          name="dp"
-          autocomplete="off"
-          dDatepicker
-          dateFormat="yyyy/MM/dd"
-          #datePicker2="datepicker"
-          (selectedDateChange)="getValueEnd($event)"
-          [maxDate]="max"
-          (focus)="datePicker2.toggle($event)"
-        />
-        <div *ngIf="selectedDate3" class="devui-input-group-addon icon-close-wrapper" (click)="datePicker2.clearAll()">
-          <i class="icon icon-close"></i>
-        </div>
-        <div class="devui-input-group-addon" (click)="datePicker2.toggle($event, true)">
-          <i class="icon icon-calendar"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="input_box2">
-    <label class="default_lable">
-      并发名称
-    </label>
-    <input type="text"
-           placeholder="并发名称"
-           [(ngModel)]="httpData.concurrent_name"
-           class="default_input2" >
-  </div>
-  <div class="input_box2">
-    <label class="default_lable">
-      病理诊断
-    </label>
-    <input type="text"
-           placeholder="病理诊断"
-           [(ngModel)]="httpData.medical_record_diagnosis"
-           (change)="test()"
-           class="default_input2" >
-  </div>
-  <div class="input_box">
-    <div class="input_box2">
-      <label class="default_lable">
-        姓名
-      </label>
-      <input type="text"
-             placeholder="姓名"
-             [(ngModel)]="httpData.username"
-             class="default_input"
-             maxlength="11">
-    </div>
-    <div class="input_box2">
-      <label class="default_lable">
-        年龄
-      </label>
-      <input type="text"
-             placeholder="年龄"
-             class="default_input"
-             [(ngModel)]="httpData.age"
-             maxlength="11">
-    </div>
-    <div class="input_box2">
-      <label class="default_lable">
-        性别
-      </label>
-      <input type="text"
-             placeholder="性别"
-             class="default_input"
-             [(ngModel)]="httpData.gerder"
-             maxlength="11">
-    </div>
-    <div class="input_box2">
-      <label class="default_lable">
-        职业
-      </label>
-      <input type="text"
-             placeholder="职业"
-             class="default_input"
-             [(ngModel)]="httpData.occupation"
-             maxlength="11">
-    </div>
-    <div class="input_box2">
-      <label class="default_lable">
-        出生地
-      </label>
-      <input type="text"
-             placeholder="出生地"
-             class="default_input"
-             [(ngModel)]="httpData.birthplace"
-             maxlength="11">
-    </div>
-    <div class="input_box2">
-      <label class="default_lable">
-        民族
-      </label>
-      <input type="text"
-             placeholder="民族"
-             class="default_input"
-             [(ngModel)]="httpData.nation"
-             maxlength="11">
-    </div>
-
-  </div>
-  <div class="input_box">
-    <div class="input_box2" >
-      <label class="default_lable" >
-        婚姻
-      </label>
-      <input type="text"
-             placeholder="婚姻"
-             class="default_input"
-             [(ngModel)]="httpData.marriage"
-             maxlength="11">
-    </div>
-    <div class="input_box2" >
-      <label class="default_lable" >
-        血压（mmHg）
-      </label>
-      <input type="text"
-             placeholder="血压（mmHg）"
-             class="default_input"
-             [(ngModel)]="httpData.blood_pressure"
-             maxlength="11">
-    </div>
-    <div class="input_box2" >
-      <label class="default_lable" >
-        身高（cm）
-      </label>
-      <input type="text"
-             placeholder="身高（cm）"
-             class="default_input"
-             [(ngModel)]="httpData.height"
-             maxlength="11">
-    </div>
-    <div class="input_box2" >
-      <label class="default_lable" >
-        体重（Kg）
-      </label>
-      <input type="text"
-             placeholder="体重（Kg）"
-             class="default_input"
-             [(ngModel)]="httpData.weight"
-             maxlength="11">
-    </div>
-    <div class="input_box2" >
-      <label class="default_lable" >
-        体温（℃）
-      </label>
-      <input type="text"
-             placeholder=" 体温（℃）"
-             class="default_input"
-             [(ngModel)]="httpData.temperature"
-             maxlength="11">
-    </div>
-    <div class="input_box2" >
-      <label class="default_lable" >
-        心率（次/每分）
-      </label>
-      <input type="text"
-             placeholder="心率（次/每分）"
-             class="default_input"
-             [(ngModel)]="httpData.heart_rate"
-             maxlength="11">
-    </div>
-  </div>
-  <div class="input_box">
-    <div class="input_box2">
-      <label class="default_lable">
-        呼吸频率（次/每分）
-      </label>
-      <input type="text"
-             placeholder=" 呼吸频率（次/每分）"
-             class="default_input"
-             [(ngModel)]="httpData.respiratory_rate"
-             maxlength="11">
-    </div>
-  </div>
-  <div class="input_box2 " >
-    <label class="default_lable">
-      主诉
-    </label>
-    <input type="text"
-           placeholder="主诉"
-           [(ngModel)]="httpData.chief_complaint"
-           class="default_input2" >
-  </div>
-  <div class="input_box2">
-    <label class="default_lable">
-      备注填写
-    </label>
-    <input type="text"
-           placeholder="备注填写"
-           [(ngModel)]="httpData.remark"
-           class="default_input2" >
-  </div>
-
-
-</section>
-<footer >
-  <!-- 现病史-->
-  <div class="max_box">
+<div dLoading [backdrop]="true" [loading]="Loadings">
+  <section class="max_box ">
     <div class="title_box">
       <hr class="title_hr">
-      <span class="title_title">现病史</span>
-    </div>
-    <!-- 子模板 -->
-    <div class="child_box" *ngFor="let item of data1;index as i">
-      <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
-      <div class="upload_show_box">
-
-        <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgA">
-            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
-          </div>
-        </div>
-        <div class="upload_box">
-          <input type="file" class="upload_input" accept="image/*" id="image_slected" (change)="selected_image($event,1, i)">
-          <button class="upload_button">
-            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
-            <span>添加图片</span>
-          </button>
-        </div>
-        <span class="upload_dp">最多上传5张图片，最大3M</span>
-      </div>
-      <div class="tag_box">
-        <div class="tag_box1">
-          <input type="button" value="添加标注" class="tags_button" (click)="addTags(1, i)">
-          <div>
-            <d-tags
-              [tags]="item.labelShow"
-              [displayProperty]="'name'"
-              [deletable]="true"
-              [titleProperty]="'id'"
-              (tagDelete)="getTagValue($event); deleteTag(1, i, $event.index)"
-            >
-            </d-tags>
-          </div>
-        </div>
-
-        <div class="delete_box" (click)="rm_child( 1, i )">
-          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-          <span class="delete_p" >删除子模块</span>
-        </div>
-      </div>
-    </div>
-    <!-- 子模板 -->
-
-    <div (click)="add_child(1)">
-      <hr class="fg">
-      <button class="case_button">
-        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
-        <span>添加子模块</span>
-      </button>
-    </div>
-  </div>
-  <!--其它病史-->
-  <div class="max_box">
-    <div class="title_box">
-      <hr class="title_hr">
-      <span class="title_title">其它病史</span>
-    </div>
-    <!-- 子模板 -->
-    <div class="child_box" *ngFor="let item of data2;index as i">
-      <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
-      <div class="upload_show_box">
-        <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgA">
-            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
-          </div>
-        </div>
-        <div class="upload_box">
-          <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,2, i)">
-          <button class="upload_button">
-            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
-            <span>添加图片</span>
-          </button>
-        </div>
-        <span class="upload_dp">最多上传5张图片，最大3M</span>
-      </div>
-      <div class="tag_box">
-        <div class="tag_box1">
-          <input type="button" value="添加标注" class="tags_button" (click)="addTags(2, i)">
-          <div>
-            <d-tags
-              [tags]="item.labelShow"
-              [displayProperty]="'name'"
-              [deletable]="true"
-              [titleProperty]="'id'"
-              (tagDelete)="getTagValue($event); deleteTag(2, i, $event.index)"
-            >
-            </d-tags>
-          </div>
-        </div>
-
-        <div class="delete_box" (click)="rm_child( 2, i )">
-          <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-          <span class="delete_p" >删除子模块</span>
-        </div>
-      </div>
-    </div>
-    <!-- 子模板 -->
-
-    <div (click)="add_child(2)">
-      <hr class="fg">
-      <button class="case_button">
-        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
-        <span>添加子模块</span>
-      </button>
-    </div>
-  </div>
-  <!--体格检查-->
-  <div class="max_box">
-    <div class="title_box">
-      <hr class="title_hr">
-      <span class="title_title">体格检查</span>
-    </div>
-    <!-- 子模板 -->
-    <div class="child_box" *ngFor="let item of data3;index as i">
-      <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
-      <div class="upload_show_box">
-        <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgA">
-            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
-          </div>
-        </div>
-        <div class="upload_box">
-          <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,3, i)">
-          <button class="upload_button">
-            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
-            <span>添加图片</span>
-          </button>
-        </div>
-        <span class="upload_dp">最多上传5张图片，最大3M</span>
-      </div>
-      <div class="tag_box">
-      <div class="tag_box1">
-        <input type="button" value="添加标注" class="tags_button" (click)="addTags(3, i)">
-        <div>
-          <d-tags
-            [tags]="item.labelShow"
-            [displayProperty]="'name'"
-            [deletable]="true"
-            [titleProperty]="'id'"
-            (tagDelete)="getTagValue($event); deleteTag(3, i, $event.index)"
-          >
-          </d-tags>
-        </div>
-      </div>
-
-      <div class="delete_box" (click)="rm_child( 3, i )">
-        <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-        <span class="delete_p" >删除子模块</span>
-      </div>
-    </div>
-    </div>
-    <!-- 子模板 -->
-
-    <div (click)="add_child(3)">
-      <hr class="fg">
-      <button class="case_button">
-        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
-        <span>添加子模块</span>
-      </button>
-    </div>
-  </div>
-  <!-- 实验室检查-->
-  <div class="max_box">
-    <div class="title_box">
-      <hr class="title_hr">
-      <span class="title_title">实验室检验</span>
-    </div>
-    <!-- 子模板 -->
-    <div class="child_box" *ngFor="let item of data4;index as i">
-      <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
-      <div class="upload_show_box">
-        <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgA">
-            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
-          </div>
-        </div>
-        <div class="upload_box">
-          <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,4, i)">
-          <button class="upload_button">
-            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
-            <span>添加图片</span>
-          </button>
-        </div>
-        <span class="upload_dp">最多上传5张图片，最大3M</span>
-      </div>
-      <div class="tag_box">
-      <div class="tag_box1">
-        <input type="button" value="添加标注" class="tags_button" (click)="addTags(4, i)">
-        <div>
-          <d-tags
-            [tags]="item.labelShow"
-            [displayProperty]="'name'"
-            [deletable]="true"
-            [titleProperty]="'id'"
-            (tagDelete)="getTagValue($event); deleteTag(4, i, $event.index)"
-          >
-          </d-tags>
-        </div>
-      </div>
-
-      <div class="delete_box" (click)="rm_child( 4, i )">
-        <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-        <span class="delete_p" >删除子模块</span>
-      </div>
-    </div>
-    </div>
-    <!-- 子模板 -->
-
-    <div (click)="add_child(4)">
-      <hr class="fg">
-      <button class="case_button">
-        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
-        <span>添加子模块</span>
-      </button>
-    </div>
-  </div>
-  <!-- 辅助检查-->
-  <div class="max_box">
-    <div class="title_box">
-      <hr class="title_hr">
-      <span class="title_title">辅助检查</span>
-    </div>
-    <!-- 子模板 -->
-    <div class="child_box" *ngFor="let item of data5;index as i">
-      <hr class="fg">
-      <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
-      <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
-      <div class="upload_show_box">
-        <div dImagePreview class="show_imgbox1">
-          <div class="show_imgbox"  *ngFor="let data of item.imgA">
-            <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
-          </div>
-        </div>
-        <div class="upload_box">
-          <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,5, i)">
-          <button class="upload_button">
-            <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
-            <span>添加图片</span>
-          </button>
-        </div>
-        <span class="upload_dp">最多上传5张图片，最大3M</span>
-      </div>
-      <div class="tag_box">
-      <div class="tag_box1">
-        <input type="button" value="添加标注" class="tags_button" (click)="addTags(5, i)">
-        <div>
-          <d-tags
-            [tags]="item.labelShow"
-            [displayProperty]="'name'"
-            [deletable]="true"
-            [titleProperty]="'id'"
-            (tagDelete)="getTagValue($event); deleteTag(5, i, $event.index)"
-          >
-          </d-tags>
-        </div>
-      </div>
-
-      <div class="delete_box" (click)="rm_child( 5, i )">
-        <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
-        <span class="delete_p" >删除子模块</span>
-      </div>
-    </div>
-    </div>
-    <!-- 子模板 -->
-
-    <div (click)="add_child(5)">
-      <hr class="fg">
-      <button class="case_button">
-        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
-        <span>添加子模块</span>
-      </button>
-    </div>
-  </div>
-  <!--上传文件-->
-  <div class="max_box">
-
-    <div class="show_imgbox1">
-      <div class="file_box" *ngFor="let item of data6;index as i" >
-        <div class="show_imgbox_file" >
-          <img class="show_img" alt="" [src]="item.imgs"/>
-        </div>
-        <p>{{item.names}}</p>
-      </div>
-
+      <span class="title_title">基本信息</span>
     </div>
     <hr class="fg">
-    <div class="case_button_upload_box">
+    <div class="input_box">
+      <!--    <div class="input_box1">-->
+      <!--      <label class="default_lable">-->
+      <!--        病例ID-->
+      <!--      </label>-->
+      <!--      <input type="text" placeholder="病例ID" class="default_input" maxlength="11">-->
+      <!--    </div>-->
 
-      <input type="file" class="case_button_upload_s" (change)="selected_image($event, 6 , 0)">
-      <div class="case_button_upload_box2">
-        <button class="case_button_upload">
-          <!--        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">-->
-          <span>上传附件</span>
-        </button>
-        <p>最多上传3个附件，最大5M，附件支持excel、word</p>
+      <div class="input_box1">
+        <label class="default_lable">
+          主疾病科室
+        </label>
+        <d-select type="text"
+                  placeholder="科室"
+                  class="default_select"
+                  maxlength="11"
+                  [options]="DepartmentOption"
+                  [filterKey]="'title'"
+                  [(ngModel)]="DepartValues"
+                  (valueChange)="selectValueD($event)"
+        >
+          <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+        </d-select>
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          主疾病区
+        </label>
+        <d-select id="ward_se"
+                  type="text"
+                  placeholder="病区"
+                  class="default_select"
+                  maxlength="11"
+                  [options]="WardOption"
+                  [allowClear]="true"
+                  [(ngModel)]="wardvalues"
+                  [filterKey]="'title'"
+                  (valueChange)="selectValueW($event)"
+        >
+          <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+        </d-select>
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          主疾病名称(ID)
+        </label>
+        <d-select id="disease"
+                  type="text"
+                  placeholder="主疾病名称"
+                  class="default_select"
+                  maxlength="11"
+                  [options]="diseaseOption"
+                  [allowClear]="true"
+                  [(ngModel)]="diseaseValue"
+                  [filterKey]="'title'"
+                  (valueChange)="selectValueB($event)"
+        >
+          <ng-template let-option="option" let-filterKey="filterKey"> {{ option[filterKey] }} </ng-template>
+        </d-select>
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          病例时间段（起）
+        </label>
+        <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
+          <input
+            class="devui-input devui-form-control"
+            placeholder="yyyy/MM/dd"
+            name="dp"
+            autocomplete="off"
+            dDatepicker
+            dateFormat="yyyy/MM/dd"
+            [(ngModel)]="httpData.starttime"
+            #datePicker1="datepicker"
+            (selectedDateChange)="getValueStart($event)"
+            [maxDate]="max"
+            (focus)="datePicker1.toggle($event)"
+          />
+          <div *ngIf="selectedDate2" class="devui-input-group-addon icon-close-wrapper" (click)="datePicker1.clearAll()">
+            <i class="icon icon-close"></i>
+          </div>
+          <div class="devui-input-group-addon" (click)="datePicker1.toggle($event, true)">
+            <i class="icon icon-calendar"></i>
+          </div>
+        </div>
+      </div>
+      <div class="input_box1">
+        <label class="default_lable">
+          病例时间段（末）
+        </label>
+        <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
+          <input
+            class="devui-input devui-form-control"
+            placeholder="yyyy/MM/dd"
+            name="dp"
+            autocomplete="off"
+            dDatepicker
+            [(ngModel)]="httpData.endtime"
+            dateFormat="yyyy/MM/dd"
+            #datePicker2="datepicker"
+            (selectedDateChange)="getValueEnd($event)"
+            [maxDate]="max"
+            (focus)="datePicker2.toggle($event)"
+          />
+          <div *ngIf="selectedDate3" class="devui-input-group-addon icon-close-wrapper" (click)="datePicker2.clearAll()">
+            <i class="icon icon-close"></i>
+          </div>
+          <div class="devui-input-group-addon" (click)="datePicker2.toggle($event, true)">
+            <i class="icon icon-calendar"></i>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        并发名称
+      </label>
+      <input type="text"
+             placeholder="并发名称"
+             [(ngModel)]="httpData.concurrent_name"
+             class="default_input2" >
+    </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        病理诊断
+      </label>
+      <input type="text"
+             placeholder="病理诊断"
+             [(ngModel)]="httpData.medical_record_diagnosis"
+             (change)="test()"
+             class="default_input2" >
+    </div>
+    <div class="input_box">
+      <div class="input_box2">
+        <label class="default_lable">
+          姓名
+        </label>
+        <input type="text"
+               placeholder="姓名"
+               [(ngModel)]="httpData.username"
+               class="default_input"
+               maxlength="11">
+      </div>
+      <div class="input_box2">
+        <label class="default_lable">
+          年龄
+        </label>
+        <input type="text"
+               placeholder="年龄"
+               class="default_input"
+               [(ngModel)]="httpData.age"
+               maxlength="11">
+      </div>
+      <div class="input_box2">
+        <label class="default_lable">
+          性别
+        </label>
+        <input type="text"
+               placeholder="性别"
+               class="default_input"
+               [(ngModel)]="httpData.gerder"
+               maxlength="11">
+      </div>
+      <div class="input_box2">
+        <label class="default_lable">
+          职业
+        </label>
+        <input type="text"
+               placeholder="职业"
+               class="default_input"
+               [(ngModel)]="httpData.occupation"
+               maxlength="11">
+      </div>
+      <div class="input_box2">
+        <label class="default_lable">
+          出生地
+        </label>
+        <input type="text"
+               placeholder="出生地"
+               class="default_input"
+               [(ngModel)]="httpData.birthplace"
+               maxlength="11">
+      </div>
+      <div class="input_box2">
+        <label class="default_lable">
+          民族
+        </label>
+        <input type="text"
+               placeholder="民族"
+               class="default_input"
+               [(ngModel)]="httpData.nation"
+               maxlength="11">
+      </div>
+
+    </div>
+    <div class="input_box">
+      <div class="input_box2" >
+        <label class="default_lable" >
+          婚姻
+        </label>
+        <input type="text"
+               placeholder="婚姻"
+               class="default_input"
+               [(ngModel)]="httpData.marriage"
+               maxlength="11">
+      </div>
+      <div class="input_box2" >
+        <label class="default_lable" >
+          血压（mmHg）
+        </label>
+        <input type="text"
+               placeholder="血压（mmHg）"
+               class="default_input"
+               [(ngModel)]="httpData.blood_pressure"
+               maxlength="11">
+      </div>
+      <div class="input_box2" >
+        <label class="default_lable" >
+          身高（cm）
+        </label>
+        <input type="text"
+               placeholder="身高（cm）"
+               class="default_input"
+               [(ngModel)]="httpData.height"
+               maxlength="11">
+      </div>
+      <div class="input_box2" >
+        <label class="default_lable" >
+          体重（Kg）
+        </label>
+        <input type="text"
+               placeholder="体重（Kg）"
+               class="default_input"
+               [(ngModel)]="httpData.weight"
+               maxlength="11">
+      </div>
+      <div class="input_box2" >
+        <label class="default_lable" >
+          体温（℃）
+        </label>
+        <input type="text"
+               placeholder=" 体温（℃）"
+               class="default_input"
+               [(ngModel)]="httpData.temperature"
+               maxlength="11">
+      </div>
+      <div class="input_box2" >
+        <label class="default_lable" >
+          心率（次/每分）
+        </label>
+        <input type="text"
+               placeholder="心率（次/每分）"
+               class="default_input"
+               [(ngModel)]="httpData.heart_rate"
+               maxlength="11">
+      </div>
+    </div>
+    <div class="input_box">
+      <div class="input_box2">
+        <label class="default_lable">
+          呼吸频率（次/每分）
+        </label>
+        <input type="text"
+               placeholder=" 呼吸频率（次/每分）"
+               class="default_input"
+               [(ngModel)]="httpData.respiratory_rate"
+               maxlength="11">
+      </div>
+    </div>
+    <div class="input_box2 " >
+      <label class="default_lable">
+        主诉
+      </label>
+      <input type="text"
+             placeholder="主诉"
+             [(ngModel)]="httpData.chief_complaint"
+             class="default_input2" >
+    </div>
+    <div class="input_box2">
+      <label class="default_lable">
+        备注填写
+      </label>
+      <input type="text"
+             placeholder="备注填写"
+             [(ngModel)]="httpData.remark"
+             class="default_input2" >
+    </div>
+
+
+  </section>
+  <footer >
+    <!-- 现病史-->
+    <div class="max_box">
+      <div class="title_box">
+        <hr class="title_hr">
+        <span class="title_title">现病史</span>
+      </div>
+      <!-- 子模板 -->
+      <div class="child_box" *ngFor="let item of data1;index as i">
+        <hr class="fg">
+        <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+        <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
+        <div class="upload_show_box">
+
+          <div dImagePreview class="show_imgbox1">
+            <div class="show_imgbox"  *ngFor="let data of item.imgA">
+              <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+            </div>
+          </div>
+          <div class="upload_box">
+            <input type="file" class="upload_input" accept="image/*" id="image_slected" (change)="selected_image($event,1, i)">
+            <button class="upload_button">
+              <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
+              <span>添加图片</span>
+            </button>
+          </div>
+          <span class="upload_dp">最多上传5张图片，最大3M</span>
+        </div>
+        <div class="tag_box">
+          <div class="tag_box1">
+            <input type="button" value="添加标注" class="tags_button" (click)="addTags(1, i)">
+            <div>
+              <d-tags
+                [tags]="item.labelShow"
+                [displayProperty]="'name'"
+                [deletable]="true"
+                [titleProperty]="'id'"
+                (tagDelete)="getTagValue($event); deleteTag(1, i, $event.index)"
+              >
+              </d-tags>
+            </div>
+          </div>
+
+          <div class="delete_box" (click)="rm_child( 1, i )">
+            <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+            <span class="delete_p" >删除子模块</span>
+          </div>
+        </div>
+      </div>
+      <!-- 子模板 -->
+
+      <div (click)="add_child(1)">
+        <hr class="fg">
+        <button class="case_button">
+          <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+          <span>添加子模块</span>
+        </button>
+      </div>
+    </div>
+    <!--其它病史-->
+    <div class="max_box">
+      <div class="title_box">
+        <hr class="title_hr">
+        <span class="title_title">其它病史</span>
+      </div>
+      <!-- 子模板 -->
+      <div class="child_box" *ngFor="let item of data2;index as i">
+        <hr class="fg">
+        <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+        <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
+        <div class="upload_show_box">
+          <div dImagePreview class="show_imgbox1">
+            <div class="show_imgbox"  *ngFor="let data of item.imgA">
+              <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+            </div>
+          </div>
+          <div class="upload_box">
+            <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,2, i)">
+            <button class="upload_button">
+              <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
+              <span>添加图片</span>
+            </button>
+          </div>
+          <span class="upload_dp">最多上传5张图片，最大3M</span>
+        </div>
+        <div class="tag_box">
+          <div class="tag_box1">
+            <input type="button" value="添加标注" class="tags_button" (click)="addTags(2, i)">
+            <div>
+              <d-tags
+                [tags]="item.labelShow"
+                [displayProperty]="'name'"
+                [deletable]="true"
+                [titleProperty]="'id'"
+                (tagDelete)="getTagValue($event); deleteTag(2, i, $event.index)"
+              >
+              </d-tags>
+            </div>
+          </div>
+
+          <div class="delete_box" (click)="rm_child( 2, i )">
+            <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+            <span class="delete_p" >删除子模块</span>
+          </div>
+        </div>
+      </div>
+      <!-- 子模板 -->
+
+      <div (click)="add_child(2)">
+        <hr class="fg">
+        <button class="case_button">
+          <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+          <span>添加子模块</span>
+        </button>
+      </div>
+    </div>
+    <!--体格检查-->
+    <div class="max_box">
+      <div class="title_box">
+        <hr class="title_hr">
+        <span class="title_title">体格检查</span>
+      </div>
+      <!-- 子模板 -->
+      <div class="child_box" *ngFor="let item of data3;index as i">
+        <hr class="fg">
+        <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+        <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
+        <div class="upload_show_box">
+          <div dImagePreview class="show_imgbox1">
+            <div class="show_imgbox"  *ngFor="let data of item.imgA">
+              <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+            </div>
+          </div>
+          <div class="upload_box">
+            <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,3, i)">
+            <button class="upload_button">
+              <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
+              <span>添加图片</span>
+            </button>
+          </div>
+          <span class="upload_dp">最多上传5张图片，最大3M</span>
+        </div>
+        <div class="tag_box">
+          <div class="tag_box1">
+            <input type="button" value="添加标注" class="tags_button" (click)="addTags(3, i)">
+            <div>
+              <d-tags
+                [tags]="item.labelShow"
+                [displayProperty]="'name'"
+                [deletable]="true"
+                [titleProperty]="'id'"
+                (tagDelete)="getTagValue($event); deleteTag(3, i, $event.index)"
+              >
+              </d-tags>
+            </div>
+          </div>
+
+          <div class="delete_box" (click)="rm_child( 3, i )">
+            <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+            <span class="delete_p" >删除子模块</span>
+          </div>
+        </div>
+      </div>
+      <!-- 子模板 -->
+
+      <div (click)="add_child(3)">
+        <hr class="fg">
+        <button class="case_button">
+          <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+          <span>添加子模块</span>
+        </button>
+      </div>
+    </div>
+    <!-- 实验室检查-->
+    <div class="max_box">
+      <div class="title_box">
+        <hr class="title_hr">
+        <span class="title_title">实验室检验</span>
+      </div>
+      <!-- 子模板 -->
+      <div class="child_box" *ngFor="let item of data4;index as i">
+        <hr class="fg">
+        <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+        <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
+        <div class="upload_show_box">
+          <div dImagePreview class="show_imgbox1">
+            <div class="show_imgbox"  *ngFor="let data of item.imgA">
+              <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+            </div>
+          </div>
+          <div class="upload_box">
+            <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,4, i)">
+            <button class="upload_button">
+              <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
+              <span>添加图片</span>
+            </button>
+          </div>
+          <span class="upload_dp">最多上传5张图片，最大3M</span>
+        </div>
+        <div class="tag_box">
+          <div class="tag_box1">
+            <input type="button" value="添加标注" class="tags_button" (click)="addTags(4, i)">
+            <div>
+              <d-tags
+                [tags]="item.labelShow"
+                [displayProperty]="'name'"
+                [deletable]="true"
+                [titleProperty]="'id'"
+                (tagDelete)="getTagValue($event); deleteTag(4, i, $event.index)"
+              >
+              </d-tags>
+            </div>
+          </div>
+
+          <div class="delete_box" (click)="rm_child( 4, i )">
+            <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+            <span class="delete_p" >删除子模块</span>
+          </div>
+        </div>
+      </div>
+      <!-- 子模板 -->
+
+      <div (click)="add_child(4)">
+        <hr class="fg">
+        <button class="case_button">
+          <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+          <span>添加子模块</span>
+        </button>
+      </div>
+    </div>
+    <!-- 辅助检查-->
+    <div class="max_box">
+      <div class="title_box">
+        <hr class="title_hr">
+        <span class="title_title">辅助检查</span>
+      </div>
+      <!-- 子模板 -->
+      <div class="child_box" *ngFor="let item of data5;index as i">
+        <hr class="fg">
+        <input type="text" placeholder="{{'请输入子模块名称'}}" class="default_input3" [(ngModel)]="item.title">
+        <textarea dTextarea placeholder="请填写你的描述" class="textArea" [(ngModel)]="item.content"></textarea>
+        <div class="upload_show_box">
+          <div dImagePreview class="show_imgbox1">
+            <div class="show_imgbox"  *ngFor="let data of item.imgA">
+              <img class="show_img" alt="" [attr.src]=" data | safe: 'url'"  />
+            </div>
+          </div>
+          <div class="upload_box">
+            <input type="file" class="upload_input" accept="image/*"  (change)="selected_image($event,5, i)">
+            <button class="upload_button">
+              <img src="./assets/img/tupian@2x.png" alt="" class="upload_icon" >
+              <span>添加图片</span>
+            </button>
+          </div>
+          <span class="upload_dp">最多上传5张图片，最大3M</span>
+        </div>
+        <div class="tag_box">
+          <div class="tag_box1">
+            <input type="button" value="添加标注" class="tags_button" (click)="addTags(5, i)">
+            <div>
+              <d-tags
+                [tags]="item.labelShow"
+                [displayProperty]="'name'"
+                [deletable]="true"
+                [titleProperty]="'id'"
+                (tagDelete)="getTagValue($event); deleteTag(5, i, $event.index)"
+              >
+              </d-tags>
+            </div>
+          </div>
+
+          <div class="delete_box" (click)="rm_child( 5, i )">
+            <img src="./assets/img/shanchu@2x.png" alt="" class="delete_icon">
+            <span class="delete_p" >删除子模块</span>
+          </div>
+        </div>
+      </div>
+      <!-- 子模板 -->
+
+      <div (click)="add_child(5)">
+        <hr class="fg">
+        <button class="case_button">
+          <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">
+          <span>添加子模块</span>
+        </button>
+      </div>
+    </div>
+    <!--上传文件-->
+    <div class="max_box">
+
+      <div class="show_imgbox1">
+        <div class="file_box" *ngFor="let item of data6;index as i" >
+          <div class="show_imgbox_file" >
+            <img class="show_img" alt="" [src]="item.imgs"/>
+          </div>
+          <p>{{item.names}}</p>
+        </div>
+
+      </div>
+      <hr class="fg">
+      <div class="case_button_upload_box">
+
+        <input type="file" class="case_button_upload_s" (change)="selected_image($event, 6 , 0)">
+        <div class="case_button_upload_box2">
+          <button class="case_button_upload">
+            <!--        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">-->
+            <span>上传附件</span>
+          </button>
+          <p>最多上传3个附件，最大5M，附件支持excel、word</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="button_box">
+    <input type="button" value="提交审核" class="ok_button" (click)="Review()">
+    <input type="button" value="保存" class="ok_button status_green" (click)="sumbit()">
+    <input type="button" value="取消" class="cancel_button" (click)="cancel()">
   </div>
-</footer>
-<div class="button_box">
-  <input type="button" value="提交审核" class="ok_button">
-  <input type="button" value="保存" class="ok_button status_green" (click)="sumbit()">
-  <input type="button" value="取消" class="cancel_button">
 </div>
+
 
 <d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>

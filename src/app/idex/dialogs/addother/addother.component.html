@@ -6,8 +6,8 @@
   <header class="header_box">
     <span class="header_title">添加批注:</span>
     <div class="search_box">
-      <input type="text" class="header_search" placeholder="搜索标记" >
-      <button class="search_button" type="button"><img src="./assets/img/sousuo.png" width="18" alt="" ></button>
+      <input type="text" class="header_search" placeholder="搜索标记" [(ngModel)]="data.term"  >
+      <button class="search_button" type="button" (click)="inputchange()"><img src="./assets/img/sousuo.png" width="18" alt="" ></button>
     </div>
   </header>
   <hr class="fg">

@@ -1,31 +1,34 @@
 <!-- 卡片 -->
-<div class="card">
+<div class="card" dLoading [backdrop]="true" [loading]="Loadings">
   <div class="left">
     <div class="li">
       <img src="./assets/img/zhiye.png" alt="">
-      <p class="defualt_p">姓名：小仙女</p>
+      <p class="defualt_p">姓名：{{myData.data.account}}</p>
     </div>
     <div class="li">
       <img src="./assets/img/quyu.png" alt="">
-      <p  class="defualt_p">当前区域：岳麓区</p>
+      <p  class="defualt_p">当前区域：{{myData.data.ward_name}}</p>
     </div>
     <div class="li">
       <img src="./assets/img/zhicheng.png" alt="">
-      <p  class="defualt_p">职称：主治医师</p>
+      <p  class="defualt_p">职称：{{myData.data.RoleName}}</p>
     </div>
     <div class="li">
       <img src="./assets/img/keshi .png" alt="">
-      <p  class="defualt_p">所属科室：内科</p>
+      <p  class="defualt_p">所属科室：{{myData.data.department_name}}</p>
     </div>
     <div class="li">
       <img src="./assets/img/dianhua.png" alt="">
-      <p  class="defualt_p">电话：17689898754</p>
+      <p  class="defualt_p">电话：{{myData.data.mobile}}</p>
     </div>
   </div>
   <div class="right">
-    <div class="bot" >
+    <div class="bot" (click)="dialogOpen()" >
       修改密码 >
     </div>
   </div>
 
 </div>
+
+
+<d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>

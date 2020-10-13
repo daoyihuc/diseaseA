@@ -6,7 +6,7 @@ import { TextBean } from '../../bean/text-bean';
 import { LABELS } from '../../bean/lable';
 import {MatDialog} from '@angular/material/dialog';
 import { MatDialogRef} from '@angular/material/dialog';
-import {ReviewDialogComponent} from '../review-dialog/review-dialog.component';
+import {ReviewDialogComponent} from '../dialogs/review-dialog/review-dialog.component';
 import {ClassSelectService} from '../service/class-select.service';
 import {SubmitDialogComponent} from '../dialogs/submit-dialog/submit-dialog.component';
 import {RouteAnimations} from '../../animation';
@@ -14,6 +14,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {HttpData} from '../../http/HttpData';
 import {HttpServiceService} from '../../http/http-service.service.js';
 import {MedicalBean} from '../../httpbean/MedicalBean.js';
+import {DialogService} from '../service/dialog.service.js';
+import {ReviewBean} from '../../bean/indexFirstBean.js';
 
 
 @Component({
@@ -64,20 +66,69 @@ export class IndexFirstComponent implements OnInit {
   // http 数据集
   myData: MedicalBean;
 
+  // 病例状态  1:待审核,
+  //     2:审核完成3:校准状态1;4:校准状态2;5:标准状态;6:无效
+  CaseStatus = [
+    {
+      id: 0,
+      title: '编辑'
+    },
+    {
+      id: 1,
+      title: '待审核'
+    },
+    {
+      id: 2,
+      title: '审核完成'
+    },
+    {
+      id: 3,
+      title: '校准状态1'
+    },
+    {
+      id: 4,
+      title: '校准状态2'
+    },
+    {
+      id: 5,
+      title: '标准状态'
+    },
+    {
+      id: 6,
+      title: '无效'
+    }
+    ];
+  CaseStatusValue = [];
+
+  // toast
+  msgs: any[] = [];
+
+  // 审核数据请求
+  ReviewHttp = {
+    id: ''
+  };
+
+  // 提交数据请求
+  submitHttp = {
+    id: ''
+  };
+
 
   // 标题栏
   // tslint:disable-next-line:variable-name
   Header_isShow = false;
   value: object[] = [];
-  constructor(public el: ElementRef,
+  constructor(
               private meas: MatDialog, // 弹窗
-              private classSelectService: ClassSelectService, // 用于接收组件信息
               private route: Router, // 路由跳转
               private router: ActivatedRoute, // 路由信息接收
-              private http: HttpServiceService
+              private http: HttpServiceService, //
+              private dialog: DialogService,
+              public el: ElementRef,
+              private recever: ClassSelectService
             )
   {
-    this.classSelectService.missionAnnounced$.subscribe(value1 => {
+    this.recever.missionAnnounced$.subscribe(value1 => {
       console.log('子类组件', value1);
     });
   }
@@ -91,7 +142,7 @@ export class IndexFirstComponent implements OnInit {
     };
     this.https(data);
   }
-  onSelectButton(value: number): void{
+  onSelectButton(value: number, index: number): void{
     switch (value) {
       case 0:
         console.log('0');
@@ -121,7 +172,7 @@ export class IndexFirstComponent implements OnInit {
         break;
       case 6:
         console.log('6'); // 编辑
-        this.route.navigate(['index/case', {id: 's'}]);
+        this.route.navigate(['index/case', {id: index, type: 'e'}]);
         break;
     }
   }
@@ -139,19 +190,25 @@ export class IndexFirstComponent implements OnInit {
         // 审核
       case 3:
         console.log('3');
-        const dialogref = this.meas.open(ReviewDialogComponent, {
-        });
+        this.ReviewHttp.id = '';
+        this.filterData();
+        console.log('indexfirst', this.ReviewHttp);
+        const dialogref = this.meas.open(ReviewDialogComponent, {data: { id: this.ReviewHttp.id }});
+        // this.recever.sendReview('101');
         dialogref.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          // this.animal = result;
+         if (result === '0x13'){
+           this.msgs = this.dialog.showToast(2, '审核完成');
+         }
         });
         break;
         // 提交
       case 4:
+        this.submitHttp.id = '';
+        this.filterData();
         console.log('4');
-        const dialogref_4 = this.meas.open(SubmitDialogComponent, {
-        });
-        dialogref_4.afterClosed().subscribe(result => {
+        console.log('show', this.myData.data.List[0].isActivited);
+        const dialogref4 = this.meas.open(SubmitDialogComponent, {data: { id: this.submitHttp.id }});
+        dialogref4.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
           // this.animal = result;
         });
@@ -193,5 +250,16 @@ export class IndexFirstComponent implements OnInit {
       console.log(this.myData);
     });
   }
+
+  // 审核病例数据清洗
+  filterData(): void{
+    for (let i = 0; i < this.myData.data.List.length; i++){
+      if (this.myData.data.List[i].isActivited){
+        this.ReviewHttp.id += this.myData.data.List[i].id + ',';
+        this.submitHttp.id += this.myData.data.List[i].id + ',';
+      }
+    }
+  }
+
 
 }

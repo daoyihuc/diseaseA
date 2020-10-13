@@ -23,14 +23,15 @@ export class AddotherComponent implements OnInit {
 
   Tags: LabelBeanData[];
   resultData: LabelBeanData[] = [];
-
+  data = {
+    Token: sessionStorage.getItem('token'),
+    module: '32000002102',
+    term: ''
+  };
   ngOnInit(): void {
 
-    const data = {
-      Token: sessionStorage.getItem('token'),
-      module: '32000002102'
-    };
-    this.https(data);
+
+    this.https(this.data);
   }
 
   https(data): void{
@@ -47,6 +48,11 @@ export class AddotherComponent implements OnInit {
     }else{
       this.Tags[id].Activited = true;
     }
+  }
+
+  // inputchange
+  inputchange(): void{
+    this.https(this.data);
   }
 
   // ok
