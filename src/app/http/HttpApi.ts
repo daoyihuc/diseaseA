@@ -23,6 +23,11 @@ export const Api: any =
     UserInfo: BaseUrl + '/UserInfo', // 个人资料
     MedicalInfo: BaseUrl + '/MedicalInfo', // 病历详情接口
     MedicalEdit: BaseUrl + '/MedicalEdit', // 病历编辑接口
+    ModuleDelete: BaseUrl + '/ModuleDelete', // 删除
+    RoleMenuList: BaseUrl + '/RoleMenuList', // 加角色配置权限列表接口
+    SystemDelete: BaseUrl + '/SystemDelete', // 系统配置删除
+    EditSystem: BaseUrl + '/EditSystem', // 系统配置编辑
+
 
 
   };

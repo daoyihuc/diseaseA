@@ -23,7 +23,6 @@
                     placeholder="科室"
                     class="default_select"
                     maxlength="11"
-                    disabled="{{type === 'r'}}"
                     [options]="DepartmentOption"
                     [filterKey]="'title'"
                     [(ngModel)]="DepartValues"
@@ -41,7 +40,6 @@
                     placeholder="病区"
                     class="default_select"
                     maxlength="11"
-                    disabled="{{type === 'r'}}"
                     [options]="WardOption"
                     [allowClear]="true"
                     [(ngModel)]="wardvalues"
@@ -60,7 +58,6 @@
                     placeholder="主疾病名称"
                     class="default_select"
                     maxlength="11"
-                    disabled="{{type === 'r'}}"
                     [options]="diseaseOption"
                     [allowClear]="true"
                     [(ngModel)]="diseaseValue"
@@ -77,13 +74,13 @@
           <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
             <input
               class="devui-input devui-form-control"
-              placeholder="yyyy/MM/dd"
+              placeholder="yyyy-MM-dd"
               name="dp"
               autocomplete="off"
               dDatepicker
-              dateFormat="yyyy/MM/dd"
-              disabled="{{type === 'r'}}"
-              [(ngModel)]="httpData.starttime"
+              [dateFormat]="'y-MM-dd'"
+              [dateConfig]="dateConfig"
+              [(ngModel)]="startTime"
               #datePicker1="datepicker"
               (selectedDateChange)="getValueStart($event)"
               [maxDate]="max"
@@ -104,13 +101,13 @@
           <div class="devui-input-group devui-dropdown-origin-wrapper devui-dropdown-origin">
             <input
               class="devui-input devui-form-control"
-              placeholder="yyyy/MM/dd"
+              placeholder="yyyy-MM-dd"
               name="dp"
               autocomplete="off"
               dDatepicker
-              disabled="{{type === 'r'}}"
-              [(ngModel)]="httpData.endtime"
-              dateFormat="yyyy/MM/dd"
+              [dateFormat]="'y-MM-dd'"
+              [(ngModel)]="endTime"
+              [dateConfig]="dateConfig"
               #datePicker2="datepicker"
               (selectedDateChange)="getValueEnd($event)"
               [maxDate]="max"
@@ -679,10 +676,9 @@
 
         </div>
         <hr class="fg">
-        <div class="case_button_upload_box">
+        <div class="case_button_upload_box" *ngIf="type !== 'r'">
 
           <input type="file" class="case_button_upload_s"
-                 disabled="{{type === 'r'}}"
                  (change)="selected_image($event, 6 , 0)">
           <div class="case_button_upload_box2">
             <button class="case_button_upload">
@@ -695,9 +691,9 @@
       </div>
     </footer>
     <div class="button_box" *ngIf="type != 'r'">
-      <input type="button" value="提交审核" class="ok_button" (click)="Review()"  disabled="{{type === 'r'}}">
-      <input type="button" value="保存" class="ok_button status_green" (click)="sumbit()"  disabled="{{type === 'r'}}">
-      <input type="button" value="取消" class="cancel_button" (click)="cancel()"  disabled="{{type === 'r'}}">
+      <input type="button" value="提交审核" class="ok_button" (click)="Review()" >
+      <input type="button" value="保存" class="ok_button status_green" (click)="sumbit()"  >
+      <input type="button" value="取消" class="cancel_button" (click)="cancel()" >
     </div>
   </div>
 

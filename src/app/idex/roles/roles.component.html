@@ -3,9 +3,9 @@
     <input type="text" placeholder="|请填写客户名称" maxlength="15" (change)="InputChange($event)" [ngModel]="datas.role_name">
   </div>
   <div class="fot">
-    <div class="li" (click)="onSelectButton(0)">查询</div>
-    <div class="li" (click)="onSelectButton(1)">重置</div>
-    <div class="li" (click)="onSelectButton(2)">新增</div>
+    <div class="li" (click)="onSelectButton(0, 0)">查询</div>
+    <div class="li" (click)="onSelectButton(1, 0)">重置</div>
+    <div class="li" (click)="onSelectButton(2, 0)">新增</div>
   </div>
 </div>
 
@@ -47,7 +47,7 @@
       </td>
       <td class="table_td">
         <div class="menu_box">
-          <img src="./assets/img/bianji.png" alt="" class="menu_img">
+          <img src="./assets/img/bianji.png" alt="" class="menu_img" (click)="onSelectButton(3,i)">
         </div>
       </td>
     </tr>

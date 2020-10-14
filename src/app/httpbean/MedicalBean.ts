@@ -22,6 +22,7 @@ export interface List {
    concurrent_name?: string;
    starttime?: number;
    endtime?: number;
+   edit_status: number;
    editer?: string;
    update_admin?: string;
    department_name?: string;

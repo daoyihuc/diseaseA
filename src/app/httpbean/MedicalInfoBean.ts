@@ -17,6 +17,7 @@ export  interface MedicalInfoData {
    medical_record_diagnosis?: string;
    age?: number;
    gerder?: number;
+   files?: [];
    occupation?: string;
    birthplace?: string;
    nation?: string;

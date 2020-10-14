@@ -1,0 +1,13 @@
+<div class="max_box" dLoading [loading]="Loadings" [backdrop]="true">
+
+  <p class="title1">
+    此病例正处于编辑中
+  </p>
+  <p class="title">
+    请确认是否强制解锁
+  </p>
+  <div mat-dialog-actions class="button_box">
+    <button mat-button  class="ok_button" (click)="onOkClick()">确定</button>
+    <button mat-button  class="cancel_button" (click)="onNoClick()">取消</button>
+  </div>
+</div>

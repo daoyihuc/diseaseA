@@ -18,6 +18,7 @@ import {DialogService} from '../service/dialog.service.js';
 import {ReviewBean} from '../../bean/indexFirstBean.js';
 import {Constan} from "../../constant/constan";
 import {LoadingType} from "ng-devui";
+import {UnlockComponent} from '../dialogs/unlock/unlock.component.js';
 
 
 @Component({
@@ -122,7 +123,7 @@ export class IndexFirstComponent implements OnInit {
     username: '',
     diseases_name: '',
     deal_status: ''
-  }
+  };
 
   // 遮罩
   Loadings: LoadingType;
@@ -191,6 +192,21 @@ export class IndexFirstComponent implements OnInit {
         console.log('6'); // 编辑
         this.route.navigate(['index/case', {id: index, type: 'e'}]);
         break;
+      case 7:
+        console.log('7'); // 解锁
+        const dialogref7 = this.meas.open(UnlockComponent, {data: { id: index }});
+        dialogref7.afterClosed().subscribe(result => {
+          if (result === '0x17'){
+            this.msgs = this.dialog.showToast(2, '成功解锁');
+            const  data = {
+              Token: sessionStorage.getItem('token')
+            };
+            this.https(data);
+          }
+        });
+
+        break;
+
     }
   }
   openDialog(id: number): void{
@@ -266,7 +282,7 @@ export class IndexFirstComponent implements OnInit {
 
   // http请求
   https(data): void{
-    this.Loadings=this.http.MedicalList(data).subscribe( datas => {
+    this.Loadings = this.http.MedicalList(data).subscribe( datas => {
 
       if (datas.body.code === 1){
         this.myData = datas.body;
@@ -285,6 +301,25 @@ export class IndexFirstComponent implements OnInit {
       // console.log(this.myData);
     });
   }
+
+  // httpstatus
+  httpStatus(data): void{
+    this.http.UpdateMedicalStatus(data).subscribe( datas => {
+
+    });
+  }
+
+  // 解锁
+  UnlockHttp(id): void{
+    // 状态改变
+    const  dataStatus = {
+      Token: sessionStorage.getItem('token'),
+      id: id,
+      type: '2'
+    };
+    this.httpStatus(dataStatus);
+  }
+
 
   // 审核病例数据清洗
   filterData(): void{

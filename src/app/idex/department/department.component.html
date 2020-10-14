@@ -155,9 +155,9 @@
                  src="./assets/img/tianjia@2x.png"
                  alt=""
                  class="menu_img"
-                 (click)="add_dialog_1(item.type+1,i)">
-            <img src="./assets/img/bianji.png" alt="" class="menu_img">
-            <img src="./assets/img/shanchu@2x.png" alt="" class="menu_img">
+                 (click)="add_dialog_1(item.type+1,i, 'a')">
+            <img src="./assets/img/bianji.png" alt="" class="menu_img" (click)="add_dialog_1(item.type,i,'e')">
+            <img src="./assets/img/shanchu@2x.png" alt="" class="menu_img" (click)="delButton(item.id)">
           </div>
         </td>
       </tr>

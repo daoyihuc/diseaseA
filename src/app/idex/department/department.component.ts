@@ -127,37 +127,85 @@ export class DepartmentComponent implements OnInit {
         break;
       case 2:
         console.log('2');
-        this.add_dialog_1(0, 0x110 );
+        this.add_dialog_1(0, 0x110 , 'a');
         break;
     }
   }
 
   // 添加弹窗 0:科室；1：病区；2：主疾病
-  add_dialog_1(value: number, id: number): void{
+  add_dialog_1(value: number, id: number, types: string): void{
     switch (value) {
       case 0: // 科室
-        const dialogref2 = this.mes.open(AddDepartComponent, {});
+        let dialogref2 = null;
+        if (types === 'a'){
+            dialogref2 = this.mes.open(AddDepartComponent, {
+            data: {
+              type: types
+            }
+          });
+        }else {
+            dialogref2 = this.mes.open(AddDepartComponent, {
+            data: { ids: this.myData.data.List[id].id ,
+              name: this.myData.data.List[id].department_name,
+              type: types
+            }
+          });
+        }
         dialogref2.afterClosed().subscribe(result => {
           if (result === '0x11'){
             this.Https(this.Datas);
+            this.recever.sendShowLoad(0x11);
           }
         });
+
         break;
       case 1: // 病区
-        const dialogref1 = this.mes.open(AddWardComponent, {});
-        this.recever.sendDepart(this.myData.data.List[id]);
+        let dialogref1;
+        if (types === 'a'){
+           dialogref1 = this.mes.open(AddWardComponent, {
+            data: {
+              type: types
+            }
+          });
+           this.recever.sendDepart(this.myData.data.List[id]);
+        }else {
+           dialogref1 = this.mes.open(AddWardComponent, {
+            data: { ids: this.myData.data.List[id].id ,
+              name: this.myData.data.List[id].ward_name,
+              type: types
+            }
+          });
+           this.recever.sendDepart(this.myData.data.List[id]);
+        }
         dialogref1.afterClosed().subscribe(result => {
           if (result === '0x12'){
             this.Https(this.Datas);
+            this.recever.sendShowLoad(0x11);
           }
         });
+
         break;
       case 2: // 主疾病
-        const dialogref3 = this.mes.open(AddDiseaseComponent, {});
+        let dialogref3;
+        if (types === 'a'){
+          dialogref3 = this.mes.open(AddDiseaseComponent, {
+            data: {
+              type: types
+            }
+          });
+        }else{
+          dialogref3 = this.mes.open(AddDiseaseComponent, {
+            data: { ids: this.myData.data.List[id].id ,
+              name: this.myData.data.List[id].diseases_name,
+              type: types
+            }
+          });
+        }
         this.recever.sendDepart1(this.myData.data.List[id]);
         dialogref3.afterClosed().subscribe(result => {
           if (result === '0x13'){
             this.Https(this.Datas);
+            this.recever.sendShowLoad(0x11);
           }
           console.log('closed');
         });
@@ -208,6 +256,8 @@ export class DepartmentComponent implements OnInit {
   }
   checkCount(pageIndex): void{
     console.log('当前分页索引', pageIndex);
+    this.Datas.Page = pageIndex;
+    this.Https(this.Datas);
   }
 
   // 科室选择
@@ -242,6 +292,15 @@ export class DepartmentComponent implements OnInit {
   // 主疾病
   selectValueB(event): void{
     this.Datas.diseases_id = event.id;
+  }
+
+  // 删除
+  delButton(ids): void{
+    const  data = {
+      Token: sessionStorage.getItem('token'),
+      id: ids
+    };
+    this.HttpsDelMenu(data);
   }
 
 
@@ -283,11 +342,12 @@ export class DepartmentComponent implements OnInit {
   }
 
   // httpAddMenu 菜单添加
-  HttpsAddMenu(data): void{
-    this.http.AddMenu(data).subscribe( datas => {
+  HttpsDelMenu(data): void{
+    this.Loadings = this.http.SystemDelete(data).subscribe( datas => {
 
       if (datas.body.code === 1){
-        this.msg = this.dialog.showToast(2, '添加成功');
+        this.msg = this.dialog.showToast(2, '删除成功');
+        this.Https(this.Datas);
 
       }else {
         this.msg = this.dialog.showToast(0, datas.body.msg);

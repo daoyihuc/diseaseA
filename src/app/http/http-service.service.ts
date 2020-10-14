@@ -24,6 +24,7 @@ import {SystemConfigBean} from '../httpbean/SystemConfigBean.js';
 import {LabelBean} from '../httpbean/LabelBean.js';
 import {UserInfoBean} from '../httpbean/UserInfoBean.js';
 import {MedicalInfoBean} from '../httpbean/MedicalInfoBean.js';
+import {RoleMenuListBean} from '../httpbean/RoleMenuListBean.js';
 
 @Injectable({
   providedIn: 'root'
@@ -76,8 +77,9 @@ export class HttpServiceService {
       );
   }
   // 角色添加编辑接口
-  AddRole(data: any): Observable<any>{
-    return  this.http.post<any>( Api.AddRole, data, this.options )
+  AddRole(data: any): Observable<HttpResponse<BaseResponse>>{
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.AddRole, data, this.options )
       .pipe(
         // catchError(this.handleError)
       );
@@ -225,6 +227,43 @@ export class HttpServiceService {
     // this.options2.params = data;
     // @ts-ignore
     return  this.http.post<BaseResponse>( Api.MedicalEdit, data)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+  // 病例编辑
+  ModuleDelete(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.ModuleDelete, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+  // 加角色配置权限列表接口
+  RoleMenuList(data: any): Observable<HttpResponse<RoleMenuListBean>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<RoleMenuListBean>( Api.RoleMenuList, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  } // 加角色配置权限列表接口
+  SystemDelete(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<RoleMenuListBean>( Api.SystemDelete, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 编辑
+  EditSystem(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<RoleMenuListBean>( Api.EditSystem, data, this.options)
       .pipe(
         // catchError(this.handleError)
       );

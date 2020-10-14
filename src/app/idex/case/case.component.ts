@@ -40,8 +40,11 @@ export class CaseComponent implements OnInit,AfterViewInit {
     private dialog: DialogService,
     private renderer2: Renderer2
   ) {
-    this.type = this.router.snapshot.paramMap.get('type');
+
     this.id = this.router.snapshot.paramMap.get('id');
+    if (this.router.snapshot.paramMap.has('type')){
+      this.type = this.router.snapshot.paramMap.get('type');
+    }
   }
 
   // 消息
@@ -118,6 +121,20 @@ export class CaseComponent implements OnInit,AfterViewInit {
   };
 
 
+  // 时间配置
+  dateConfig = {
+    timePicker: false,
+    dateConverter: 'y-MM-dd',
+    min: 1970,
+    max: 2020,
+    format: {
+      date: 'y-MM-dd',
+      time: 'y-MM-dd'
+    }
+  };
+  startTime: string;
+  endTime: string;
+
   // 菜單请求数据
   Datas = {
     Token: sessionStorage.getItem('token'),
@@ -128,15 +145,32 @@ export class CaseComponent implements OnInit,AfterViewInit {
     diseases_id: ''
   };
 
+  // deleteData
+  deleteData = {
+    Token: sessionStorage.getItem('token'),
+    id: 0x11,
+  };
+
   ngOnInit(): void {
     this.Loadings = undefined;
     console.log('daoyi', jq('body').height());
     if (this.type === 'e'){
+
+      // 用户详情
       const  data = {
         Token: sessionStorage.getItem('token'),
         id: this.id
       };
       this.HttpInfo(data);
+
+      // 状态改变
+      const  dataStatus = {
+        Token: sessionStorage.getItem('token'),
+        id: this.id,
+        type: '1'
+      };
+      this.httpStatus(dataStatus);
+
     }else if (this.type === 'r'){
       const  data = {
         Token: sessionStorage.getItem('token'),
@@ -153,7 +187,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
   getValueStart(value): void {
     const end = value.selectedDate;
     const time = end.getTime();
-    const times = new DateUtils().formatDateTime3(time, 'yyyy/MM/dd');
+    const times = new DateUtils().formatDateTime3(time, 'yyyy-MM-dd');
     this.httpData.starttime = times;
     // this.httpData.endtime=
     console.log('时间', times);
@@ -163,7 +197,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
   getValueEnd(value): void {
     const end = value.selectedDate;
     const time = end.getTime();
-    const times = new DateUtils().formatDateTime3(time, 'yyyy/MM/dd');
+    const times = new DateUtils().formatDateTime3(time, 'yyyy-MM-dd');
     this.httpData.endtime = times;
     // this.httpData.endtime=
     console.log('时间', times);
@@ -222,6 +256,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
           reader.readAsDataURL(files);
           reader.onload = () => {
             this.data1[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data1[index].base_imgs += reader.result.toString().split(',')[1] + ',';
             this.data1[index].imgA.push(reader.result);
           };
         } else {
@@ -234,6 +269,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
           reader.readAsDataURL(files);
           reader.onload = () => {
             this.data2[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data2[index].base_imgs += reader.result.toString().split(',')[1] + ',';
             this.data2[index].imgA.push(reader.result);
           };
         } else {
@@ -246,6 +282,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
           reader.readAsDataURL(files);
           reader.onload = () => {
             this.data3[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data3[index].base_imgs += reader.result.toString().split(',')[1] + ',';
             this.data3[index].imgA.push(reader.result);
           };
         } else {
@@ -258,6 +295,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
           reader.readAsDataURL(files);
           reader.onload = () => {
             this.data4[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data4[index].base_imgs += reader.result.toString().split(',')[1] + ',';
             this.data4[index].imgA.push(reader.result);
           };
         } else {
@@ -270,6 +308,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
           reader.readAsDataURL(files);
           reader.onload = () => {
             this.data5[index].imgs += reader.result.toString().split(',')[1] + ',';
+            this.data5[index].base_imgs += reader.result.toString().split(',')[1] + ',';
             this.data5[index].imgA.push(reader.result);
           };
         } else {
@@ -295,8 +334,11 @@ export class CaseComponent implements OnInit,AfterViewInit {
         }
         files6.names = files.name;
         files6.files6 = files;
-        this.httpData['files[]'].push(files);
-        console.log('file', this.httpData['files[]']);
+        if (this.type !== 'e'){
+          this.httpData['files[]'].push(files);
+          console.log('file', this.httpData['files[]']);
+        }
+
         this.data6.push(files6);
         break;
     }
@@ -441,22 +483,43 @@ export class CaseComponent implements OnInit,AfterViewInit {
     console.log(this.data1);
   }
 
+  // 字模块删除
   rm_child(id: number, index: number): void {
     switch (id) {
       case 1:
         this.data1 = this.del(this.data1, index);
+        if (this.data1[index].id !== 0x11){
+          this.deleteData.id = this.data1[index].id;
+          this.httpDelete(this.deleteData);
+        }
         break;
       case 2:
         this.data2 = this.del(this.data2, index);
+        if (this.data2[index].id !== 0x11){
+          this.deleteData.id = this.data2[index].id;
+          this.httpDelete(this.deleteData);
+        }
         break;
       case 3:
         this.data3 = this.del(this.data3, index);
+        if (this.data3[index].id !== 0x11){
+          this.deleteData.id = this.data3[index].id;
+          this.httpDelete(this.deleteData);
+        }
         break;
       case 4:
         this.data4 = this.del(this.data4, index);
+        if (this.data4[index].id !== 0x11){
+          this.deleteData.id = this.data4[index].id;
+          this.httpDelete(this.deleteData);
+        }
         break;
       case 5:
         this.data5 = this.del(this.data5, index);
+        if (this.data5[index].id !== 0x11){
+          this.deleteData.id = this.data5[index].id;
+          this.httpDelete(this.deleteData);
+        }
         break;
     }
     console.log('d1', this.data1);
@@ -571,37 +634,59 @@ export class CaseComponent implements OnInit,AfterViewInit {
     // this.httpData.physical_examination = JSON.stringify(this.data3);
     // this.httpData.laboratory_examination = JSON.stringify(this.data4);
     // this.httpData.supplementary_examination = JSON.stringify(this.data5);
-    if (this.data1 !=[]){
+    if (this.data1 !== []){
       this.httpData.history_of_present_illness = JSON.stringify(this.data1);
       console.log('toLocaleString', JSON.stringify(this.data1));
-    }else if ( this.data2 !=[]){
+    }
+    if ( this.data2 !== []){
       this.httpData.other_medical_history = JSON.stringify(this.data2);
-    }else if  (this.data3 !=[]){
+      console.log('toLocaleString2', JSON.stringify(this.data2));
+    }
+    if  (this.data3 !== []){
       this.httpData.physical_examination = JSON.stringify(this.data3);
-    }else if  (this.data4 !=[]){
+    }
+    if  (this.data4 !== []){
       this.httpData.laboratory_examination = JSON.stringify(this.data4);
-    }else if  (this.data5 !=[]){
+    }
+    if  (this.data5 !== []){
       this.httpData.supplementary_examination = JSON.stringify(this.data5);
+    }
+    if (this.type === 'a'){
+      this.httpData.insert_status = '1';
     }
 
     const fileForm = new FormData();
 
     for (const das in this.httpData){
       console.log('daoyi:::' + das + '::::' + this.httpData[das]);
-      if (this.httpData[das] != null && this.httpData[das] !== '' && this.httpData[das] !== []){
+      if (this.httpData[das] != null
+        && this.httpData[das] !== ''
+        && this.httpData[das] !== []
+        && das !== 'files[]'
+      ){
         fileForm.append(das + '', this.httpData[das]);
       }
-
     }
+    for (let i = 0; i < this.data6.length; i++){
+      if (this.data6[i].files6 != null){
+        fileForm.append('files[]', this.data6[i].files6);
+      }
+    }
+
+
     // fileForm.append('Token', this.httpData.Token);
     // fileForm.append('files[]', this.data6[0].files6);
     // fileForm.append('insert_status', this.httpData.insert_status);
     // this.httpData.files = fileForm;
+
     console.log('daoyi', this.httpData);
     if (this.type === 'a'){
-      this.httpData.insert_status = '1';
+      console.log('type', this.type);
+
       this.HttpSave(fileForm);
+
     }else if (this.type === 'e'){
+      console.log('type', this.type);
       fileForm.append('Token', sessionStorage.getItem('token'));
       this.HttpEdit(fileForm);
     }
@@ -610,6 +695,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
 
   // 取消
   cancel(): void{
+    this.UnlockHttp();
     window.history.back();
   }
 
@@ -622,7 +708,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
         }else if (this.httpData.insert_status === '1'){
           this.msgs = this.dialog.showToast( 2, '保存成功');
         }
-
+        this.UnlockHttp();
       }else {
         this.msgs = this.dialog.showToast( 2, datas.msg);
       }
@@ -634,6 +720,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
     this.Loadings = this.http.MedicalEdit(data).subscribe( datas => {
       if (datas.code === 1){
         this.msgs = this.dialog.showToast( 2, '保存成功');
+        this.UnlockHttp();
       }else{
         this.msgs = this.dialog.showToast( 0, datas.msg);
       }
@@ -660,11 +747,25 @@ export class CaseComponent implements OnInit,AfterViewInit {
           id: this.httpData.diseases_id,
           title: datas.body.data.diseases_name
         };
-        this.data1 = datas.body.data.history_of_present_illness[0].SubList;
-        this.data2 = datas.body.data.other_medical_history[0].SubList;
-        this.data3 = datas.body.data.physical_examination[0].SubList;
-        this.data4 = datas.body.data.laboratory_examination[0].SubList;
-        this.data5 = datas.body.data.supplementary_examination[0].SubList;
+        this.startTime = datas.body.data.starttime;
+        this.endTime = datas.body.data.endtime;
+        // console.log('isnull', datas.body.data.history_of_present_illness.length > 0);
+        if (datas.body.data.history_of_present_illness.length > 0){
+          this.data1 = datas.body.data.history_of_present_illness[0].SubList;
+        }
+        if (datas.body.data.other_medical_history.length > 0 ){
+          this.data2 = datas.body.data.other_medical_history[0].SubList;
+        }
+        if (datas.body.data.physical_examination.length > 0 ){
+          this.data3 = datas.body.data.physical_examination[0].SubList;
+        }
+        if (datas.body.data.laboratory_examination.length > 0){
+          this.data4 = datas.body.data.laboratory_examination[0].SubList;
+        }
+        if (datas.body.data.supplementary_examination.length > 0 ){
+          this.data5 = datas.body.data.supplementary_examination[0].SubList;
+        }
+        this.fileFx(datas.body.data.files);
 
         // if (this.httpData.insert_status === '2' ){
         //   this.msgs = this.dialog.showToast( 2, '上传成功');
@@ -676,9 +777,63 @@ export class CaseComponent implements OnInit,AfterViewInit {
       console.log(datas);
     });
   }
+  // 附件解析
+  fileFx(datas): void{
+
+
+    for (let i = 0; i < datas.length; i++) {
+      const files6 =  {
+        names: '附件',
+        imgs: '',
+        files6: null
+      };
+      console.log('files1:', datas);
+      // toUrl.
+      // 文件类型判断
+      const suffix = datas[i].split('.');
+      if (/(doc|docx|wbk)$/.test(suffix[3])) {
+        files6.imgs = './assets/img/word@2x.png';
+      } else if (/(xls|xlsx|xlt|xltx|xltm)$/.test(suffix[3])) {
+        files6.imgs = './assets/img/excel@2x.png';
+      }
+      files6.names = '附件' + i;
+      this.data6.push(files6);
+      console.log('files:', this.data6);
+
+    }
+
+  }
+  // httpstatus
+  httpStatus(data): void{
+    this.http.UpdateMedicalStatus(data).subscribe( datas => {
+
+    });
+  }
+
+  // 解锁
+  UnlockHttp(): void{
+    // 状态改变
+    const  dataStatus = {
+      Token: sessionStorage.getItem('token'),
+      id: this.id,
+      type: '2'
+    };
+    this.httpStatus(dataStatus);
+  }
+
+  // 字模块删除
+  httpDelete(data): void{
+    this.http.ModuleDelete(data).subscribe( datas => {
+      if (datas.body.code === 1){
+        this.msgs = this.dialog.showToast( 0, '删除成功');
+      }
+    });
+  }
+
+
 
   ngAfterViewInit(): void {
-    this.renderer2.setAttribute(this.el.nativeElement.querySelectorAll('input'), 'disabled', 'disabled')
+    this.renderer2.setAttribute(this.el.nativeElement.querySelectorAll('input'), 'disabled', 'disabled');
   }
 
 }

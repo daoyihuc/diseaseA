@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialogRef} from '@angular/material/dialog';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HttpServiceService} from '../../../http/http-service.service.js';
 import {DateUtils} from '../../../../libs/DateUtils.js';
 import {DialogService} from '../../service/dialog.service.js';
@@ -17,7 +17,8 @@ export class AddDepartComponent implements OnInit {
   constructor(
     private dialog: MatDialogRef<AddDepartComponent>,
     private http: HttpServiceService,
-    private dialogs: DialogService
+    private dialogs: DialogService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) { }
 
   // 时间
@@ -31,6 +32,14 @@ export class AddDepartComponent implements OnInit {
     WardId: '',
     title: ''
   };
+
+  updata = {
+    Token: sessionStorage.getItem('token'),
+    id: '',
+    title: ''
+  } ;
+  type = 'a';
+
   // toast
   msg: any[] = [];
 
@@ -38,6 +47,19 @@ export class AddDepartComponent implements OnInit {
     const ds = new Date();
     const time = ds.getTime();
     this.times = new DateUtils().formatDateTime3(time, 'yyyy/MM/dd');
+
+    // if (this.data.has('ids')){
+    this.updata.id = this.data.ids;
+    // }
+
+    // if (this.data.has('name')){
+    this.updata.title = this.data.name;
+    // }
+    // if (this.data.has('type')){
+    this.type = this.data.type;
+    // }
+    console.log(this.type);
+
   }
   ngClick(): void{
     this.dialog.close();
@@ -46,7 +68,12 @@ export class AddDepartComponent implements OnInit {
     if (this.datas.title === ''){
       this.msg = this.dialogs.showToast(1, '名称不能为空' );
     }else{
-      this.HttpsAddMenu(this.datas);
+      if (this.type === 'e'){
+        this.EditSystem(this.updata);
+      }else if (this.type === 'a'){
+        this.HttpsAddMenu(this.datas);
+      }
+
     }
 
   }
@@ -56,9 +83,19 @@ export class AddDepartComponent implements OnInit {
   }
   // httpAddMenu 菜单添加
   HttpsAddMenu(data): void{
-    this.http.AddMenu(data).subscribe( datas => {
+    this.http.AddMenu(data).subscribe( dat => {
 
-      if (datas.body.code === 1){
+      if (dat.body.code === 1){
+        this.dialog.close('0x11');
+      }else {
+
+      }
+    });
+  }// httpAddMenu 菜单添加
+  EditSystem(data): void{
+    this.http.EditSystem(data).subscribe( dat => {
+
+      if (dat.body.code === 1){
         this.dialog.close('0x11');
       }else {
 

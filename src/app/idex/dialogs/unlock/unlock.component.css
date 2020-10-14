@@ -1,0 +1,49 @@
+.max_box{
+  width: 453px;
+  height: 267px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+.title{
+  font-size: 24px;
+  font-weight: 400;
+  color: #737373;
+  align-items: center;
+  letter-spacing: 5.3px;
+}
+.title{
+  font-size: 24px;
+  font-weight: 400;
+  color: #737373;
+  align-items: center;
+
+}
+.ok_button{
+  width: 102px;
+  height: 35px;
+  color: white;
+  outline: none;
+  background: #02BFD8;
+  border-radius: 10px;
+}
+.cancel_button{
+  width: 102px;
+  height: 35px;
+  color: white;
+  outline: none;
+  background: #DCDCDC;
+  border-radius: 10px;
+}
+.button_box{
+  margin-top: 50px;
+  display: flex;
+  width: 57%;
+  justify-content: space-between;
+}
+

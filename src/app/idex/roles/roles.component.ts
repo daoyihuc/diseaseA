@@ -53,7 +53,7 @@ export class RolesComponent implements OnInit {
   }
 
 
-  onSelectButton(id): void{
+  onSelectButton(id, index: number): void{
     switch (id) {
       case 0:
         if (this.datas.role_name === ''){
@@ -67,7 +67,11 @@ export class RolesComponent implements OnInit {
         this.https(this.datas);
         break;
       case 2:
-        this.router.navigate(['index/user_add', { id: '1' , name: 'daoyi'}]);
+        this.router.navigate(['index/user_add', { id: '1' , name: 'daoyi', type: 'add'}]);
+        break;
+      case 3:
+        this.router.navigate(['index/user_add', { id: this.myData.data.List[index].id ,
+          name: this.myData.data.List[index].role_name, type: 'edit'}]);
         break;
     }
   }

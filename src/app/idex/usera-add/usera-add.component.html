@@ -1,84 +1,89 @@
-<div class="card_top">
-  <div class="card_top_text">
-    <div class="left_row"></div>
-    <div class="text">添加基本信息</div>
+<div dLoading [backdrop]="true" [loading]="Loadings">
+  <div class="card_top">
+    <div class="card_top_text">
+      <div class="left_row"></div>
+      <div class="text">添加基本信息</div>
+    </div>
+    <div class="card_top_input">
+      <div class="role">角色名称</div>
+      <input type="text" placeholder="编号" [(ngModel)]="httpdata.role_name">
+    </div>
   </div>
-  <div class="card_top_input">
-    <div class="role">角色名称</div>
-    <input type="text" placeholder="编号">
-  </div>
-</div>
-<div class="card_fot">
-  <div class="card_fot_text">
-    <div class="left_row"></div>
-    <div class="text">添加基本信息</div>
-  </div>
-  <div class="card_fot_checkbox">
-    <div class="checkbox_list">
-      <div class="checkbox_top">
-        <d-checkbox
-          [name]="'checkbox-username'"
-          [label]=""
-          [color]="'#02BFD8'"
-          [ngModel]="false"
-          class="label_check"
-        >
-        </d-checkbox>
-        <span class="text">页面名称</span>
-      </div>
-      <div class="checkbox_fot">
-        <div class="chexbox_fot_li">
+  <div class="card_fot">
+    <div class="card_fot_text">
+      <div class="left_row"></div>
+      <div class="text">权限信息配置</div>
+    </div>
+    <div class="card_fot_checkbox">
+      <div class="checkbox_list" *ngFor="let item of myData;index as i">
+        <div class="checkbox_top">
           <d-checkbox
             [name]="'checkbox-username'"
             [label]=""
             [color]="'#02BFD8'"
-            [ngModel]="false"
+            [ngModel]="item.isActivi == 1"
             class="label_check"
+          >
+          </d-checkbox>
+          <span class="text">{{item.title}}</span>
+        </div>
+        <div class="checkbox_fot" >
+          <div class="chexbox_fot_li" *ngFor="let data of item.NextList;index as j">
+            <d-checkbox
+              [name]="'checkbox-username'"
+              [label]=""
+              [color]="'#02BFD8'"
+              [ngModel]="data.isActivi == 1 "
+              class="label_check"
+              (change)="changes(i,j,$event)"
+            >
+            </d-checkbox>
+            <span class="text">{{data.title}}</span>
+          </div>
+          <!--        <div class="chexbox_fot_li">-->
+          <!--          <d-checkbox-->
+          <!--            [name]="'checkbox-username'"-->
+          <!--            [label]=""-->
+          <!--            [color]="'#02BFD8'"-->
+          <!--            [ngModel]="false"-->
+          <!--            class="label_check"-->
+          <!--          >-->
+          <!--          </d-checkbox>-->
+          <!--          <span class="text">新增</span>-->
+          <!--        </div>-->
+          <!--        <div class="chexbox_fot_li">-->
+          <!--          <d-checkbox-->
+          <!--            [name]="'checkbox-username'"-->
+          <!--            [label]=""-->
+          <!--            [color]="'#02BFD8'"-->
+          <!--            [ngModel]="false"-->
+          <!--            class="label_check"-->
+          <!--          >-->
+          <!--          </d-checkbox>-->
+          <!--          <span class="text">编辑</span>-->
+          <!--        </div>-->
+          <!--        <div class="chexbox_fot_li">-->
+          <!--          <d-checkbox-->
+          <!--            [name]="'checkbox-username'"-->
+          <!--            [label]=""-->
+          <!--            [color]="'#02BFD8'"-->
+          <!--            [ngModel]="false"-->
+          <!--            class="label_check"-->
+          <!--          >-->
+          <!--          </d-checkbox>-->
+          <!--          <span class="text">搜索</span>-->
+          <!--        </div>-->
 
-          >
-          </d-checkbox>
-          <span class="text">查询</span>
         </div>
-        <div class="chexbox_fot_li">
-          <d-checkbox
-            [name]="'checkbox-username'"
-            [label]=""
-            [color]="'#02BFD8'"
-            [ngModel]="false"
-            class="label_check"
-          >
-          </d-checkbox>
-          <span class="text">新增</span>
-        </div>
-        <div class="chexbox_fot_li">
-          <d-checkbox
-            [name]="'checkbox-username'"
-            [label]=""
-            [color]="'#02BFD8'"
-            [ngModel]="false"
-            class="label_check"
-          >
-          </d-checkbox>
-          <span class="text">编辑</span>
-        </div>
-        <div class="chexbox_fot_li">
-          <d-checkbox
-            [name]="'checkbox-username'"
-            [label]=""
-            [color]="'#02BFD8'"
-            [ngModel]="false"
-            class="label_check"
-          >
-          </d-checkbox>
-          <span class="text">搜索</span>
-        </div>
-
       </div>
     </div>
   </div>
+
+  <div class="button_box">
+    <input type="button" value="保存" class="ok_button" (click)="save()">
+    <input type="button" value="取消" class="cancel_button" (click)="cancel()">
+  </div>
 </div>
 
-<div class="button_box">
-  <input type="button" value="保存" class="ok_button">
-  <input type="button" value="取消" class="cancel_button">
-</div>
+
+<d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>

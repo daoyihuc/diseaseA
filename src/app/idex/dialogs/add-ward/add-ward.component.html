@@ -14,6 +14,7 @@
     <label class="lables">病区名称:</label>
     <input class="inputs"
            type="text"
+           [(ngModel)]="updata.title"
            (change)="InputChange($event)"
            placeholder="请填写科室名称">
   </div>
@@ -30,3 +31,5 @@
     <input type="button" value="取消" class="buttons_cancel" (click)="ngClick()">
   </div>
 </div>
+
+<d-toast [lifeMode]="'single'" [value]="msg"></d-toast>

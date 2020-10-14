@@ -30,12 +30,7 @@ export class IdexComponent implements OnInit {
     private tableService: TableServiceService,
     private http: HttpServiceService
   ) {
-    this.classSelectService.showLoading$.subscribe( data => {
-      this.loadings = data;
-      if (Constan.DeBug){
-          console.log('daoyi', data);
-      }
-    });
+
   }
 
   currentSelectedNode;
@@ -123,6 +118,16 @@ export class IdexComponent implements OnInit {
     };
     this.https(data);
     this.loadings = undefined;
+
+    this.classSelectService.showLoading$.subscribe( (result: number) => {
+      alert(result);
+      if (result === 0x11){
+        // tslint:disable-next-line:no-shadowed-variable
+
+        this.https(data);
+      }
+
+    });
   }
 
   // 节点选择
@@ -175,7 +180,6 @@ export class IdexComponent implements OnInit {
   // http请求
   https(data): void{
       this.http.MenuList(data).subscribe( datas => {
-
         this.myData = datas.body;
         console.log(this.myData);
       });

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {AsyncSubject, BehaviorSubject, Observable, Subject} from 'rxjs';
 import {LoadingType} from 'ng-devui';
 import {List} from '../../httpbean/SystemConfigBean.js';
 import {ReviewBean} from '../../bean/indexFirstBean.js';
@@ -13,7 +13,8 @@ export class ClassSelectService {
   private missionAnnouncedSource = new Subject<string>();
   private missionConfirmedSource = new Subject<string>();
 
-  private ShowLoadingSource = new Subject<LoadingType>();
+  // @ts-ignore
+  public showLoadingSource = new AsyncSubject<number>();
   private departMentSource = new Subject<List>();
   private departMentSource1 = new Subject<List>();
   private reviewSource = new Subject<string>(); // 首页审核数据发送
@@ -21,7 +22,7 @@ export class ClassSelectService {
   // Observable string streams (订阅者)
   missionAnnounced$ = this.missionAnnouncedSource.asObservable();
   missionConfirmed$ = this.missionConfirmedSource.asObservable();
-  showLoading$ = this.ShowLoadingSource.asObservable();
+  showLoading$ = this.showLoadingSource.asObservable();
   depart$ = this.departMentSource.asObservable();
   depart1$ = this.departMentSource1.asObservable();
   Review$ = this.reviewSource.asObservable(); // 首页审核数据接受
@@ -36,9 +37,10 @@ export class ClassSelectService {
     this.missionConfirmedSource.next(astronaut);
   }
 
-  // 遮罩发送
-  sendShowLoad(loading: LoadingType): void{
-    this.ShowLoadingSource.next(loading);
+  // 菜单刷新
+  sendShowLoad(loading: number): void{
+    this.showLoadingSource.next(loading);
+    // alert(loading);
   }
 
   // 系统配置信息
