@@ -25,7 +25,7 @@ import {DialogService} from '../service/dialog.service.js';
   templateUrl: './case.component.html',
   styleUrls: ['./case.component.css']
 })
-export class CaseComponent implements OnInit,AfterViewInit {
+export class CaseComponent implements OnInit, AfterViewInit {
 
 
   id = '0x17';
@@ -610,6 +610,7 @@ export class CaseComponent implements OnInit,AfterViewInit {
     this.httpData.supplementary_examination = JSON.stringify(this.data5);
     this.httpData.insert_status = '2';
     const fileForm = new FormData();
+
     for (const das in this.httpData){
       console.log('daoyi:::' + das + '::::' + this.httpData[das]);
       if (this.httpData[das] != null && this.httpData[das] !== '' && this.httpData[das] !== []){
@@ -617,12 +618,25 @@ export class CaseComponent implements OnInit,AfterViewInit {
       }
 
     }
+    if (this.type === 'e'){
+      fileForm.append('Token', sessionStorage.getItem('token'));
+      const data = {
+        Token: sessionStorage.getItem('token'),
+        id: this.httpData.id
+      };
+      this.httpCheck(data);
+    }else if (this.type === 'a'){
+      this.HttpSave(fileForm);
+    }
     // fileForm.append('Token', this.httpData.Token);
     // fileForm.append('files[]', this.data6[0].files6);
     // fileForm.append('insert_status', this.httpData.insert_status);
     // this.httpData.files = fileForm;
     console.log('daoyi', this.httpData);
-    this.HttpSave(fileForm);
+
+
+
+
   }
 
   // 保存
@@ -829,6 +843,22 @@ export class CaseComponent implements OnInit,AfterViewInit {
       }
     });
   }
+
+
+  // 审核请求
+  httpCheck(data): void{
+    this.Loadings = this.Loadings = this.http.MedicalCheck(data).subscribe( datas => {
+      if (datas.body.code === 1){
+        this.msgs = this.dialog.showToast(2, datas.body.msg);
+        setTimeout( () => {
+          window.history.back();
+        }, 1000);
+      }else{
+        this.msgs = this.dialog.showToast(2, datas.body.msg);
+      }
+    });
+  }
+
 
 
 

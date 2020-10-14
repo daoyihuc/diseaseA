@@ -111,6 +111,7 @@ export class UseraAddComponent implements OnInit {
     console.log('保存', this.myData);
     for (let i = 0; i < this.myData.length; i++){
 
+      this.httpdata.permission_id += this.myData[i].id + ',';
       for (let j = 0; j < this.myData[i].NextList.length; j++){
         if (this.myData[i].NextList[j].isActivi === 1){
           this.httpdata.permission_id += this.myData[i].NextList[j].id + ',';
