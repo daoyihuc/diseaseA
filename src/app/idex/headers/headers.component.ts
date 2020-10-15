@@ -20,7 +20,6 @@ export class HeadersComponent implements OnInit {
   }
 
   GoOut(): void{
-    localStorage.clear();
     sessionStorage.clear();
     this.route.navigate(['./login']);
   }

@@ -45,6 +45,9 @@ export class LoginIndexComponent implements OnInit {
   ngOnInit(): void {
     this.loading = undefined;
     this.type = Number(this.router.snapshot.paramMap.get('type'));
+    this.username = localStorage.getItem('username');
+    this.password = localStorage.getItem('password');
+    this.iSsave = Boolean(localStorage.getItem('isSave'));
   }
   go(): void{
     const table = new Tablebean();
@@ -106,6 +109,8 @@ export class LoginIndexComponent implements OnInit {
           localStorage.setItem('token', this.myData.data.Token);
           localStorage.setItem('username', this.myData.data.username);
           localStorage.setItem('id', String(this.myData.data.id));
+          localStorage.setItem('password', this.password);
+          localStorage.setItem('isSave', String(this.iSsave));
         }
         sessionStorage.setItem('token', this.myData.data.Token);
         sessionStorage.setItem('username', this.myData.data.username);

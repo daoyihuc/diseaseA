@@ -1,5 +1,5 @@
 export class CaseBean {
-  id?: number = 0x11;
+  id?: number;
   title: string;
   content: string;
   files: any[] = [];

@@ -59,6 +59,15 @@ body {
 .index_box2{
   width: 84%;
 }
+.tree-title{
+  text-align: center;
+}
+.tree-logo{
+  width: 100px;
+  height: 100px;
+  margin: 10px 0px;
+}
+
 .slide_box {
   padding-left: 23px;
   letter-spacing: 2px

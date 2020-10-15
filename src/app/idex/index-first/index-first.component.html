@@ -136,16 +136,16 @@
 
       <td>
         <div  class="menu_box">
-          <img src="./assets/img/chakan.png" alt="" class="menu_img" (click)="onSelectButton(5, TextBean.id)">
+          <img src="./assets/img/chakan.png" alt="" class="menu_img" (click)="onSelectButton(5, TextBean.id, TextBean.username)">
           <img src="./assets/img/bianji.png"
                alt=""
                class="menu_img"
                *ngIf="TextBean.edit_status == 0"
-               (click)="onSelectButton(6, TextBean.id)" >
+               (click)="onSelectButton(6, TextBean.id, TextBean.username)" >
           <img src="./assets/img/suo.png"
                alt=""
                *ngIf="TextBean.edit_status == 1"
-               (click)="onSelectButton(7, TextBean.id)"
+               (click)="onSelectButton(7, TextBean.id, TextBean.username)"
                class="menu_img"
           >
         </div>

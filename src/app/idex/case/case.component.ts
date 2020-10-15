@@ -18,6 +18,7 @@ import {LabelBeanData} from '../../httpbean/LabelBean.js';
 import {ActivatedRoute, Router} from '@angular/router';
 import {LoadingType} from 'ng-devui';
 import {DialogService} from '../service/dialog.service.js';
+import {TableServiceService} from '../service/table-service.service.js';
 
 
 @Component({
@@ -38,13 +39,15 @@ export class CaseComponent implements OnInit, AfterViewInit {
     private route: Router,
     private router: ActivatedRoute,
     private dialog: DialogService,
-    private renderer2: Renderer2
+    private renderer2: Renderer2,
+    private table: TableServiceService
   ) {
 
     this.id = this.router.snapshot.paramMap.get('id');
     if (this.router.snapshot.paramMap.has('type')){
       this.type = this.router.snapshot.paramMap.get('type');
     }
+    console.log('case', this.id);
   }
 
   // 消息
@@ -152,6 +155,20 @@ export class CaseComponent implements OnInit, AfterViewInit {
   };
 
   ngOnInit(): void {
+    this.table.missionConfirmed$.subscribe( results => {
+      this.id = this.router.snapshot.paramMap.get('id');
+      if (this.router.snapshot.paramMap.has('type')){
+        this.type = this.router.snapshot.paramMap.get('type');
+      }
+      const  data = {
+        Token: sessionStorage.getItem('token'),
+        id: this.id
+      };
+
+      this.HttpInfo(data);
+    });
+
+
     this.Loadings = undefined;
     console.log('daoyi', jq('body').height());
     if (this.type === 'e'){
@@ -487,39 +504,44 @@ export class CaseComponent implements OnInit, AfterViewInit {
   rm_child(id: number, index: number): void {
     switch (id) {
       case 1:
-        this.data1 = this.del(this.data1, index);
+
         if (this.data1[index].id !== 0x11){
           this.deleteData.id = this.data1[index].id;
           this.httpDelete(this.deleteData);
         }
+        this.data1 = this.del(this.data1, index);
         break;
       case 2:
-        this.data2 = this.del(this.data2, index);
+
         if (this.data2[index].id !== 0x11){
           this.deleteData.id = this.data2[index].id;
           this.httpDelete(this.deleteData);
         }
+        this.data2 = this.del(this.data2, index);
         break;
       case 3:
-        this.data3 = this.del(this.data3, index);
+
         if (this.data3[index].id !== 0x11){
           this.deleteData.id = this.data3[index].id;
           this.httpDelete(this.deleteData);
         }
+        this.data3 = this.del(this.data3, index);
         break;
       case 4:
-        this.data4 = this.del(this.data4, index);
+
         if (this.data4[index].id !== 0x11){
           this.deleteData.id = this.data4[index].id;
           this.httpDelete(this.deleteData);
         }
+        this.data4 = this.del(this.data4, index);
         break;
       case 5:
-        this.data5 = this.del(this.data5, index);
+
         if (this.data5[index].id !== 0x11){
           this.deleteData.id = this.data5[index].id;
           this.httpDelete(this.deleteData);
         }
+        this.data5 = this.del(this.data5, index);
         break;
     }
     console.log('d1', this.data1);

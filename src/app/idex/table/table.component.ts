@@ -3,6 +3,7 @@ import {Tablebean} from '../../bean/tablebean.js';
 import {TableServiceService} from '../service/table-service.service.js';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogService} from '../service/dialog.service.js';
+import {ResourceLoader} from '@angular/compiler';
 
 @Component({
   selector: 'app-table',
@@ -16,7 +17,8 @@ export class TableComponent implements OnInit {
     private tableRecond: TableServiceService,
     private route: Router,
     private router: ActivatedRoute,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private TableServic: TableServiceService
   ) {
 
     this.tableRecond.missionAnnounced$.subscribe(tablebean => {
@@ -30,8 +32,19 @@ export class TableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getTagValue(value): void{
-    this.route.navigate([value]);
+  getTagValue(value, types, ids): void{
+    if (value === 'index/case'){
+
+      this.route.navigate(['index/case', {id: ids, type: types}]);
+      setTimeout( () => {
+        this.TableServic.sendC(1);
+      }, 300);
+
+
+    }else {
+      this.route.navigate([value]);
+    }
+
     console.log(value);
   }
 

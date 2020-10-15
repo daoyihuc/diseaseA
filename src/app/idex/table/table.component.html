@@ -6,7 +6,7 @@
     (tagDelete)="deleteTag($event.index)"
   >
     <ng-template let-tag="tag"  >
-      <span title="{{ tag.name }}" (click) = "getTagValue(tag.url)" class="title">{{ tag.name }}</span>
+      <span title="{{ tag.name }}" (click) = "getTagValue(tag.url, tag.type, tag.id)" class="title">{{ tag.name }}</span>
     </ng-template>
   </d-tags>
   <d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>

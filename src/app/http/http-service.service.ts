@@ -125,7 +125,7 @@ export class HttpServiceService {
       );
   }
   // 管理员新增编辑提交接口
-  AddAdmin(data: any): Observable<BaseResponse>{
+  AddAdmin(data: any): Observable<HttpResponse<BaseResponse>>{
     // @ts-ignore
     return  this.http.post<BaseResponse>( Api.AddAdmin, data, this.options )
       .pipe(

@@ -15,3 +15,9 @@ export  interface DepartMentBeanData {
    id?: number;
    title?: string;
 }
+
+export  class DepartMentBeanArry {
+  id?: number;
+  title?: string;
+  data: DepartMentBeanData[];
+}

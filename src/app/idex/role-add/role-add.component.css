@@ -5,6 +5,48 @@
 html,body{
   background-color: gainsboro;
 }
+.departBox{
+  background-color: #fff;
+  margin: 20px;
+  padding: 20px;
+}
+.card_fot_checkbox{
+
+  border-radius: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.checkbox_top{
+  display: flex;
+}
+.checkbox_fot{
+  padding-left: 20px;
+  margin-top: 5px;
+}
+.chexbox_fot_li{
+  display: flex;
+}
+.text1{
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #272626;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+.text{
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: rgba(39, 38, 38, 0.67);
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
 .card{
   background-color: #fff;
   margin: 20px;

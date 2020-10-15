@@ -10,14 +10,23 @@
         <p class="section_box1_2_p">欢迎登录后台系统</p>
         <div class="section_box1_2_div">
           <img src="./assets/img/user.png" alt="" class="defualt_img">
-          <input type="text" placeholder="请输入账号" class="defualt_input" (change)="inputChange(1, $event)">
+          <input type="text" placeholder="请输入账号"
+                 class="defualt_input"
+                 [(ngModel)]="username"
+                 (change)="inputChange(1, $event)">
         </div>
         <div class="section_box1_2_div">
           <img src="./assets/img/pass.png" alt="" class="defualt_img">
-          <input type="password" placeholder="请输入密码" class="defualt_input" (change)="inputChange(2, $event)">
+          <input type="password"
+                 placeholder="请输入密码"
+                 class="defualt_input"
+                 [(ngModel)]="password"
+                 (change)="inputChange(2, $event)">
         </div>
         <div class="section_box1_2_div">
-          <input type="checkbox" style="width: 18px" (click)="isSave($event)">
+          <input type="checkbox" style="width: 18px"
+                 [(ngModel)]="iSsave"
+                 (click)="isSave($event)">
           <input type="text" placeholder="记住用户名" readonly class="defualt_input">
         </div>
         <input type="button" value="登录" class="sumbit" (click)="logins()">

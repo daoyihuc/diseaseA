@@ -41,6 +41,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 99999;
 }
 .logout{
   margin-right: 40px;
@@ -48,5 +49,6 @@
   font-size: 18px;
   font-family: Source Han Sans CN;
   font-weight: 400;
+  padding: 0 10px;
   color: #C0C0C0;
 }

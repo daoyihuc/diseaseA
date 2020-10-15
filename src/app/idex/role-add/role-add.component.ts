@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
 import {HttpServiceService} from '../../http/http-service.service.js';
-import {DepartMentBean} from '../../httpbean/DepartMentBean.js';
+import {DepartMentBean, DepartMentBeanArry} from '../../httpbean/DepartMentBean.js';
 import {Constan} from '../../constant/constan.js';
 import {typeValue} from '../../bean/lable.js';
 import {RoleListBean} from '../../httpbean/RoleListBean.js';
@@ -10,6 +10,7 @@ import {ClassSelectService} from '../service/class-select.service.js';
 import {LoadingType} from 'ng-devui';
 import {DialogService} from '../service/dialog.service.js';
 import {AdminInfoBean, AdminInfoBeanData} from '../../httpbean/AdminInfoBean.js';
+import {DepartmentBeans} from '../../bean/departmentBean.js';
 
 @Component({
   selector: 'app-role-add',
@@ -82,6 +83,9 @@ export class RoleAddComponent implements OnInit {
   // show_button
   showButton = true;
 
+  // 科室二次数据
+  DepartData: DepartMentBeanArry[] = [];
+
   constructor(
     private http: HttpServiceService,
     private el: ElementRef,
@@ -117,6 +121,7 @@ export class RoleAddComponent implements OnInit {
       };
       this.httpInfo(eData);
     }
+
   }
   // http 请求
   https_Depart(data, type: number): void{
@@ -125,6 +130,7 @@ export class RoleAddComponent implements OnInit {
       switch (type) {
         case 0: // 科室
           this.DepartmentOption = this.myDataDepart.data;
+          this.filiterData();
           break;
         case 1: // 病区
           this.WardOption = this.myDataDepart.data;
@@ -134,6 +140,28 @@ export class RoleAddComponent implements OnInit {
           console.log(this.myDataDepart);
       }
     });
+  }
+
+  filiterData(): void{
+    console.log('结果', '数据清洗中');
+    const results = [];
+    for( let i = 0; i < this.myDataDepart.data.length; i++) {
+      const result = new DepartMentBeanArry();
+      result.id = this.myDataDepart.data[i].id;
+      result.title = this.myDataDepart.data[i].title;
+      const data = {
+        Token: sessionStorage.getItem('token'),
+        parent_id: result.id
+      };
+      this.http.DepartmentList(data).subscribe( datas => {
+        result.data = datas.body.data;
+        results.push(result);
+      });
+
+
+    }
+    console.log('结果', '' + results);
+    this.DepartData = results;
   }
 
   // 科室选择
@@ -251,7 +279,13 @@ export class RoleAddComponent implements OnInit {
   // httpSave
   httpSave(data): void{
     this.loadings = this.http.AddAdmin(data).subscribe( datas => {
-        if (datas.code === 1) {
+        if (datas.body.code === 1) {
+          this.msg = this.dialog.showToast(2, '保存成功');
+          setTimeout( () => {
+            window.history.back();
+          }, 1000);
+        }else{
+          this.msg = this.dialog.showToast(0, datas.body.msg);
         }
       });
   }

@@ -157,6 +157,11 @@ export class IdexComponent implements OnInit {
       this.tableService.sendA(t1);
       this.router.navigate(['index/roles']);
     }else{
+      const t1 = new Tablebean();
+      t1.name = ds.title;
+      t1.id = 0x166;
+      t1.url = 'index';
+      this.tableService.sendA(t1);
       this.router.navigate(['index']);
     }
 

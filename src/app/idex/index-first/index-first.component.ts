@@ -16,9 +16,11 @@ import {HttpServiceService} from '../../http/http-service.service.js';
 import {MedicalBean} from '../../httpbean/MedicalBean.js';
 import {DialogService} from '../service/dialog.service.js';
 import {ReviewBean} from '../../bean/indexFirstBean.js';
-import {Constan} from "../../constant/constan";
-import {LoadingType} from "ng-devui";
+import {Constan} from '../../constant/constan';
+import {LoadingType} from 'ng-devui';
 import {UnlockComponent} from '../dialogs/unlock/unlock.component.js';
+import {Tablebean} from '../../bean/tablebean.js';
+import {TableServiceService} from '../service/table-service.service.js';
 
 
 @Component({
@@ -140,7 +142,8 @@ export class IndexFirstComponent implements OnInit {
               private http: HttpServiceService, //
               private dialog: DialogService,
               public el: ElementRef,
-              private recever: ClassSelectService
+              private recever: ClassSelectService,
+              private tableService: TableServiceService,
             )
   {
     this.recever.missionAnnounced$.subscribe(value1 => {
@@ -158,17 +161,18 @@ export class IndexFirstComponent implements OnInit {
     };
     this.https(data);
   }
-  onSelectButton(value: number, index: number): void{
+  onSelectButton(value: number, index: number, name: string): void{
     switch (value) {
       case 0:
         console.log('0');
         this.https(this.selectDate);
         break;
-      case 1:
+      case 1: // 重置
         this.selectDate.deal_status = '';
         this.selectDate.username = '';
         this.selectDate.diseases_name = '';
         this.selectDate.id = '';
+        this.CaseStatusValue = [];
         this.https(this.selectDate);
         console.log('1');
         break;
@@ -186,10 +190,32 @@ export class IndexFirstComponent implements OnInit {
         break;
       case 5:
         console.log('5'); // 查看
+        const ta = new Tablebean();
+        console.log('当前名称', name);
+        if (name == null || name === ''){
+          ta.name = '未命名';
+        }else {
+          ta.name = name;
+        }
+        ta.id = index;
+        ta.url = 'index/case';
+        ta.type = 'r';
+        this.tableService.sendA(ta);
         this.route.navigate(['index/case',  {id: index, type: 'r'}]);
         break;
       case 6:
         console.log('6'); // 编辑
+        console.log('当前名称', name);
+        const t1 = new Tablebean();
+        if (name == null || name === ''){
+          t1.name = '未命名';
+        }else {
+          t1.name = name;
+        }
+        t1.id = index;
+        t1.url = 'index/case';
+        t1.type = 'e';
+        this.tableService.sendA(t1);
         this.route.navigate(['index/case', {id: index, type: 'e'}]);
         break;
       case 7:
@@ -250,7 +276,7 @@ export class IndexFirstComponent implements OnInit {
     }
   }
 
-  // 科室选择
+  // 状态查询
   selectValueD(event): void{
     this.selectDate.deal_status = event.id;
   }
@@ -314,7 +340,7 @@ export class IndexFirstComponent implements OnInit {
     // 状态改变
     const  dataStatus = {
       Token: sessionStorage.getItem('token'),
-      id: id,
+      id,
       type: '2'
     };
     this.httpStatus(dataStatus);
