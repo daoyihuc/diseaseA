@@ -10,5 +10,6 @@ export class Tablebean{
   name: string;
   url: string;
   type: string;
+  pid: number;
   urlparams: any[] = [];
 }

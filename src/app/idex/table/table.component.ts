@@ -41,8 +41,11 @@ export class TableComponent implements OnInit {
       }, 300);
 
 
-    }else {
+    }else if (value === 'index'){
+
+    }else{
       this.route.navigate([value]);
+      this.TableServic.sendI(1);
     }
 
     console.log(value);

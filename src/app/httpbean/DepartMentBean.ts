@@ -14,10 +14,12 @@ export interface DepartMentBean extends BaseResponse{
 export  interface DepartMentBeanData {
    id?: number;
    title?: string;
+   isActivited?: number;
 }
 
 export  class DepartMentBeanArry {
   id?: number;
   title?: string;
+  isActivited?: number;
   data: DepartMentBeanData[];
 }

@@ -23,11 +23,15 @@ html,body{
   display: flex;
 }
 .checkbox_fot{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   padding-left: 20px;
   margin-top: 5px;
 }
 .chexbox_fot_li{
   display: flex;
+  margin-left: 20px;
 }
 .text1{
   font-size: 14px;
@@ -42,7 +46,7 @@ html,body{
   font-size: 12px;
   font-family: Source Han Sans CN;
   font-weight: 400;
-  color: rgba(39, 38, 38, 0.67);
+  color: #2d2b2b;
   display: flex;
   align-items: center;
   margin-left: 5px;

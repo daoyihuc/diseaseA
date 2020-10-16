@@ -164,6 +164,31 @@ export class RoleAddComponent implements OnInit {
     this.DepartData = results;
   }
 
+  // change
+  changes(i, j, envent): void{
+    if (envent){
+      this.DepartData[i].data[j].isActivited = 1;
+      this.DepartData[i].isActivited = 1;
+    }else {
+      this.DepartData[i].data[j].isActivited = 0;
+    }
+    let isc = false;
+    // for (let i1 = 0; i1 < this.DepartData.length; i1++){
+
+      for (let j1 = 0; j1 < this.DepartData[i].data.length; j1++){
+        if (this.DepartData[i].data[j1].isActivited === 1){
+          isc = true;
+        }
+      }
+
+    // }
+    if (!isc){
+      this.DepartData[i].isActivited = 0;
+    }
+    console.log(this.DepartData);
+  }
+
+
   // 科室选择
   selectValueD(event): void{
     const data = {
@@ -242,6 +267,7 @@ export class RoleAddComponent implements OnInit {
 
   // sumbit
   sumbit(): void{
+    this.filterData();
     if (this.SaveData.deal_type === 'edit'){
       console.log('daoyi', 'edit' );
       if (this.SaveData.user_number === '' && this.SaveData.account === '' && this.SaveData.mobile === ''
@@ -275,6 +301,57 @@ export class RoleAddComponent implements OnInit {
 
 
   }
+  // 数据筛选拼接
+  filterData(): void{
+
+    for (let i = 0; i < this.DepartData.length; i++){
+
+      for (let j = 0; j < this.DepartData[i].data.length; j++){
+
+        if (this.DepartData[i].data[j].isActivited === 1){
+          this.SaveData.ward_id += this.DepartData[i].data[j].id + ',';
+        }
+      }
+      if (this.DepartData[i].isActivited === 1){
+        this.SaveData.department_id += this.DepartData[i].id + ',';
+      }
+    }
+  }
+
+  // 判断id是否存在
+  isHave(a, b): void{
+    console.log('当前id', a);
+    // console.log('对比id', this.DepartData[i].id);
+    for (let i = 0; i < a.length; i++){
+      console.log('当前id', a[i]);
+      this.isHave1(a[i]);
+    }
+    for (let i = 0; i < b.length; i++){
+      this.isHave1(b[i]);
+    }
+  }
+  //
+  isHave1(a): void{
+    for (let i = 0; i < this.DepartData.length; i++){
+      // 是否是科室id
+      console.log('当前id2', a);
+      console.log('对比id', this.DepartData[i].id);
+      console.log('对比', this.DepartData[i].id == a);
+      if (a == this.DepartData[i].id){
+        this.DepartData[i].isActivited = 1;
+      }
+      for (let j = 0; j < this.DepartData[i].data.length; j++){
+
+        // 是否是病区id
+        if (a == this.DepartData[i].data[j].id){
+          this.DepartData[i].data[j].isActivited = 1;
+        }
+        console.log('对比', this.DepartData[i].data[j].id == a);
+      }
+
+    }
+  }
+
 
   // httpSave
   httpSave(data): void{
@@ -313,11 +390,34 @@ export class RoleAddComponent implements OnInit {
           name: '管理员'
         };
       }
+      let depatArray = this.SaveDataShow.department_id.toString().split(',');
+      depatArray = this.del(depatArray, depatArray.length - 1);
+      let waryArray = this.SaveDataShow.ward_id.toString().split(',');
+      waryArray = this.del(waryArray, waryArray.length - 1);
+      setTimeout( () => {
+        if (this.DepartData.length > 0){
+          this.isHave(depatArray, waryArray);
+        }
+      }, 1000);
+
+
+      console.log(depatArray);
+      console.log(waryArray);
+
       if (Constan.DeBug){
         console.log('qwe', this.SaveDataShow);
       }
     });
   }
+  // 定义删除的方法，需要传递的参数，一是数组，二是该数组里你想要删除的元素
+  del(ary, el): any[] {
+    const index = ary.indexOf(el);   // 找到要删除的元素对应的下标,从0开始
+    const delEle = ary.splice(el, 1);   // splice为从要删除的元素开始,删除一个,刚好就是删除那个元素
+    console.log(index);    // 打印要删除元素对应的下标
+    return ary;            // 因为splice方法直接对原数组进行改变,所以返回的是删除后的数组
+  }
+
+
 
   // 取消按钮
   cancle(): void{

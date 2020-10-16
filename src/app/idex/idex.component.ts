@@ -157,12 +157,23 @@ export class IdexComponent implements OnInit {
       this.tableService.sendA(t1);
       this.router.navigate(['index/roles']);
     }else{
-      const t1 = new Tablebean();
-      t1.name = ds.title;
-      t1.id = 0x166;
-      t1.url = 'index';
-      this.tableService.sendA(t1);
+      // const t1 = new Tablebean();
+      // t1.name = ds.title;
+      // t1.id = ds.originItem.id;
+      // t1.url = 'index';
+      // t1.pid = ds.originItem.pid;
+      // console.log('pid', t1.pid);
+      // this.tableService.sendA(t1);
+      // if ( ds.originItem.pid === 1){
+      //   t1.type = 'd';
+      //   this.router.navigate(['index', {id: ds.originItem.id, type: 'd'}]);
+      // }else if ( ds.originItem.pid !== 1){
+      //   t1.type = 'w';
+      //   this.router.navigate(['index', {id: ds.originItem.id, type: 'w'}]);
+      // }
+      // this.tableService.sendI(1);
       this.router.navigate(['index']);
+
     }
 
     console.log('test: ', ds.originItem.id);
@@ -178,7 +189,7 @@ export class IdexComponent implements OnInit {
 
   prepareRoute(outlet: RouterOutlet): any{
     const a = outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
-    console.log('daoyi', a);
+    // console.log('daoyi', a);
     return a;
   }
 

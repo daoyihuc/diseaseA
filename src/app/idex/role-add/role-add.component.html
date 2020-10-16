@@ -85,19 +85,21 @@
             [name]="'checkbox-username'"
             [label]=""
             [color]="'#02BFD8'"
-            [ngModel]=""
+            [ngModel]="data.isActivited == 1 "
             class="label_check"
           >
           </d-checkbox>
           <span class="text1">{{data.title}}</span>
         </div>
-        <div class="checkbox_fot" *ngFor="let item of data.data;index as i">
-          <div class="chexbox_fot_li" >
+        <div class="checkbox_fot" >
+          <div class="chexbox_fot_li" *ngFor="let item of data.data;index as j">
             <d-checkbox
               [name]="'checkbox-username'"
               [label]=""
               [color]="'#02BFD8'"
               class="label_check"
+              [ngModel]="item.isActivited == 1 "
+              (change)="changes( i, j, $event)"
             >
             </d-checkbox>
             <span class="text">{{item.title}}</span>

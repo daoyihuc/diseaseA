@@ -130,6 +130,16 @@ export class IndexFirstComponent implements OnInit {
   // 遮罩
   Loadings: LoadingType;
 
+  // 树状节点层级
+  type: string;
+
+
+  dataw = {
+    Token: sessionStorage.getItem('token'),
+    department_id: '',
+    ward_id: '',
+    diseases_id: '',
+  };
 
   // 标题栏
   // tslint:disable-next-line:variable-name
@@ -156,10 +166,29 @@ export class IndexFirstComponent implements OnInit {
     this.values[this.values.length - 1].isshow = true;
     this.daoyi();
     console.log(this.value);
-    const  data = {
-      Token: sessionStorage.getItem('token')
-    };
-    this.https(data);
+
+    this.https(this.dataw);
+
+    this.tableService.missionIndex$.subscribe( result => {
+
+      if (this.router.snapshot.paramMap.has('type')){
+        this.type = this.router.snapshot.paramMap.get('type');
+        if (this.type === 'd'){ // 科室
+          this.dataw.department_id = this.router.snapshot.paramMap.get('id');
+        }
+        if (this.type === 'w'){ // 病区n
+          this.dataw.ward_id = this.router.snapshot.paramMap.get('id');
+        }
+        if (this.type === 'n'){ // 疾病
+          this.dataw.department_id = this.router.snapshot.paramMap.get('id');
+        }
+      }
+      setTimeout( () => {
+        // this.https(this.dataw);
+      }, 1000);
+
+    });
+
   }
   onSelectButton(value: number, index: number, name: string): void{
     switch (value) {
