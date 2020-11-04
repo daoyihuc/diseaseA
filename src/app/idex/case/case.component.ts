@@ -31,6 +31,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
 
   id = '0x17';
   type = 'a';
+  types = "d";
 
   constructor(
     private http: HttpServiceService,
@@ -43,9 +44,16 @@ export class CaseComponent implements OnInit, AfterViewInit {
     private table: TableServiceService
   ) {
 
-    this.id = this.router.snapshot.paramMap.get('id');
+
     if (this.router.snapshot.paramMap.has('type')){
       this.type = this.router.snapshot.paramMap.get('type');
+    }
+    if (this.router.snapshot.paramMap.has('id')){
+      this.id = this.router.snapshot.paramMap.get('id');
+    }
+
+    if (this.router.snapshot.paramMap.has('types')){
+      this.types = this.router.snapshot.paramMap.get('types');
     }
     console.log('case', this.id);
   }
@@ -121,6 +129,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
     physical_examination: '',
     laboratory_examination: '',
     supplementary_examination: '',
+    system_log: ''
   };
 
 
@@ -194,8 +203,23 @@ export class CaseComponent implements OnInit, AfterViewInit {
         id: this.id
       };
       this.HttpInfo(data);
-
-
+    }else if (this.type === 'a'){
+      const  a={
+        Token: sessionStorage.getItem("token"),
+        department_id: "",
+        ward_id: "",
+        diseases_id: "",
+      };
+      if (this.types === 'd'){ // 科室
+        a.department_id = this.id;
+      }
+      if (this.types === 'w'){ // 病区n
+        a.ward_id = this.id;
+      }
+      if (this.types === 'n'){ // 疾病
+        a.diseases_id = this.id;
+      }
+      this.httpAddMedicalInfo(a);
     }
     this.https_Depart(this.Datas, 0);
   }
@@ -866,7 +890,6 @@ export class CaseComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   // 审核请求
   httpCheck(data): void{
     this.Loadings = this.Loadings = this.http.MedicalCheck(data).subscribe( datas => {
@@ -881,6 +904,26 @@ export class CaseComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // 获取当前所在病例
+
+  httpAddMedicalInfo(data): void{
+    this.http.AddMedicalInfo(data).subscribe(res=>{
+       if(res.body.code===1){
+         this.DepartValues = {
+           id: res.body.data.department_id,
+           title: res.body.data.department_name
+         };
+         this.wardvalues = {
+           id: res.body.data.ward_id,
+           title: res.body.data.ward_name
+         };
+         this.diseaseValue = {
+           id: res.body.data.diseases_id,
+           title: res.body.data.diseases_name
+         };
+       }
+    })
+  }
 
 
 

@@ -25,6 +25,7 @@ import {LabelBean} from '../httpbean/LabelBean.js';
 import {UserInfoBean} from '../httpbean/UserInfoBean.js';
 import {MedicalInfoBean} from '../httpbean/MedicalInfoBean.js';
 import {RoleMenuListBean} from '../httpbean/RoleMenuListBean.js';
+import {AddmdedicalInfo} from '../bean/AddmdedicalInfo.js';
 
 @Injectable({
   providedIn: 'root'
@@ -264,6 +265,34 @@ export class HttpServiceService {
     // this.options2.params = data;
     // @ts-ignore
     return  this.http.post<RoleMenuListBean>( Api.EditSystem, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+
+  // 病例删除
+  MedicalDelete(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<RoleMenuListBean>( Api.MedicalDelete, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 用户删除
+  AdminDelete(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<BaseResponse>( Api.AdminDelete, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
+  // 新增电子病历 科室，病区，主疾病信息获取接口
+  AddMedicalInfo(data: any): Observable<HttpResponse<AddmdedicalInfo>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<AddmdedicalInfo>( Api.AddMedicalInfo, data, this.options)
       .pipe(
         // catchError(this.handleError)
       );

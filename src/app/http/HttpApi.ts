@@ -27,6 +27,10 @@ export const Api: any =
     RoleMenuList: BaseUrl + '/RoleMenuList', // 加角色配置权限列表接口
     SystemDelete: BaseUrl + '/SystemDelete', // 系统配置删除
     EditSystem: BaseUrl + '/EditSystem', // 系统配置编辑
+    MedicalDelete: BaseUrl + '/MedicalDelete', // 电子病历删除接口
+    AdminDelete: BaseUrl + '/AdminDelete', // 用户删除接口
+    AddMedicalInfo: BaseUrl + '/AddMedicalInfo', // 新增电子病历 科室，病区，主疾病信息获取接口
+
 
 
 

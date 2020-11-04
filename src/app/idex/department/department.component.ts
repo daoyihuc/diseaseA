@@ -197,6 +197,7 @@ export class DepartmentComponent implements OnInit {
           dialogref3 = this.mes.open(AddDiseaseComponent, {
             data: { ids: this.myData.data.List[id].id ,
               name: this.myData.data.List[id].diseases_name,
+              show: this.myData.data.List[id].disase_show_id,
               type: types
             }
           });

@@ -25,7 +25,8 @@ export class AddDiseaseComponent implements OnInit {
     type: '2',
     DepartmentId: '',
     WardId: 0,
-    title: ''
+    title: '',
+    DisaseShowId: ''
   };
   // toast
   msg: any[] = [];
@@ -39,7 +40,8 @@ export class AddDiseaseComponent implements OnInit {
   updata = {
     Token: sessionStorage.getItem('token'),
     id: '',
-    title: ''
+    title: '',
+    DisaseShowId: ''
   } ;
   type = 'a';
 
@@ -68,9 +70,12 @@ export class AddDiseaseComponent implements OnInit {
 
     // if (this.data.has('name')){
     this.updata.title = this.data.name;
+    this.datas.title = this.data.name;
     // }
     // if (this.data.has('type')){
     this.type = this.data.type;
+    console.log(this.data.show);
+    this.updata.DisaseShowId = this.data.show;
     // }
     console.log(this.type);
   }
@@ -80,8 +85,9 @@ export class AddDiseaseComponent implements OnInit {
     this.dialog.close();
   }
   ngOkClisk(): void{
+    console.log("点击");
     if (this.datas.title === ''){
-      this.msg = this.dialogs.showToast(1, '病区名称不能为空' );
+      this.msg = this.dialogs.showToast(1, '疾病名称不能为空' );
     }else{
       if (this.type === 'e'){
         this.EditSystem(this.updata);
@@ -95,6 +101,12 @@ export class AddDiseaseComponent implements OnInit {
   InputChange(event): void{
     this.datas.title = event.target.value;
   }
+  // 输入记录
+  InputDisaseShowId(event): void{
+
+    this.datas.DisaseShowId = event.target.value;
+  }
+
   // httpAddMenu 菜单添加
   HttpsAddMenu(data): void {
     this.http.AddMenu(data).subscribe(datas => {
@@ -102,7 +114,7 @@ export class AddDiseaseComponent implements OnInit {
       if (datas.body.code === 1) {
         this.dialog.close('0x13');
       } else {
-
+        this.msg = this.dialogs.showToast(0 , datas.body.msg);
       }
     });
   }

@@ -143,6 +143,7 @@
         <div class="menu_box">
           <img src="./assets/img/chakan.png" alt="" class="menu_img" (click)="Show(TextBean.id)">
           <img src="./assets/img/bianji.png" alt="" class="menu_img" (click)="Editer(TextBean.id)">
+          <img src="./assets/img/shanchu@2x.png" alt="" class="menu_img" (click)="delete(TextBean.id)">
         </div>
       </td>
     </tr>
@@ -165,3 +166,5 @@
   >
   </d-pagination>
 </div>
+
+<d-toast [value]="msgs"></d-toast>

@@ -689,6 +689,17 @@
           </div>
         </div>
       </div>
+
+      <!--系统日志-->
+      <div class="max_box">
+        <div class="title_box">
+          <hr class="title_hr">
+          <span class="title_title">系统日志</span>
+        </div>
+        <hr class="fg">
+
+        <p>{{httpData.system_log}}</p>
+      </div>
     </footer>
     <div class="button_box" *ngIf="type != 'r'">
       <input type="button" value="提交审核" class="ok_button" (click)="Review()" >

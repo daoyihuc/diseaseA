@@ -132,6 +132,8 @@ export class IndexFirstComponent implements OnInit {
 
   // 树状节点层级
   type: string;
+  id: string;
+  types: string;
 
 
   dataw = {
@@ -159,6 +161,38 @@ export class IndexFirstComponent implements OnInit {
     this.recever.missionAnnounced$.subscribe(value1 => {
       console.log('子类组件', value1);
     });
+    if (this.router.snapshot.paramMap.has('type')){
+      this.type = this.router.snapshot.paramMap.get('type');
+      if (this.type === 'd'){ // 科室
+        this.dataw.department_id = this.router.snapshot.paramMap.get('id');
+      }
+      if (this.type === 'w'){ // 病区n
+        this.dataw.ward_id = this.router.snapshot.paramMap.get('id');
+      }
+      if (this.type === 'n'){ // 疾病
+        this.dataw.diseases_id = this.router.snapshot.paramMap.get('id');
+      }
+      this.id=this.router.snapshot.paramMap.get('id');
+    }
+
+    this.tableService.missionIndex$.subscribe( result => {
+      this.dataw.department_id = '';
+      this.dataw.ward_id = '';
+      this.dataw.diseases_id = '';
+      this.type = result.type;
+      if (this.type === 'd'){ // 科室
+        this.dataw.department_id = String(result.id);
+      }
+      if (this.type === 'w'){ // 病区n
+        this.dataw.ward_id = String(result.id);
+      }
+      if (this.type === 'n'){ // 疾病
+        this.dataw.diseases_id = String(result.id);
+      }
+
+      this.https(this.dataw);
+
+    });
   }
 
   ngOnInit(): void {
@@ -169,25 +203,8 @@ export class IndexFirstComponent implements OnInit {
 
     this.https(this.dataw);
 
-    this.tableService.missionIndex$.subscribe( result => {
 
-      if (this.router.snapshot.paramMap.has('type')){
-        this.type = this.router.snapshot.paramMap.get('type');
-        if (this.type === 'd'){ // 科室
-          this.dataw.department_id = this.router.snapshot.paramMap.get('id');
-        }
-        if (this.type === 'w'){ // 病区n
-          this.dataw.ward_id = this.router.snapshot.paramMap.get('id');
-        }
-        if (this.type === 'n'){ // 疾病
-          this.dataw.department_id = this.router.snapshot.paramMap.get('id');
-        }
-      }
-      setTimeout( () => {
-        // this.https(this.dataw);
-      }, 1000);
 
-    });
 
   }
   onSelectButton(value: number, index: number, name: string): void{
@@ -207,7 +224,7 @@ export class IndexFirstComponent implements OnInit {
         break;
       case 2:
         console.log('2'); // 新增
-        this.route.navigate(['index/case', {id: 's'}]);
+        this.route.navigate(['index/case', {id: this.id, type: 'a', types: this.type}]);
         break;
       case 3: // 审核
         console.log('3');
@@ -259,8 +276,11 @@ export class IndexFirstComponent implements OnInit {
             this.https(data);
           }
         });
-
         break;
+      case 8: // 删除
+        this.MedicalDeleteHttp(index);
+        break;
+
 
     }
   }
@@ -343,7 +363,10 @@ export class IndexFirstComponent implements OnInit {
         this.myData = datas.body;
         this.pager.total = this.myData.data.Paginate.Count;
         if (datas.body.msg === ''){
-          this.msgs = this.dialog.showToast(2, '加载完成');
+          setTimeout( () => {
+            this.msgs = this.dialog.showToast(2, '加载完成');
+          }, 3000);
+
         }else{
           this.msgs = this.dialog.showToast(2, datas.body.msg);
         }
@@ -373,6 +396,26 @@ export class IndexFirstComponent implements OnInit {
       type: '2'
     };
     this.httpStatus(dataStatus);
+  }
+
+  // 电子病例删除接口
+  MedicalDeleteHttp(id): void {
+
+    // 数据
+    const  dataStatus = {
+      Token: sessionStorage.getItem('token'),
+      MedicalId: id
+    };
+    this.http.MedicalDelete(dataStatus).subscribe( datas =>{
+      console.log(datas);
+      if(datas.body.code === 1){
+        this.msgs=this.dialog.showToast(2,datas.body.msg);
+        this.https(this.dataw);
+      }else{
+        this.msgs=this.dialog.showToast(1,datas.body.msg);
+      }
+
+    });
   }
 
 

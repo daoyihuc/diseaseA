@@ -146,37 +146,43 @@ export class IdexComponent implements OnInit {
       const t1 = new Tablebean();
       t1.name = ds.title;
       t1.id = ds.originItem.id;
-      t1.url = 'index/roles';
+      t1.url = 'index/authority';
       this.tableService.sendA(t1);
       this.router.navigate(['index/authority']);
     }else if (ds.originItem.id === 4){// 权限
       const t1 = new Tablebean();
       t1.name = ds.title;
       t1.id = ds.originItem.id;
-      t1.url = 'index/authority';
+      t1.url = 'index/roles';
       this.tableService.sendA(t1);
       this.router.navigate(['index/roles']);
-    }else{
-      // const t1 = new Tablebean();
-      // t1.name = ds.title;
-      // t1.id = ds.originItem.id;
-      // t1.url = 'index';
-      // t1.pid = ds.originItem.pid;
-      // console.log('pid', t1.pid);
-      // this.tableService.sendA(t1);
-      // if ( ds.originItem.pid === 1){
-      //   t1.type = 'd';
-      //   this.router.navigate(['index', {id: ds.originItem.id, type: 'd'}]);
-      // }else if ( ds.originItem.pid !== 1){
-      //   t1.type = 'w';
-      //   this.router.navigate(['index', {id: ds.originItem.id, type: 'w'}]);
-      // }
-      // this.tableService.sendI(1);
-      this.router.navigate(['index']);
+    }else if(ds.originItem.id!==2){
+      const t1 = new Tablebean();
+      t1.name = ds.title;
+      t1.id = ds.originItem.id;
+      t1.url = 'index';
+      t1.pid = ds.originItem.pid;
+      t1.type = ds.originItem.type;
+      console.log('pid', t1.pid);
+      this.tableService.sendA(t1);
+      if ( ds.originItem.type === 0){
+        t1.type = 'd';
+        this.router.navigate(['index', {id: ds.originItem.id, type: 'd'}]);
+      }else if ( ds.originItem.type === 1){
+        t1.type = 'w';
+        this.router.navigate(['index', {id: ds.originItem.id, type: 'w'}]);
+      }else if ( ds.originItem.type === 2){
+        t1.type = 'n';
+        this.router.navigate(['index', {id: ds.originItem.id, type: 'n'}]);
+      }else {
+        this.router.navigate(['index']);
+      }
+      this.tableService.sendI(t1);
 
+      console.log('test: ', ds.originItem.id);
     }
 
-    console.log('test: ', ds.originItem.id);
+
     this.classSelectService.announceMission(ds.originItem.id);
   }
 

@@ -42,10 +42,14 @@ export class TableComponent implements OnInit {
 
 
     }else if (value === 'index'){
-
+      this.route.navigate(['index', {id: ids, type: types}]);
+      const t1 = new Tablebean();
+      t1.id = ids;
+      t1.type = types;
+      this.TableServic.sendI(t1);
     }else{
       this.route.navigate([value]);
-      this.TableServic.sendI(1);
+
     }
 
     console.log(value);

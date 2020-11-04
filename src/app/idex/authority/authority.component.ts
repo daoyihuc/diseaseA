@@ -8,6 +8,7 @@ import {RoleListBean} from '../../httpbean/RoleListBean.js';
 import {AdminBean} from '../../httpbean/AdminBean.js';
 import {Constan} from '../../constant/constan.js';
 import {DepartMentBean} from '../../httpbean/DepartMentBean.js';
+import {DialogService} from '../service/dialog.service.js';
 
 @Component({
   selector: 'app-authority',
@@ -23,7 +24,8 @@ export class AuthorityComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpServiceService,
-    private el: ElementRef
+    private el: ElementRef,
+    private dialog: DialogService,
   ) { }
   // 按钮
   buttons_arr = [
@@ -77,6 +79,9 @@ export class AuthorityComponent implements OnInit {
 
   // http 数据结构
   myDataDepart: DepartMentBean;
+
+  // toast
+  msgs: any[] = [];
 
   ngOnInit(): void {
 
@@ -175,6 +180,21 @@ export class AuthorityComponent implements OnInit {
   // 查看
   Show(ids): void{
     this.router.navigate(['index/roles_add', {type: 'show', id: ids}]);
+  }
+  // 删除
+  delete(ids): void{
+    const a={
+      Token: sessionStorage.getItem("token"),
+      Id: ids
+    };
+    this.http.AdminDelete(a).subscribe(res=>{
+      if(res.body.code===1){
+        this.msgs=this.dialog.showToast(2,res.body.msg);
+        this.https(this.datas);
+      }else{
+        this.msgs=this.dialog.showToast(1,res.body.msg);
+      }
+    })
   }
 
 

@@ -24,6 +24,7 @@ export interface List {
    department_name?: string;
    ward_name?: string;
    diseases_name?: string;
+    disase_show_id?: string;
    diseases_id?: number;
    ward_id: number;
   department_id: number;
