@@ -3,6 +3,7 @@ import {LabelBeanData} from '../../../httpbean/LabelBean.js';
 import {Constan} from '../../../constant/constan.js';
 import {MatDialogRef} from '@angular/material/dialog';
 import {HttpServiceService} from '../../../http/http-service.service.js';
+import {DialogService} from '../../service/dialog.service.js';
 
 @Component({
   selector: 'app-addother',
@@ -19,6 +20,7 @@ export class AddotherComponent implements OnInit {
   constructor(
     private dialog: MatDialogRef<AddotherComponent>,
     private http: HttpServiceService,
+    private dialogs: DialogService
   ) { }
 
   Tags: LabelBeanData[];
@@ -28,6 +30,7 @@ export class AddotherComponent implements OnInit {
     module: '32000002102',
     term: ''
   };
+  msgs: any[]=[];
   ngOnInit(): void {
 
 
@@ -38,6 +41,10 @@ export class AddotherComponent implements OnInit {
     this.http.LabelShow(data).subscribe( datas => {
       this.Tags = datas.body.data;
       console.log(this.Tags);
+    },()=>{
+      this.msgs=this.dialogs.showToast(1,"没有找到你想要的哦，请继续输入");
+    },()=>{
+
     });
   }
 
@@ -54,6 +61,12 @@ export class AddotherComponent implements OnInit {
   inputchange(): void{
     this.https(this.data);
   }
+  inputchange2(e): void{
+    console.log(e);
+    this.data.term=e;
+    this.https(this.data);
+  }
+
 
   // ok
   okClick(): void{

@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {HttpServiceService} from '../../../http/http-service.service.js';
 import {LabelBeanData} from '../../../httpbean/LabelBean.js';
 import {Constan} from '../../../constant/constan.js';
+import {DialogService} from '../../service/dialog.service.js';
 
 @Component({
   selector: 'app-physique',
@@ -19,6 +20,7 @@ export class PhysiqueComponent implements OnInit {
   constructor(
     private dialog: MatDialogRef<PhysiqueComponent>,
     private http: HttpServiceService,
+    private dialogs: DialogService
 
   ) { }
   Tags: LabelBeanData[];
@@ -28,15 +30,22 @@ export class PhysiqueComponent implements OnInit {
     module: '102000002104',
     term: ''
   };
+  msgs: any[]=[];
   ngOnInit(): void {
 
     this.https(this.data);
   }
 
+
+
   https(data): void{
     this.http.LabelShow(data).subscribe( datas => {
       this.Tags = datas.body.data;
       console.log(this.Tags);
+    },()=>{
+      this.msgs=this.dialogs.showToast(1,"没有找到你想要的哦，请继续输入");
+    },()=>{
+
     });
   }
 
@@ -51,6 +60,12 @@ export class PhysiqueComponent implements OnInit {
 
   // inputchange
   inputchange(): void{
+    this.https(this.data);
+  }
+
+  inputchange2(e): void{
+    console.log(e);
+    this.data.term=e;
     this.https(this.data);
   }
 

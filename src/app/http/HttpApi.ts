@@ -31,8 +31,5 @@ export const Api: any =
     AdminDelete: BaseUrl + '/AdminDelete', // 用户删除接口
     AddMedicalInfo: BaseUrl + '/AddMedicalInfo', // 新增电子病历 科室，病区，主疾病信息获取接口
 
-
-
-
   };
 

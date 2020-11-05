@@ -3,6 +3,7 @@ import {MatDialogRef} from '@angular/material/dialog';
 import {HttpServiceService} from '../../../http/http-service.service.js';
 import {LabelBeanData} from '../../../httpbean/LabelBean.js';
 import {Constan} from '../../../constant/constan.js';
+import {DialogService} from '../../service/dialog.service.js';
 
 @Component({
   selector: 'app-laboratory',
@@ -20,6 +21,7 @@ export class LaboratoryComponent implements OnInit {
   constructor(
     private dialog: MatDialogRef<LaboratoryComponent>,
     private http: HttpServiceService,
+    private dialogs: DialogService
   ) { }
 
   Tags: LabelBeanData[];
@@ -29,6 +31,7 @@ export class LaboratoryComponent implements OnInit {
     module: '92000002103',
     term: ''
   };
+  msgs: any[]=[];
   ngOnInit(): void {
 
     this.https(this.data);
@@ -38,6 +41,10 @@ export class LaboratoryComponent implements OnInit {
     this.http.LabelShow(data).subscribe( datas => {
       this.Tags = datas.body.data;
       console.log(this.Tags);
+    },()=>{
+      this.msgs=this.dialogs.showToast(1,"没有找到你想要的哦，请继续输入");
+    },()=>{
+
     });
   }
 
@@ -54,6 +61,12 @@ export class LaboratoryComponent implements OnInit {
   inputchange(): void{
     this.https(this.data);
   }
+  inputchange2(e): void{
+    console.log(e);
+    this.data.term=e;
+    this.https(this.data);
+  }
+
 
   // ok
   okClick(): void{

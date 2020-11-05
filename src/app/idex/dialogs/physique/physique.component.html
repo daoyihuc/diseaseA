@@ -6,7 +6,12 @@
   <header class="header_box">
     <span class="header_title">添加批注:</span>
     <div class="search_box">
-      <input type="text" class="header_search" placeholder="搜索标记" [(ngModel)]="data.term" >
+      <input type="text" class="header_search" placeholder="搜索标记"
+             [(ngModel)]="data.term"
+             (input)="inputchange()"
+             (ngModelChange)="inputchange2($event)"
+             (change)="inputchange()"
+      >
       <button class="search_button" type="button" (click)="inputchange()"><img src="./assets/img/sousuo.png" width="18" alt="" ></button>
     </div>
   </header>
@@ -30,3 +35,4 @@
   </footer>
 
 </div>
+<d-toast [value]="msgs"></d-toast>

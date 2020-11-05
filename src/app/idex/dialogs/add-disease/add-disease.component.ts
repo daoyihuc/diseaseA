@@ -10,6 +10,7 @@ import {DateUtils} from '../../../../libs/DateUtils.js';
   templateUrl: './add-disease.component.html',
   styleUrls: ['./add-disease.component.css']
 })
+
 /*
 * add 疾病
 * */
