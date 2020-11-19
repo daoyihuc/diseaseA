@@ -102,7 +102,7 @@ export class AddWardComponent implements OnInit {
       if (datas.body.code === 1) {
         this.dialog.close('0x12');
       } else {
-
+        this.msg = this.dialogs.showToast(0 ,datas.body.msg);
       }
     });
   }

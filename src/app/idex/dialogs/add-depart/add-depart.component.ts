@@ -88,7 +88,7 @@ export class AddDepartComponent implements OnInit {
       if (dat.body.code === 1){
         this.dialog.close('0x11');
       }else {
-
+        this.msg=this.dialogs.showToast(0,dat.body.msg);
       }
     });
   }// httpAddMenu 菜单添加
@@ -98,7 +98,7 @@ export class AddDepartComponent implements OnInit {
       if (dat.body.code === 1){
         this.dialog.close('0x11');
       }else {
-
+        this.msg=this.dialogs.showToast(0,dat.body.msg);
       }
     });
   }

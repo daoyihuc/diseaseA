@@ -321,3 +321,19 @@
   margin-bottom: 20px;
   margin-left: 20px;
 }
+.buttons_box{
+  display: flex;
+
+}
+.delete_button{
+  display: flex;
+  background: red;
+  color: white;
+  outline: none;
+  border: none;
+  padding: 10px 35px 10px 35px;
+  margin-left: 20px;
+  box-shadow: 0px 1px 7px 0px red;
+  border-radius: 10px;
+  margin-right: 20px;
+}

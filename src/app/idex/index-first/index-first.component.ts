@@ -353,6 +353,11 @@ export class IndexFirstComponent implements OnInit {
   }
   checkCount(pageIndex): void{
     console.log('当前分页索引', pageIndex);
+    const  data = {
+      Token: sessionStorage.getItem('token'),
+      Page: pageIndex
+    };
+    this.https(data);
   }
 
   // http请求

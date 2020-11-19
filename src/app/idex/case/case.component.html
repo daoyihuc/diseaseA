@@ -667,7 +667,7 @@
       <div class="max_box">
 
         <div class="show_imgbox1">
-          <div class="file_box" *ngFor="let item of data6;index as i" >
+          <div class="file_box" *ngFor="let item of data8;index as i" >
             <div class="show_imgbox_file" >
               <img class="show_img" alt="" [src]="item.imgs"/>
             </div>
@@ -676,18 +676,24 @@
 
         </div>
         <hr class="fg">
-        <div class="case_button_upload_box" *ngIf="type !== 'r'">
+        <div class="buttons_box">
+          <div class="case_button_upload_box" *ngIf="type !== 'r'">
 
-          <input type="file" class="case_button_upload_s"
-                 (change)="selected_image($event, 6 , 0)">
-          <div class="case_button_upload_box2">
-            <button class="case_button_upload">
-              <!--        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">-->
-              <span>上传附件</span>
-            </button>
-            <p>最多上传3个附件，最大5M，附件支持excel、word</p>
+            <input type="file" class="case_button_upload_s"
+                   (change)="selected_image($event, 6 , 0)">
+            <div class="case_button_upload_box2">
+              <button class="case_button_upload">
+                <!--        <img src="./assets/img/jiaha@2x.png" alt="" class="case_button_icon">-->
+                <span>上传附件</span>
+              </button>
+              <p>最多上传3个附件，最大5M，附件支持excel、word</p>
+            </div>
+          </div>
+          <div>
+            <button class="delete_button" (click)="deleteFile()">删除</button>
           </div>
         </div>
+
       </div>
 
       <!--系统日志-->

@@ -38,6 +38,7 @@ import { LaboratoryComponent } from './idex/dialogs/laboratory/laboratory.compon
 import { AssistComponent } from './idex/dialogs/assist/assist.component';
 import { ChangePasswordComponent } from './idex/dialogs/change-password/change-password.component';
 import { UnlockComponent } from './idex/dialogs/unlock/unlock.component';
+import { SaveDialogComponent } from './idex/dialogs/save-dialog/save-dialog.component';
 
 
 
@@ -81,7 +82,8 @@ const appRoute: Routes = [
     LaboratoryComponent,
     AssistComponent,
     ChangePasswordComponent,
-    UnlockComponent
+    UnlockComponent,
+    SaveDialogComponent,
   ],
   imports: [
     BrowserModule,

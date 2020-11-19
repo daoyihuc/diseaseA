@@ -4,6 +4,9 @@ import {TableServiceService} from '../service/table-service.service.js';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DialogService} from '../service/dialog.service.js';
 import {ResourceLoader} from '@angular/compiler';
+import {ReviewDialogComponent} from '../dialogs/review-dialog/review-dialog.component.js';
+import {MatDialog} from '@angular/material/dialog';
+import {SaveDialogComponent} from '../dialogs/save-dialog/save-dialog.component.js';
 
 @Component({
   selector: 'app-table',
@@ -18,7 +21,8 @@ export class TableComponent implements OnInit {
     private route: Router,
     private router: ActivatedRoute,
     private dialog: DialogService,
-    private TableServic: TableServiceService
+    private TableServic: TableServiceService,
+    private meas: MatDialog, // 弹窗
   ) {
 
     this.tableRecond.missionAnnounced$.subscribe(tablebean => {
@@ -73,15 +77,29 @@ export class TableComponent implements OnInit {
 
   }
 
+
   deleteTag(index): void{
-    if (this.tagList2.length === 1){
-        this.msgs =  this.dialog.showToast(0, '不能删除最后一个界面哦');
-        return;
-    }else if (this.tagList2.length > 1){
-      this.tagList2.splice(index, 1);
-    }
-    console.log(this.tagList2.length);
-    this.route.navigate([this.tagList2[index - 1].url] );
+    const dialogref = this.meas.open(SaveDialogComponent);
+    // this.recever.sendReview('101');
+    dialogref.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result === '0x12'){
+
+      }
+      if (result === '0x13'){
+        if (this.tagList2.length === 1){
+          this.msgs =  this.dialog.showToast(0, '不能删除最后一个界面哦');
+          return;
+        }else if (this.tagList2.length > 1){
+          this.tagList2.splice(index, 1);
+        }
+        console.log(this.tagList2.length);
+        this.route.navigate([this.tagList2[index - 1].url] );
+      }
+    });
+
+
+
   }
 
 

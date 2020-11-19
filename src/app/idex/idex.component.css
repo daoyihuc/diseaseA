@@ -36,11 +36,11 @@ body {
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
-  width: 16%;
+  width: 14%;
   height: 100%;
 }
 .index_box1_1{
-  width: 16%;
+  width: 14%;
 }
 .index_box1::-webkit-scrollbar {/*滚动条整体样式*/
   width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
@@ -57,7 +57,7 @@ body {
   background: linear-gradient(0deg,#02BADD,#01D4C5);
 }
 .index_box2{
-  width: 84%;
+  width: 86%;
 }
 .tree-title{
   text-align: center;

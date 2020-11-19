@@ -80,6 +80,12 @@ export class CaseComponent implements OnInit, AfterViewInit {
   data5: any[] = [];
   // 附件上传
   data6: any[] = [];
+  // 新文件
+  data7: any[] = [];
+
+  // 展示文件
+  data8: any[] = [];
+
 
   // 遮罩
   Loadings: LoadingType;
@@ -102,6 +108,8 @@ export class CaseComponent implements OnInit, AfterViewInit {
     Token: sessionStorage.getItem('token'),
     insert_status: '',
     'files[]': [],
+    'new_files[]': [],
+    old_files: "",
     username: '',
     diseases_id: '',
     department_id: '',
@@ -174,12 +182,13 @@ export class CaseComponent implements OnInit, AfterViewInit {
         id: this.id
       };
 
-      this.HttpInfo(data);
+      // this.HttpInfo(data);
     });
 
 
     this.Loadings = undefined;
     console.log('daoyi', jq('body').height());
+
     if (this.type === 'e'){
 
       // 用户详情
@@ -377,10 +386,14 @@ export class CaseComponent implements OnInit, AfterViewInit {
         files6.files6 = files;
         if (this.type !== 'e'){
           this.httpData['files[]'].push(files);
+          this.httpData['new_files[]'].push(files);
+          this.data6.push(files6);
           console.log('file', this.httpData['files[]']);
         }
 
-        this.data6.push(files6);
+        this.data8.push(files6);
+        this.data7.push(files6);
+
         break;
     }
     console.log('d1', this.data1);
@@ -723,7 +736,10 @@ export class CaseComponent implements OnInit, AfterViewInit {
         && this.httpData[das] !== ''
         && this.httpData[das] !== []
         && das !== 'files[]'
+        && das !== 'new_files[]'
+        && das !== "old_files"
       ){
+
         fileForm.append(das + '', this.httpData[das]);
       }
     }
@@ -732,7 +748,23 @@ export class CaseComponent implements OnInit, AfterViewInit {
         fileForm.append('files[]', this.data6[i].files6);
       }
     }
+    for (let i = 0; i < this.data7.length; i++){
+      if (this.data7[i].files6 != null){
+        fileForm.append('new_files[]', this.data7[i].files6);
+      }
+    }
+    let a="";
+    for (let i = 0; i < this.data6.length; i++){
+      if (this.data6[i].files6 != null){
+        a+= this.data6[i].files6;
+      }
+    }
+    console.log("daoy",a);
+    fileForm.append('old_files', a);
 
+
+
+    console.log(this.data6);
 
     // fileForm.append('Token', this.httpData.Token);
     // fileForm.append('files[]', this.data6[0].files6);
@@ -857,12 +889,25 @@ export class CaseComponent implements OnInit, AfterViewInit {
         files6.imgs = './assets/img/excel@2x.png';
       }
       files6.names = '附件' + i;
+      files6.files6=datas[i];
       this.data6.push(files6);
+      this.data8.push(files6);
+
       console.log('files:', this.data6);
 
     }
 
   }
+  // 附件删除
+  deleteFile():void{
+    this.data6=this.del(this.data6,this.data6.length-1);
+    this.data8=this.del(this.data8,this.data8.length-1);
+    this.data7=this.del(this.data7,this.data7.length-1);
+
+    this.msgs = this.dialog.showToast(0,"删除成功");
+    console.log("剩余",this.data6);
+  }
+
   // httpstatus
   httpStatus(data): void{
     this.http.UpdateMedicalStatus(data).subscribe( datas => {
@@ -913,6 +958,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
            id: res.body.data.department_id,
            title: res.body.data.department_name
          };
+
          this.wardvalues = {
            id: res.body.data.ward_id,
            title: res.body.data.ward_name
@@ -921,6 +967,9 @@ export class CaseComponent implements OnInit, AfterViewInit {
            id: res.body.data.diseases_id,
            title: res.body.data.diseases_name
          };
+         this.httpData.department_id=res.body.data.department_id;
+         this.httpData.ward_id=res.body.data.ward_id;
+         this.httpData.diseases_id=res.body.data.diseases_id;
        }
     })
   }
