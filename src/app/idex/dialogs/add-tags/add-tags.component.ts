@@ -1,3 +1,12 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @@Company: DCIT-SH
+ * @Author: daoyi(yanwen)
+ * @Date: 2020-10-12 10:29:11
+ * @LastEditors: daoyi
+ * @LastEditTime: 2020-11-23 18:38:05
+ */
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material/dialog';
 import {HttpServiceService} from '../../../http/http-service.service.js';
@@ -35,7 +44,7 @@ export class AddTagsComponent implements OnInit {
 
   https(data): void{
     this.http.LabelShow(data).subscribe( datas => {
-      this.Tags = datas.body.data;
+      this.Tags = datas.body.data.data;
       console.log(this.Tags);
     },()=>{
       this.msgs=this.dialogs.showToast(1,"没有找到你想要的哦，请继续输入");

@@ -38,7 +38,7 @@ export class AssistComponent implements OnInit {
 
   https(data): void{
     this.http.LabelShow(data).subscribe( datas => {
-      this.Tags = datas.body.data;
+      this.Tags = datas.body.data.data;
       console.log(this.Tags);
     },()=>{
       this.msgs=this.dialogs.showToast(1,"没有找到你想要的哦，请继续输入");

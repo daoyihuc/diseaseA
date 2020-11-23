@@ -1,3 +1,12 @@
+/*
+ * @Descripttion:
+ * @version:
+ * @@Company: DCIT-SH
+ * @Author: daoyi(yanwen)
+ * @Date: 2020-09-19 11:14:31
+ * @LastEditors: daoyi
+ * @LastEditTime: 2020-11-20 18:32:00
+ */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
