@@ -1,4 +1,14 @@
-import {Component, OnInit, AfterViewInit, ChangeDetectionStrategy, ElementRef, Renderer2} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ElementRef,
+  Renderer2,
+  OnChanges,
+  SimpleChanges,
+  AfterViewChecked
+} from '@angular/core';
 import {PersonBean} from '../../bean/PersonBean';
 import {CommonModule} from '@angular/common';
 import {PersonDate1, personDate2} from '../../bean/PersonData';
@@ -19,6 +29,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LoadingType} from 'ng-devui';
 import {DialogService} from '../service/dialog.service.js';
 import {TableServiceService} from '../service/table-service.service.js';
+import {DoCheck} from '@angular/core';
 
 
 @Component({
@@ -26,12 +37,12 @@ import {TableServiceService} from '../service/table-service.service.js';
   templateUrl: './case.component.html',
   styleUrls: ['./case.component.css']
 })
-export class CaseComponent implements OnInit, AfterViewInit {
+export class CaseComponent implements OnInit, AfterViewInit, OnChanges, DoCheck, AfterViewChecked {
 
 
   id = '0x17';
   type = 'a';
-  types = "d";
+  types = 'd';
 
   constructor(
     private http: HttpServiceService,
@@ -45,17 +56,21 @@ export class CaseComponent implements OnInit, AfterViewInit {
   ) {
 
 
-    if (this.router.snapshot.paramMap.has('type')){
+    if (this.router.snapshot.paramMap.has('type')) {
       this.type = this.router.snapshot.paramMap.get('type');
     }
-    if (this.router.snapshot.paramMap.has('id')){
+    if (this.router.snapshot.paramMap.has('id')) {
       this.id = this.router.snapshot.paramMap.get('id');
     }
 
-    if (this.router.snapshot.paramMap.has('types')){
+    if (this.router.snapshot.paramMap.has('types')) {
       this.types = this.router.snapshot.paramMap.get('types');
     }
     console.log('case', this.id);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
   }
 
   // 消息
@@ -109,7 +124,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
     insert_status: '',
     'files[]': [],
     'new_files[]': [],
-    old_files: "",
+    old_files: '',
     username: '',
     diseases_id: '',
     department_id: '',
@@ -171,17 +186,110 @@ export class CaseComponent implements OnInit, AfterViewInit {
     id: 0x11,
   };
 
-  ngOnInit(): void {
-    this.table.missionConfirmed$.subscribe( results => {
-      this.id = this.router.snapshot.paramMap.get('id');
-      if (this.router.snapshot.paramMap.has('type')){
-        this.type = this.router.snapshot.paramMap.get('type');
-      }
-      const  data = {
-        Token: sessionStorage.getItem('token'),
-        id: this.id
-      };
+  as11: any = {
+    age: '',
+    birthplace: '',
+    blood_pressure: '',
+    check_time: '',
+    chief_complaint: '',
+    concurrent_name: '  ',
+    dateline: '',
+    deal_status: "",
+    deal_time: "",
+    department_id: "",
+    department_name: '',
+    disase_show_id: '',
+    diseases_id: '',
+    diseases_name: '',
+    edit_status: '',
+    editer: '',
+    endtime: '',
+    files: [],
+    gerder: '',
+    heart_rate: '',
+    height: '',
+    history_of_present_illness: [],
+    id: '',
+    laboratory_examination: [],
+    marriage: '',
+    medical_record_diagnosis: '',
+    nation: '',
+    occupation: '',
+    other_medical_history: [],
+    physical_examination: [],
+    remark: null,
+    respiratory_rate: '',
+    starttime: '',
+    supplementary_examination: [],
+    system_log: '',
+    temperature: '',
+    update_admin: '',
+    updatetime: '',
+    username: '',
+    ward_id: '',
+    ward_name: '',
+    weight: '',
+  };
+  as1: any = {
+    age: '',
+    birthplace: '',
+    blood_pressure: '',
+    check_time: '',
+    chief_complaint: '',
+    concurrent_name: '  ',
+    dateline: '',
+    deal_status: "",
+    deal_time: "",
+    department_id: "",
+    department_name: '',
+    disase_show_id: '',
+    diseases_id: '',
+    diseases_name: '',
+    edit_status: '',
+    editer: '',
+    endtime: '',
+    files: [],
+    gerder: '',
+    heart_rate: '',
+    height: '',
+    history_of_present_illness: [],
+    id: '',
+    laboratory_examination: [],
+    marriage: '',
+    medical_record_diagnosis: '',
+    nation: '',
+    occupation: '',
+    other_medical_history: [],
+    physical_examination: [],
+    remark: null,
+    respiratory_rate: '',
+    starttime: '',
+    supplementary_examination: [],
+    system_log: '',
+    temperature: '',
+    update_admin: '',
+    updatetime: '',
+    username: '',
+    ward_id: '',
+    ward_name: '',
+    weight: '',
+  };
+  counts1 = 0;
 
+  ngOnInit(): void {
+
+    sessionStorage.setItem('isChange', '1');
+
+    this.id = this.router.snapshot.paramMap.get('id');
+    if (this.router.snapshot.paramMap.has('type')) {
+      this.type = this.router.snapshot.paramMap.get('type');
+    }
+    const data = {
+      Token: sessionStorage.getItem('token'),
+      id: this.id
+    };
+
+    this.table.missionConfirmed$.subscribe(results => {
       // this.HttpInfo(data);
     });
 
@@ -189,48 +297,50 @@ export class CaseComponent implements OnInit, AfterViewInit {
     this.Loadings = undefined;
     console.log('daoyi', jq('body').height());
 
-    if (this.type === 'e'){
+    if (this.type === 'e') {
 
       // 用户详情
-      const  data = {
+      const data = {
         Token: sessionStorage.getItem('token'),
         id: this.id
       };
       this.HttpInfo(data);
 
       // 状态改变
-      const  dataStatus = {
+      const dataStatus = {
         Token: sessionStorage.getItem('token'),
         id: this.id,
         type: '1'
       };
       this.httpStatus(dataStatus);
 
-    }else if (this.type === 'r'){
-      const  data = {
+    } else if (this.type === 'r') {
+      const data = {
         Token: sessionStorage.getItem('token'),
         id: this.id
       };
       this.HttpInfo(data);
-    }else if (this.type === 'a'){
-      const  a={
-        Token: sessionStorage.getItem("token"),
-        department_id: "",
-        ward_id: "",
-        diseases_id: "",
+    } else if (this.type === 'a') {
+      const a = {
+        Token: sessionStorage.getItem('token'),
+        department_id: '',
+        ward_id: '',
+        diseases_id: '',
       };
-      if (this.types === 'd'){ // 科室
+      if (this.types === 'd') { // 科室
         a.department_id = this.id;
       }
-      if (this.types === 'w'){ // 病区n
+      if (this.types === 'w') { // 病区n
         a.ward_id = this.id;
       }
-      if (this.types === 'n'){ // 疾病
+      if (this.types === 'n') { // 疾病
         a.diseases_id = this.id;
       }
       this.httpAddMedicalInfo(a);
     }
     this.https_Depart(this.Datas, 0);
+
+
   }
 
 
@@ -274,13 +384,13 @@ export class CaseComponent implements OnInit, AfterViewInit {
       }
     }
 
-    if ( id !== 6 ){
+    if (id !== 6) {
       // 文件大小判断
       if (file.size / 1000 / 1000 > 3) {
         this.showToast('文件不能超过3M哦');
         return;
       }
-    }else{
+    } else {
       // 文件大小判断
       if (file.size / 1000 / 1000 > 5) {
         this.showToast('文件不能超过5M哦');
@@ -292,7 +402,8 @@ export class CaseComponent implements OnInit, AfterViewInit {
     this.add_files(id, index, file);
 
   }
-  test(): void{
+
+  test(): void {
     console.log('daoyi', this.httpData);
   }
 
@@ -366,11 +477,11 @@ export class CaseComponent implements OnInit, AfterViewInit {
         }
         break;
       case 6:
-        if (this.data6.length >= 3){
+        if (this.data6.length >= 3) {
           this.showToast('只允许上传三个附件哦');
           return;
         }
-        const files6 =  {
+        const files6 = {
           names: '',
           imgs: '',
           files6: null
@@ -384,7 +495,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
         }
         files6.names = files.name;
         files6.files6 = files;
-        if (this.type !== 'e'){
+        if (this.type !== 'e') {
           this.httpData['files[]'].push(files);
           this.httpData['new_files[]'].push(files);
           this.data6.push(files6);
@@ -411,15 +522,16 @@ export class CaseComponent implements OnInit, AfterViewInit {
       {severity: 'error', life: 3000, summary: '警告', detail: value}
     ];
   }
+
   // 添加标签
-  addTags(id: number, index: number): void{
+  addTags(id: number, index: number): void {
     switch (id) {
       case 1: // 现病史
         const tagAdd1 = this.mes.open(AddTagsComponent, {});
-        tagAdd1.afterClosed().subscribe( (data: LabelBeanData) => {
+        tagAdd1.afterClosed().subscribe((data: LabelBeanData) => {
           this.data1[index].label_title = data;
-          for (let i = 0; i < this.data1[index].label_title.length; i++){
-            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+          for (let i = 0; i < this.data1[index].label_title.length; i++) {
+            const a = {id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
             // tslint:disable-next-line:radix
             a.id = Number.parseInt(data[i].id);
             a.name = data[i].Term;
@@ -429,10 +541,10 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 2: // 其它病史
         const tagAdd2 = this.mes.open(AddotherComponent, {});
-        tagAdd2.afterClosed().subscribe( data => {
+        tagAdd2.afterClosed().subscribe(data => {
           this.data2[index].label_title = data;
-          for (let i = 0; i < this.data2[index].label_title.length; i++){
-            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+          for (let i = 0; i < this.data2[index].label_title.length; i++) {
+            const a = {id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
             // tslint:disable-next-line:radix
             a.id = Number.parseInt(data[i].id);
             a.name = data[i].Term;
@@ -442,10 +554,10 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 3: // 体格检查
         const tagAdd3 = this.mes.open(PhysiqueComponent, {});
-        tagAdd3.afterClosed().subscribe( data => {
+        tagAdd3.afterClosed().subscribe(data => {
           this.data3[index].label_title = data;
-          for (let i = 0; i < this.data3[index].label_title.length; i++){
-            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+          for (let i = 0; i < this.data3[index].label_title.length; i++) {
+            const a = {id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
             // tslint:disable-next-line:radix
             a.id = Number.parseInt(data[i].id);
             a.name = data[i].Term;
@@ -455,10 +567,10 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 4: // 实验室检验
         const tagAdd5 = this.mes.open(LaboratoryComponent, {});
-        tagAdd5.afterClosed().subscribe( data => {
+        tagAdd5.afterClosed().subscribe(data => {
           this.data4[index].label_title = data;
-          for (let i = 0; i < this.data4[index].label_title.length; i++){
-            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+          for (let i = 0; i < this.data4[index].label_title.length; i++) {
+            const a = {id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
             // tslint:disable-next-line:radix
             a.id = Number.parseInt(data[i].id);
             a.name = data[i].Term;
@@ -468,10 +580,10 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 5: // 辅助检查
         const tagAdd4 = this.mes.open(AssistComponent, {});
-        tagAdd4.afterClosed().subscribe( data => {
+        tagAdd4.afterClosed().subscribe(data => {
           this.data5[index].label_title = data;
-          for (let i = 0; i < this.data5[index].label_title.length; i++){
-            const  a = { id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
+          for (let i = 0; i < this.data5[index].label_title.length; i++) {
+            const a = {id: 668, name: '标签颜色4', labelStyle: 'orange-w98'};
             // tslint:disable-next-line:radix
             a.id = Number.parseInt(data[i].id);
             a.name = data[i].Term;
@@ -542,7 +654,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
     switch (id) {
       case 1:
 
-        if (this.data1[index].id !== 0x11){
+        if (this.data1[index].id !== 0x11) {
           this.deleteData.id = this.data1[index].id;
           this.httpDelete(this.deleteData);
         }
@@ -550,7 +662,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 2:
 
-        if (this.data2[index].id !== 0x11){
+        if (this.data2[index].id !== 0x11) {
           this.deleteData.id = this.data2[index].id;
           this.httpDelete(this.deleteData);
         }
@@ -558,7 +670,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 3:
 
-        if (this.data3[index].id !== 0x11){
+        if (this.data3[index].id !== 0x11) {
           this.deleteData.id = this.data3[index].id;
           this.httpDelete(this.deleteData);
         }
@@ -566,7 +678,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 4:
 
-        if (this.data4[index].id !== 0x11){
+        if (this.data4[index].id !== 0x11) {
           this.deleteData.id = this.data4[index].id;
           this.httpDelete(this.deleteData);
         }
@@ -574,7 +686,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
         break;
       case 5:
 
-        if (this.data5[index].id !== 0x11){
+        if (this.data5[index].id !== 0x11) {
           this.deleteData.id = this.data5[index].id;
           this.httpDelete(this.deleteData);
         }
@@ -599,7 +711,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
 
 
   // 科室选择
-  selectValueD(event): void{
+  selectValueD(event): void {
     const data = {
       Token: sessionStorage.getItem('token'),
       parent_id: event.id
@@ -608,7 +720,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
     // tslint:disable-next-line:variable-name
     const ward_se = this.el.nativeElement.querySelector('#ward_se');
 
-    if (Constan.DeBug){
+    if (Constan.DeBug) {
       console.log('daoyi', this.wardvalues);
     }
     this.wardvalues = {};
@@ -617,8 +729,9 @@ export class CaseComponent implements OnInit, AfterViewInit {
     this.httpData.ward_id = '';
     this.Datas.ward_id = '';
   }
+
   // 病区选择
-  selectValueW(event): void{
+  selectValueW(event): void {
     this.Datas.ward_id = event.id;
     const data = {
       Token: sessionStorage.getItem('token'),
@@ -631,16 +744,17 @@ export class CaseComponent implements OnInit, AfterViewInit {
     // this.Datas.ward_id = event.id;
 
   }
+
   // 主疾病
-  selectValueB(event): void{
+  selectValueB(event): void {
     this.Datas.diseases_id = event.id;
     this.httpData.diseases_id = event.id;
   }
 
 
   // http 请求
-  https_Depart(data, type: number): void{
-    this.http.DepartmentList(data).subscribe( datas => {
+  https_Depart(data, type: number): void {
+    this.http.DepartmentList(data).subscribe(datas => {
       this.myDataDepart = datas.body;
       switch (type) {
         case 0: // 科室
@@ -653,14 +767,14 @@ export class CaseComponent implements OnInit, AfterViewInit {
           this.diseaseOption = this.myDataDepart.data;
           break;
       }
-      if (Constan.DeBug){
+      if (Constan.DeBug) {
         console.log(this.myDataDepart);
       }
     });
   }
 
   // Review
-  Review(): void{
+  Review(): void {
     this.httpData.history_of_present_illness = JSON.stringify(this.data1);
     console.log('toLocaleString', JSON.stringify(this.data1));
     this.httpData.other_medical_history = JSON.stringify(this.data2);
@@ -670,21 +784,21 @@ export class CaseComponent implements OnInit, AfterViewInit {
     this.httpData.insert_status = '2';
     const fileForm = new FormData();
 
-    for (const das in this.httpData){
+    for (const das in this.httpData) {
       console.log('daoyi:::' + das + '::::' + this.httpData[das]);
-      if (this.httpData[das] != null && this.httpData[das] !== '' && this.httpData[das] !== []){
+      if (this.httpData[das] != null && this.httpData[das] !== '' && this.httpData[das] !== []) {
         fileForm.append(das + '', this.httpData[das]);
       }
 
     }
-    if (this.type === 'e'){
+    if (this.type === 'e') {
       fileForm.append('Token', sessionStorage.getItem('token'));
       const data = {
         Token: sessionStorage.getItem('token'),
         id: this.httpData.id
       };
       this.httpCheck(data);
-    }else if (this.type === 'a'){
+    } else if (this.type === 'a') {
       this.HttpSave(fileForm);
     }
     // fileForm.append('Token', this.httpData.Token);
@@ -694,12 +808,10 @@ export class CaseComponent implements OnInit, AfterViewInit {
     console.log('daoyi', this.httpData);
 
 
-
-
   }
 
   // 保存
-  sumbit(): void{
+  sumbit(): void {
 
     // this.httpData.history_of_present_illness = JSON.stringify(this.data1);
     // console.log('toLocaleString', JSON.stringify(this.data1));
@@ -707,61 +819,60 @@ export class CaseComponent implements OnInit, AfterViewInit {
     // this.httpData.physical_examination = JSON.stringify(this.data3);
     // this.httpData.laboratory_examination = JSON.stringify(this.data4);
     // this.httpData.supplementary_examination = JSON.stringify(this.data5);
-    if (this.data1 !== []){
+    if (this.data1 !== []) {
       this.httpData.history_of_present_illness = JSON.stringify(this.data1);
       console.log('toLocaleString', JSON.stringify(this.data1));
     }
-    if ( this.data2 !== []){
+    if (this.data2 !== []) {
       this.httpData.other_medical_history = JSON.stringify(this.data2);
       console.log('toLocaleString2', JSON.stringify(this.data2));
     }
-    if  (this.data3 !== []){
+    if (this.data3 !== []) {
       this.httpData.physical_examination = JSON.stringify(this.data3);
     }
-    if  (this.data4 !== []){
+    if (this.data4 !== []) {
       this.httpData.laboratory_examination = JSON.stringify(this.data4);
     }
-    if  (this.data5 !== []){
+    if (this.data5 !== []) {
       this.httpData.supplementary_examination = JSON.stringify(this.data5);
     }
-    if (this.type === 'a'){
+    if (this.type === 'a') {
       this.httpData.insert_status = '1';
     }
 
     const fileForm = new FormData();
 
-    for (const das in this.httpData){
-      console.log('daoyi:::' + das + '::::' + this.httpData[das]);
+    for (const das in this.httpData) {
+      // console.log('daoyi:::' + das + '::::' + this.httpData[das]);
       if (this.httpData[das] != null
         && this.httpData[das] !== ''
         && this.httpData[das] !== []
         && das !== 'files[]'
         && das !== 'new_files[]'
-        && das !== "old_files"
-      ){
+        && das !== 'old_files'
+      ) {
 
         fileForm.append(das + '', this.httpData[das]);
       }
     }
-    for (let i = 0; i < this.data6.length; i++){
-      if (this.data6[i].files6 != null){
+    for (let i = 0; i < this.data6.length; i++) {
+      if (this.data6[i].files6 != null) {
         fileForm.append('files[]', this.data6[i].files6);
       }
     }
-    for (let i = 0; i < this.data7.length; i++){
-      if (this.data7[i].files6 != null){
+    for (let i = 0; i < this.data7.length; i++) {
+      if (this.data7[i].files6 != null) {
         fileForm.append('new_files[]', this.data7[i].files6);
       }
     }
-    let a="";
-    for (let i = 0; i < this.data6.length; i++){
-      if (this.data6[i].files6 != null){
-        a+= this.data6[i].files6;
+    let a = '';
+    for (let i = 0; i < this.data6.length; i++) {
+      if (this.data6[i].files6 != null) {
+        a += this.data6[i].files6;
       }
     }
-    console.log("daoy",a);
+    console.log('daoy', a);
     fileForm.append('old_files', a);
-
 
 
     console.log(this.data6);
@@ -772,49 +883,60 @@ export class CaseComponent implements OnInit, AfterViewInit {
     // this.httpData.files = fileForm;
 
     console.log('daoyi', this.httpData);
-    if (this.type === 'a'){
+    if (this.type === 'a') {
       console.log('type', this.type);
 
       this.HttpSave(fileForm);
 
-    }else if (this.type === 'e'){
+    } else if (this.type === 'e') {
       console.log('type', this.type);
       fileForm.append('Token', sessionStorage.getItem('token'));
       this.HttpEdit(fileForm);
     }
+    sessionStorage.setItem('isChange', '1');
 
   }
 
   // 取消
-  cancel(): void{
+  cancel(): void {
     this.UnlockHttp();
     window.history.back();
   }
 
   // http提交
-  HttpSave(data): void{
-    this.Loadings = this.http.AddMedical(data).subscribe( datas => {
-      if (datas.code === 1){
-        if (this.httpData.insert_status === '2' ){
-          this.msgs = this.dialog.showToast( 2, '上传成功');
-        }else if (this.httpData.insert_status === '1'){
-          this.msgs = this.dialog.showToast( 2, '保存成功');
+  HttpSave(data): void {
+    this.Loadings = this.http.AddMedical(data).subscribe(datas => {
+      if (datas.code === 1) {
+        if (this.httpData.insert_status === '2') {
+          this.msgs = this.dialog.showToast(2, '上传成功');
+        } else if (this.httpData.insert_status === '1') {
+          this.msgs = this.dialog.showToast(2, datas.msg);
         }
+        this.table.sendDel('0');
+        setTimeout(() => {
+          window.history.back();
+        }, 1000);
         this.UnlockHttp();
-      }else {
-        this.msgs = this.dialog.showToast( 2, datas.msg);
+      } else {
+        this.msgs = this.dialog.showToast(2, datas.msg);
+        // this.msgs = this.dialog.showToast( 2, "2");
+        // alert(datas.msg)
       }
+      // this.table.sendDel("0")
       console.log(datas);
     });
   }
+
   // http编辑
-  HttpEdit(data): void{
-    this.Loadings = this.http.MedicalEdit(data).subscribe( datas => {
-      if (datas.code === 1){
-        this.msgs = this.dialog.showToast( 2, '保存成功');
+  HttpEdit(data): void {
+    this.Loadings = this.http.MedicalEdit(data).subscribe(datas => {
+      if (datas.code === 1) {
+        this.msgs = this.dialog.showToast(2, '保存成功');
         this.UnlockHttp();
-      }else{
-        this.msgs = this.dialog.showToast( 0, datas.msg);
+      } else {
+        this.msgs = this.dialog.showToast(0, datas.msg);
+        // this.msgs = this.dialog.showToast( 0, "1");
+        // alert(datas.msg)
       }
       console.log(datas);
     });
@@ -822,11 +944,19 @@ export class CaseComponent implements OnInit, AfterViewInit {
 
 
   // http 详情
-  HttpInfo(data): void{
-    this.Loadings = this.http.MedicalInfo(data).subscribe( datas => {
-      if (datas.body.code === 1){
+  HttpInfo(data): void {
+    this.Loadings = this.http.MedicalInfo(data).subscribe(datas => {
+      if (datas.body.code === 1) {
 
         this.httpData = datas.body.data;
+        this.as1 = datas.body.data;
+        if(this.counts1 < 1){
+          for(let key in datas.body.data){
+            this.as11[key] = datas.body.data[key];
+          }
+          this.counts1++;
+        }
+
         this.DepartValues = {
           id: this.httpData.department_id,
           title: datas.body.data.department_name
@@ -842,19 +972,19 @@ export class CaseComponent implements OnInit, AfterViewInit {
         this.startTime = datas.body.data.starttime;
         this.endTime = datas.body.data.endtime;
         // console.log('isnull', datas.body.data.history_of_present_illness.length > 0);
-        if (datas.body.data.history_of_present_illness.length > 0){
+        if (datas.body.data.history_of_present_illness.length > 0) {
           this.data1 = datas.body.data.history_of_present_illness[0].SubList;
         }
-        if (datas.body.data.other_medical_history.length > 0 ){
+        if (datas.body.data.other_medical_history.length > 0) {
           this.data2 = datas.body.data.other_medical_history[0].SubList;
         }
-        if (datas.body.data.physical_examination.length > 0 ){
+        if (datas.body.data.physical_examination.length > 0) {
           this.data3 = datas.body.data.physical_examination[0].SubList;
         }
-        if (datas.body.data.laboratory_examination.length > 0){
+        if (datas.body.data.laboratory_examination.length > 0) {
           this.data4 = datas.body.data.laboratory_examination[0].SubList;
         }
-        if (datas.body.data.supplementary_examination.length > 0 ){
+        if (datas.body.data.supplementary_examination.length > 0) {
           this.data5 = datas.body.data.supplementary_examination[0].SubList;
         }
         this.fileFx(datas.body.data.files);
@@ -864,17 +994,19 @@ export class CaseComponent implements OnInit, AfterViewInit {
         // }else if (this.httpData.insert_status === '1'){
         //   this.msgs = this.dialog.showToast( 2, '保存');
         // }
+        // this.as1 = this.httpData;
 
       }
-      console.log(datas);
+      console.log(datas.body.data);
     });
   }
+
   // 附件解析
-  fileFx(datas): void{
+  fileFx(datas): void {
 
 
     for (let i = 0; i < datas.length; i++) {
-      const files6 =  {
+      const files6 = {
         names: '附件',
         imgs: '',
         files6: null
@@ -889,7 +1021,7 @@ export class CaseComponent implements OnInit, AfterViewInit {
         files6.imgs = './assets/img/excel@2x.png';
       }
       files6.names = '附件' + i;
-      files6.files6=datas[i];
+      files6.files6 = datas[i];
       this.data6.push(files6);
       this.data8.push(files6);
 
@@ -898,27 +1030,28 @@ export class CaseComponent implements OnInit, AfterViewInit {
     }
 
   }
-  // 附件删除
-  deleteFile():void{
-    this.data6=this.del(this.data6,this.data6.length-1);
-    this.data8=this.del(this.data8,this.data8.length-1);
-    this.data7=this.del(this.data7,this.data7.length-1);
 
-    this.msgs = this.dialog.showToast(0,"删除成功");
-    console.log("剩余",this.data6);
+  // 附件删除
+  deleteFile(): void {
+    this.data6 = this.del(this.data6, this.data6.length - 1);
+    this.data8 = this.del(this.data8, this.data8.length - 1);
+    this.data7 = this.del(this.data7, this.data7.length - 1);
+
+    this.msgs = this.dialog.showToast(0, '删除成功');
+    console.log('剩余', this.data6);
   }
 
   // httpstatus
-  httpStatus(data): void{
-    this.http.UpdateMedicalStatus(data).subscribe( datas => {
+  httpStatus(data): void {
+    this.http.UpdateMedicalStatus(data).subscribe(datas => {
 
     });
   }
 
   // 解锁
-  UnlockHttp(): void{
+  UnlockHttp(): void {
     // 状态改变
-    const  dataStatus = {
+    const dataStatus = {
       Token: sessionStorage.getItem('token'),
       id: this.id,
       type: '2'
@@ -927,23 +1060,23 @@ export class CaseComponent implements OnInit, AfterViewInit {
   }
 
   // 字模块删除
-  httpDelete(data): void{
-    this.http.ModuleDelete(data).subscribe( datas => {
-      if (datas.body.code === 1){
-        this.msgs = this.dialog.showToast( 0, '删除成功');
+  httpDelete(data): void {
+    this.http.ModuleDelete(data).subscribe(datas => {
+      if (datas.body.code === 1) {
+        this.msgs = this.dialog.showToast(0, '删除成功');
       }
     });
   }
 
   // 审核请求
-  httpCheck(data): void{
-    this.Loadings = this.Loadings = this.http.MedicalCheck(data).subscribe( datas => {
-      if (datas.body.code === 1){
+  httpCheck(data): void {
+    this.Loadings = this.Loadings = this.http.SubmitCheck(data).subscribe(datas => {
+      if (datas.body.code === 1) {
         this.msgs = this.dialog.showToast(2, datas.body.msg);
-        setTimeout( () => {
+        setTimeout(() => {
           window.history.back();
         }, 1000);
-      }else{
+      } else {
         this.msgs = this.dialog.showToast(2, datas.body.msg);
       }
     });
@@ -951,33 +1084,83 @@ export class CaseComponent implements OnInit, AfterViewInit {
 
   // 获取当前所在病例
 
-  httpAddMedicalInfo(data): void{
-    this.http.AddMedicalInfo(data).subscribe(res=>{
-       if(res.body.code===1){
-         this.DepartValues = {
-           id: res.body.data.department_id,
-           title: res.body.data.department_name
-         };
+  httpAddMedicalInfo(data): void {
+    this.http.AddMedicalInfo(data).subscribe(res => {
+      if (res.body.code === 1) {
+        this.DepartValues = {
+          id: res.body.data.department_id,
+          title: res.body.data.department_name
+        };
 
-         this.wardvalues = {
-           id: res.body.data.ward_id,
-           title: res.body.data.ward_name
-         };
-         this.diseaseValue = {
-           id: res.body.data.diseases_id,
-           title: res.body.data.diseases_name
-         };
-         this.httpData.department_id=res.body.data.department_id;
-         this.httpData.ward_id=res.body.data.ward_id;
-         this.httpData.diseases_id=res.body.data.diseases_id;
-       }
-    })
+        this.wardvalues = {
+          id: res.body.data.ward_id,
+          title: res.body.data.ward_name
+        };
+        this.diseaseValue = {
+          id: res.body.data.diseases_id,
+          title: res.body.data.diseases_name
+        };
+        this.httpData.department_id = res.body.data.department_id;
+        this.httpData.ward_id = res.body.data.ward_id;
+        this.httpData.diseases_id = res.body.data.diseases_id;
+      }
+    });
   }
-
 
 
   ngAfterViewInit(): void {
     this.renderer2.setAttribute(this.el.nativeElement.querySelectorAll('input'), 'disabled', 'disabled');
+
+  }
+
+  ngDoCheck(): void {
+    console.log('daoyi', this.as1);
+    console.log('daoyi', this.as11);
+    var test1 = this.hashcode(JSON.stringify(this.as1));
+    var test2 = this.hashcode(JSON.stringify(this.as11));
+    const a= [];
+    if(this.counts1>0){
+      for(let key in this.as1){
+        const b=this.as1[key] === this.as11[key];
+        a.push(b)
+      }
+    }
+
+    let d=true;
+    if(a!=null&&a.length>0){
+      for(let i=0;i<a.length;i++){
+        if(!a[i]){
+          d=false;
+        }
+      }
+    }
+
+    if(!d){
+      sessionStorage.setItem("isChange","0");
+    }
+    // const b = this.as1 === this.as2;
+    const c = test1 === test2;
+    console.log('数据a', test1);
+    console.log('数据b', test2);
+    console.log('数据发生改变d', d);
+    // sessionStorage.setItem("isChange","0");
+  }
+
+  ngAfterViewChecked() {
+    // console.log("数据发生改变2");
+  }
+
+  hashcode(str) {
+    var hash = 0, i, chr, len;
+    if (str.length === 0) {
+      return hash;
+    }
+    for (i = 0, len = str.length; i < len; i++) {
+      chr = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + chr;
+      hash |= 0; // Convert to 32bit integer
+    }
+    return hash;
   }
 
 }

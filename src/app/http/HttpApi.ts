@@ -1,5 +1,5 @@
 
-export const  BaseUrl = 'https://medical.996sh.com';
+export const  BaseUrl = 'https://emr.kangyanmed.com';
 export const Api: any =
   {
     AddMenu : BaseUrl + '/AddMenu', // 添加菜单接口(科室,病区,主疾病添加)
@@ -30,6 +30,7 @@ export const Api: any =
     MedicalDelete: BaseUrl + '/MedicalDelete', // 电子病历删除接口
     AdminDelete: BaseUrl + '/AdminDelete', // 用户删除接口
     AddMedicalInfo: BaseUrl + '/AddMedicalInfo', // 新增电子病历 科室，病区，主疾病信息获取接口
+    SubmitCheck: BaseUrl + '/SubmitCheck', // 病例审核
 
   };
 

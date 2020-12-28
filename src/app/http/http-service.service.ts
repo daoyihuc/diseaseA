@@ -297,6 +297,15 @@ export class HttpServiceService {
         // catchError(this.handleError)
       );
   }
+  // 审核
+  SubmitCheck(data: any): Observable<HttpResponse<BaseResponse>>{
+    // this.options2.params = data;
+    // @ts-ignore
+    return  this.http.post<AddmdedicalInfo>( Api.SubmitCheck, data, this.options)
+      .pipe(
+        // catchError(this.handleError)
+      );
+  }
 
 
   private handleError(error: HttpErrorResponse): Observable<never>{

@@ -78,6 +78,15 @@ export class UseraAddComponent implements OnInit {
       }
     });
   }
+  // changeParent
+  changesP(i, envent): void{
+    if (envent){
+      this.myData[i].isActivi = 1;
+    }else {
+      this.myData[i].isActivi = 0;
+    }
+  }
+
   // change
   changes(i, j, envent): void{
     if (envent){
@@ -85,6 +94,7 @@ export class UseraAddComponent implements OnInit {
       this.myData[i].isActivi = 1;
     }else {
       this.myData[i].NextList[j].isActivi = 0;
+
     }
     let isc = false;
     for (let i = 0; i < this.myData.length; i++){
@@ -111,11 +121,15 @@ export class UseraAddComponent implements OnInit {
     console.log('保存', this.myData);
     for (let i = 0; i < this.myData.length; i++){
 
-      this.httpdata.permission_id += this.myData[i].id + ',';
+      // this.httpdata.permission_id += this.myData[i].id + ',';
       for (let j = 0; j < this.myData[i].NextList.length; j++){
         if (this.myData[i].NextList[j].isActivi === 1){
           this.httpdata.permission_id += this.myData[i].NextList[j].id + ',';
         }
+
+      }
+      if (this.myData[i].isActivi === 1){
+        this.httpdata.permission_id += this.myData[i].id + ',';
       }
     }
     console.log('权限id', this.httpdata.permission_id);

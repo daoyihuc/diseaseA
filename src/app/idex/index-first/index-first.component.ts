@@ -124,6 +124,9 @@ export class IndexFirstComponent implements OnInit {
     id: '',
     username: '',
     diseases_name: '',
+    department_id: '',
+    ward_id: '',
+    diseases_id: '',
     deal_status: ''
   };
 
@@ -141,6 +144,7 @@ export class IndexFirstComponent implements OnInit {
     department_id: '',
     ward_id: '',
     diseases_id: '',
+    Page: '',
   };
 
   // 标题栏
@@ -160,17 +164,21 @@ export class IndexFirstComponent implements OnInit {
   {
     this.recever.missionAnnounced$.subscribe(value1 => {
       console.log('子类组件', value1);
+      this.id= value1;
     });
     if (this.router.snapshot.paramMap.has('type')){
       this.type = this.router.snapshot.paramMap.get('type');
       if (this.type === 'd'){ // 科室
         this.dataw.department_id = this.router.snapshot.paramMap.get('id');
+        this.selectDate.department_id = this.router.snapshot.paramMap.get('id');
       }
       if (this.type === 'w'){ // 病区n
         this.dataw.ward_id = this.router.snapshot.paramMap.get('id');
+        this.selectDate.ward_id = this.router.snapshot.paramMap.get('id');
       }
       if (this.type === 'n'){ // 疾病
         this.dataw.diseases_id = this.router.snapshot.paramMap.get('id');
+        this.selectDate.diseases_id = this.router.snapshot.paramMap.get('id');
       }
       this.id=this.router.snapshot.paramMap.get('id');
     }
@@ -182,12 +190,15 @@ export class IndexFirstComponent implements OnInit {
       this.type = result.type;
       if (this.type === 'd'){ // 科室
         this.dataw.department_id = String(result.id);
+        this.selectDate.department_id = String(result.id);
       }
       if (this.type === 'w'){ // 病区n
         this.dataw.ward_id = String(result.id);
+        this.selectDate.ward_id = String(result.id);
       }
       if (this.type === 'n'){ // 疾病
         this.dataw.diseases_id = String(result.id);
+        this.selectDate.diseases_id = String(result.id);
       }
 
       this.https(this.dataw);
@@ -199,13 +210,9 @@ export class IndexFirstComponent implements OnInit {
     this.Loadings = undefined;
     this.values[this.values.length - 1].isshow = true;
     this.daoyi();
-    console.log(this.value);
+    console.log("初始化",'1104');
 
     this.https(this.dataw);
-
-
-
-
   }
   onSelectButton(value: number, index: number, name: string): void{
     switch (value) {
@@ -224,7 +231,24 @@ export class IndexFirstComponent implements OnInit {
         break;
       case 2:
         console.log('2'); // 新增
+        const ta1 = new Tablebean();
+        console.log('当前名称', name);
+        if (name == null || name === ''){
+          ta1.name = '未命名';
+        }else {
+          ta1.name = name;
+        }
+        ta1.id = index;
+        ta1.url = 'index/case';
+        ta1.type = 'a';
+        this.tableService.sendA(ta1);
+        if(index===0){
+
+        }else{
+
+        }
         this.route.navigate(['index/case', {id: this.id, type: 'a', types: this.type}]);
+
         break;
       case 3: // 审核
         console.log('3');
@@ -270,10 +294,10 @@ export class IndexFirstComponent implements OnInit {
         dialogref7.afterClosed().subscribe(result => {
           if (result === '0x17'){
             this.msgs = this.dialog.showToast(2, '成功解锁');
-            const  data = {
-              Token: sessionStorage.getItem('token')
-            };
-            this.https(data);
+            // const  data = {
+            //   Token: sessionStorage.getItem('token')
+            // };
+            this.https(this.dataw);
           }
         });
         break;
@@ -355,8 +379,12 @@ export class IndexFirstComponent implements OnInit {
     console.log('当前分页索引', pageIndex);
     const  data = {
       Token: sessionStorage.getItem('token'),
-      Page: pageIndex
+      Page: pageIndex,
+      department_id: this.dataw.department_id,
+      ward_id: this.dataw.ward_id,
+      diseases_id: this.dataw.diseases_id,
     };
+
     this.https(data);
   }
 

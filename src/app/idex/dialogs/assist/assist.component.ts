@@ -31,6 +31,7 @@ export class AssistComponent implements OnInit {
     module: '102000002104',
     term: ''
   };
+  count: any;
   msgs: any[]=[];
   ngOnInit(): void {
     this.https(this.data);
@@ -39,6 +40,7 @@ export class AssistComponent implements OnInit {
   https(data): void{
     this.http.LabelShow(data).subscribe( datas => {
       this.Tags = datas.body.data.data;
+      this.count = datas.body.data.total_num;
       console.log(this.Tags);
     },()=>{
       this.msgs=this.dialogs.showToast(1,"没有找到你想要的哦，请继续输入");

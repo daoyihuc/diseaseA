@@ -147,7 +147,7 @@
     <div class="card_li"
          *ngFor="let datass of myDataRole.data.List; index as i"
          (click)="typeClick(i)"
-         [class.card_slect]="AccountName[i].isSelected"> {{datass.role_name}} </div>
+         [class.card_slect]="AccountName[i].id===roleId"> {{datass.role_name}} </div>
   </div>
 
   <div class="button_box"

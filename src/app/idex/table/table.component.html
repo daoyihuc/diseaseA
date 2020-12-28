@@ -1,14 +1,16 @@
 <div class="max_box">
-  <d-tags
-    [tags]="tagList2"
-    [deletable]="tagList2.length>1?true:false"
+  <d-tag
+    *ngFor="let tag of tagList2;index as i"
+    [deletable]="false"
     class="tags"
-    (tagDelete)="deleteTag($event.index)"
+    [customViewTemplate]="tas"
+    [labelStyle]="'aqua-w98'"
   >
-    <ng-template let-tag="tag"  >
+    <ng-template #tas >
       <span title="{{ tag.name }}" (click) = "getTagValue(tag.url, tag.type, tag.id)" class="title">{{ tag.name }}</span>
+      <span class="close" [hidden]="tagList2.length>1?true:false" (click)="deleteTag(i)">x</span>
     </ng-template>
-  </d-tags>
+  </d-tag>
   <d-toast [lifeMode]="'single'" [value]="msgs"></d-toast>
 </div>
 

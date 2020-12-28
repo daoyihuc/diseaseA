@@ -27,7 +27,7 @@
     <input class="default_button" type="button"
            *ngFor="let item of buttons_arr"
            value="{{item.name}}"
-           (click)="onSelectButton(item.id)"
+           (click)="onSelectButton(item.id,null,null)"
     >
   </div>
 </section>

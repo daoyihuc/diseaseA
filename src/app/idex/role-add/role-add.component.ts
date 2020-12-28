@@ -31,6 +31,8 @@ export class RoleAddComponent implements OnInit {
   accountValue: any = null;
   // 角色名称
   AccountName: any[] = [];
+  // id
+  roleId = 0;
 
   // 提交数据结构
   // 编号(新增必传)
@@ -222,10 +224,15 @@ export class RoleAddComponent implements OnInit {
   http_roles(data): void{
     this.http.RoleList(data).subscribe(datas => {
       this.myDataRole = datas.body;
-      for (const datass in this.myDataRole.data.List){
-        const isSelect = { isSelected: false };
+      for (let i=0;i<this.myDataRole.data.List.length;i++){
+        const isSelect = {
+          id: 0,
+          isSelected: false
+        };
+        // @ts-ignore
+        isSelect.id = this.myDataRole.data.List[i].id;
         this.AccountName.push(isSelect);
-        console.log(this.AccountName);
+        console.log("daoyiww",this.AccountName);
       }
     });
   }
@@ -390,6 +397,7 @@ export class RoleAddComponent implements OnInit {
           name: '管理员'
         };
       }
+      this.roleId = this.SaveDataShow.role_id;
       let depatArray = this.SaveDataShow.department_id.toString().split(',');
       depatArray = this.del(depatArray, depatArray.length - 1);
       let waryArray = this.SaveDataShow.ward_id.toString().split(',');

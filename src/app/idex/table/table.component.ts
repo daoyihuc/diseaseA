@@ -21,19 +21,28 @@ export class TableComponent implements OnInit {
     private route: Router,
     private router: ActivatedRoute,
     private dialog: DialogService,
-    private TableServic: TableServiceService,
     private meas: MatDialog, // 弹窗
+    private TableServic: TableServiceService,
   ) {
 
     this.tableRecond.missionAnnounced$.subscribe(tablebean => {
         this.addTag(tablebean);
         console.log(tablebean.id);
     });
+
   }
   // 消息
   msgs: any[] = [];
   tagList2: any[] = [];
   ngOnInit(): void {
+    this.TableServic.getDel().subscribe(m => {
+      console.log("收到删除信息",m);
+      this.del(this.tagList2.length-1);
+    },error => {
+      console.log("删除信息错误");
+    },() => {
+      console.log("删除信息超时");
+    });
   }
 
   getTagValue(value, types, ids): void{
@@ -76,17 +85,35 @@ export class TableComponent implements OnInit {
     }
 
   }
+  del(index): void{
+    if(this.tagList2[index].type==='e'||this.tagList2[index].type==='a'){
+          if (this.tagList2.length > 0){
+            this.tagList2.splice(index, 1);
+          }
+          console.log("当前导航栏数据",this.tagList2.length);
+          // this.route.navigate([this.tagList2[index].url] );
+    }
+    // else{
+    //   if (this.tagList2.length === 1){
+    //     this.msgs =  this.dialog.showToast(0, '不能删除最后一个界面哦');
+    //     return;
+    //   }else if (this.tagList2.length > 1){
+    //     this.tagList2.splice(index, 1);
+    //   }
+    //   console.log(this.tagList2.length);
+    //   // this.route.navigate([this.tagList2[index - 1].url] );
+    // }
+  }
 
 
   deleteTag(index): void{
-    const dialogref = this.meas.open(SaveDialogComponent);
-    // this.recever.sendReview('101');
-    dialogref.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result === '0x12'){
-
-      }
-      if (result === '0x13'){
+    console.log(index);
+    if(this.tagList2[index].type==='e'||this.tagList2[index].type==='a'){
+      const isChange = sessionStorage.getItem('isChange');
+      let dialogref = null;
+      if(isChange==="0"){
+         dialogref = this.meas.open(SaveDialogComponent);
+      }else{
         if (this.tagList2.length === 1){
           this.msgs =  this.dialog.showToast(0, '不能删除最后一个界面哦');
           return;
@@ -96,7 +123,41 @@ export class TableComponent implements OnInit {
         console.log(this.tagList2.length);
         this.route.navigate([this.tagList2[index - 1].url] );
       }
-    });
+      // this.recever.sendReview('101');
+      dialogref.afterClosed().subscribe(result => {
+        console.log(result);
+        if (result === '0x12'){
+          if (this.tagList2.length === 1){
+            this.msgs =  this.dialog.showToast(0, '不能删除最后一个界面哦');
+            return;
+          }else if (this.tagList2.length > 1){
+            // this.tagList2.splice(index, 1);
+          }
+          console.log(this.tagList2.length);
+          // this.route.navigate([this.tagList2[index - 1].url] );
+        }
+        if (result === '0x13'){
+          if (this.tagList2.length === 1){
+            this.msgs =  this.dialog.showToast(0, '不能删除最后一个界面哦');
+            return;
+          }else if (this.tagList2.length > 1){
+            this.tagList2.splice(index, 1);
+          }
+          console.log(this.tagList2.length);
+          this.route.navigate([this.tagList2[index - 1].url] );
+        }
+      });
+    }else{
+      if (this.tagList2.length === 1){
+        this.msgs =  this.dialog.showToast(0, '不能删除最后一个界面哦');
+        return;
+      }else if (this.tagList2.length > 1){
+        this.tagList2.splice(index, 1);
+      }
+      console.log(this.tagList2.length);
+      this.route.navigate([this.tagList2[index - 1].url] );
+    }
+
 
 
 

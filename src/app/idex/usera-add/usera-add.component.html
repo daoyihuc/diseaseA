@@ -23,6 +23,7 @@
             [color]="'#02BFD8'"
             [ngModel]="item.isActivi == 1"
             class="label_check"
+            (change)="changesP(i,$event)"
           >
           </d-checkbox>
           <span class="text">{{item.title}}</span>
